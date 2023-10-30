@@ -1,0 +1,50 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "ordem": 2,
+      "group": "React",
+      "title": "PRÉ-VENDA JESUS E O CORDEIRINHO",
+      "description": "• De 14/04 até 21/04 </br>• Valor: de R$56 por R$39 </br>• Quem adquirir na Pré-Venda ganha o PDF para impressão das Tags. </br>• Após a Pré-Venda somente a receita do Jesus e Cordeiro estará disponível. </br>• Os arquivos em PDF serão liberados a partir de sexta-feira dia 22/04. </br>• Tamanho: Jesus 20cm, cordeirinho 8cm </br>• Nível: Básico </br>• Idioma: Português  </br>• Vídeos Auxiliares  </br>OBS: NÃO É A PEÇA PRONTA – trata-se de  um arquivo digital com passo a passo para a produção da peça e impressão das Tags.",
+      "link": "/cart",
+      "image": "https://cloudfronttestebucket.s3.amazonaws.com/fiodeamor/assets/js_mug.jpeg",
+      "isFree": false,
+      "unitValue": 39.50,
+      "quantities": [
+        {
+          "quantity": 1,
+          "price": 39,
+          "link": "https://mpago.la/13T5Ajs"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "ordem": 1,
+      "group": "React",
+      "title": "Caixa amigurume 1",
+      "description": "Caixa com texto personalizado no tamanho 10x5x5, ideal para terços e chaveiros.",
+      "link": "/cart",
+      "image": "https://cloudfronttestebucket.s3.amazonaws.com/fiodeamor/assets/caixa10x5.jpeg",
+      "isFree": true,
+      "unitValue": 4.90,
+      "quantities": [
+        {
+          "quantity": 5,
+          "price": 24.50,
+          "link": "https://mpago.la/2DwNcwv"
+        },
+        {
+          "quantity": 10,
+          "price": 39.00,
+          "link": "https://mpago.la/2DwNcwv"
+        },
+        {
+          "quantity": 50,
+          "price": 145.00,
+          "link": "https://mpago.la/2DwNcwv"
+        }
+      ]
+    }    
+  ]
+}
