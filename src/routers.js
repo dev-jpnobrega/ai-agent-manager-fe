@@ -1,10 +1,10 @@
 import Wrapper from './components/Wrapper';
 
 import Page404 from './pages/404';
-import Favorites from './pages/Favorites';
-import Contact from './pages/Contact';
-import Cart from './pages/Cart';
-import Product from './pages/Product';
+import Agents from './pages/ListAgents';
+import Agent from './pages/Agent';
+import UseCases from './pages/UseCases';
+import Permissions from './pages/Permissions';
 
 export default [
   {
@@ -19,45 +19,31 @@ export default [
     showMenu: false,
   },
   {
-    path: "/who-we-are",
-    component: Favorites,
+    path: "/agents",
+    component: Agents,
     showMenu: true,
-    title: 'who we are',
-    description: 'Who we are'
+    title: 'agents',
+    description: 'Agents'
   },
   {
-    path: "/contact",
-    component: Contact,
-    showMenu: true,
-    title: 'contact',
-    description: 'Your favorites'
-  },
-  {
-    path: "/revenues",
-    component: Favorites,
-    showMenu: true,
-    title: 'revenues',
-    description: 'Revenues'
-  },
-  {
-    path: "/favorites",
-    component: Favorites,
-    showMenu: true,
-    title: 'favorites',
-    description: 'Your favorites'
-  },
-  {
-    path: "/cart",
-    component: Cart,
+    path: "/agent",
+    component: Agent,
     showMenu: false,
-    title: 'cart',
-    description: ''
+    title: 'create.agents',
+    description: 'Agents'
   },
   {
-    path: "/product/:productId",
-    component: Product,
-    showMenu: false,
-    title: 'product',
-    description: 'Product'
-  }
+    path: "/use-cases",
+    component: UseCases,
+    showMenu: true,
+    title: 'use.cases',
+    description: 'Use cases'
+  },
+  {
+    path: "/permissions",
+    component: Permissions,
+    showMenu: true,
+    title: 'permissions',
+    description: 'Permissions'
+  },
 ];

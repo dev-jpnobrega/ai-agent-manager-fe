@@ -2,38 +2,24 @@
 import React from 'react';
 import './assets/css/main.css';
 
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { Provider } from './context';
+import { Provider } from './context/AppContext';
 import Router from './components/Router';
+import { SnackbarProvider } from './context/SnackbarContext';
 
-
-const theme = createMuiTheme({
-  palette: {
-    type: 'light',
-    primary: {
-      light: '#757ce8',
-      main: '#FFFFFF',
-      dark: '#002884',
-      contrastText: '#000000',
-    },
-    secondary: {
-      light: '#f50057',
-      main: '#000000',
-      dark: '#ba000d',
-      contrastText: '#FFFFFF',
-    },
-  },
-});
+const theme = createTheme();
 
 function App(props) {
   return (
-    <MuiThemeProvider theme={theme}> 
-      <Provider>           
-        <CssBaseline />   
-        <Router />
+    <MuiThemeProvider theme={theme}>
+      <Provider>
+        <SnackbarProvider>
+          <CssBaseline />
+          <Router />
+        </SnackbarProvider>
       </Provider>
     </MuiThemeProvider>
   )

@@ -1,6 +1,6 @@
 export default {
   translation: {
-    'home.title': '@Fiodeamor',
+    'home.title': 'IA Enterprise',
     'card.buy': 'Purchase',
     'card.share': 'Share',
     'card.favorites': 'add to favorites',
@@ -13,11 +13,8 @@ export default {
     'favorites.title': 'Your products favorites',
     'favorites.not.have.favorites': 'No favorites found', 
     'favorites.back.to.home': 'back to home',
-    'menu.item.contact': 'Contact',
-    'menu.item.revenues': 'Revenues',
-    'menu.item.favorites': 'Favorites',
-    'menu.item.cart': 'Cart',
-    'menu.item.product': 'Product',    
-    'menu.item.who we are': 'Who We Are',    
+    'menu.item.use.cases': 'Use Cases',
+    'menu.item.permissions': 'Permissions',    
+    'menu.item.agents': 'Agents'
   }
 }

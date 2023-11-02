@@ -10,7 +10,7 @@ export default {
   'Reset password': 'Recuperar',
   'No account?': 'Sem conta?',
   translation: {
-    'home.title': '@Fiodeamor',
+    'home.title': 'IA Enterprise',
     'card.buy': 'Adquirir',
     'card.share': 'Share',
     'card.favorites': 'Adicionar em favoritos',
@@ -23,11 +23,8 @@ export default {
     'favorites.title': 'Your products favorites',
     'favorites.not.have.favorites': 'No favorites found', 
     'favorites.back.to.home': 'back to home',
-    'menu.item.contact': 'Contato',
-    'menu.item.revenues': 'Receitas',
-    'menu.item.favorites': 'Favoritos',
-    'menu.item.cart': 'Carrinho',
-    'menu.item.product': 'Produto',    
-    'menu.item.who we are': 'Quem somos',    
+    'menu.item.use.cases': 'Casos de Uso',
+    'menu.item.permissions': 'Permisos',
+    'menu.item.agents': 'Agentes',    
   }
 }
