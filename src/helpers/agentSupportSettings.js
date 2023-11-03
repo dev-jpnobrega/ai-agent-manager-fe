@@ -1,0 +1,48 @@
+export const agentSupportSettings = {
+  name: '',
+  systemMesssage:'',
+  debug: true,
+  llmConfig: {
+    type: '',
+    model: '',
+    instance: '',
+    apiKey: '',
+    apiVersion: '',
+  },
+  chatConfig: {
+    temperature: '',
+    topP: '',
+    frequencyPenalty: '',
+    presencePenalty: '',
+    maxTokens: '',
+  },
+  dbHistoryConfig: {
+    type: '',
+    host: '',
+    port: '',
+    password: '',
+    sessionTTL: '',
+  },
+  vectorStoreConfig: {
+    apiKey: '',
+    apiVersion: '',
+    name: '',
+    type: '',
+    vectorFieldName: '',
+    indexes: [],
+    model: '',
+  },
+  dataSourceConfig: {
+    type: '',
+    schema: '',
+    database:'',
+    host: '',
+    name: '',
+    username: '',
+    password: '',
+    port: '',
+    synchronize: false,
+    includesTables: [],
+    customizeSystemMessage: '',
+  }
+};

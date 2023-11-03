@@ -1,7 +1,6 @@
 import React from 'react';
-import clsx  from 'clsx';
+import clsx from 'clsx';
 
-import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 
@@ -9,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import logofio from '../../assets/logofio.png';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
@@ -64,13 +62,13 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
-  logo:{
+  logo: {
     color: '#fff',
     display: 'flex',
     lineHeight: '12px',
     marginLeft: 30,
   },
-  logoImg:{
+  logoImg: {
     maxHeight: '32px !important',
     marginLeft: 40,
     maxWidth: '100% !important',
@@ -86,56 +84,56 @@ export default function MenuComponent({ handleDrawerToggle, menuOpen, children }
   const theme = useTheme();
 
   return (
-      <nav className={menuOpen ? classes.drawer : ''}>
-        <Hidden smUp implementation="css">
-          <Drawer
-            key={'dm1'}
-            type="persistent"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={menuOpen}
-            onClose={handleDrawerToggle}
-            classes={{ paper: classes.drawerPaper }}
-            ModalProps={{ keepMounted: true }}>
-            <div className={classes.toolbar}>
-              <Typography variant='h3' >
-                <img alt='' src={logofio} className={classes.logoImg} />
-              </Typography>
-
-              <IconButton className={classes.logo} onClick={handleDrawerToggle} >
-                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-              </IconButton>
+    <nav className={menuOpen ? classes.drawer : ''}>
+      <Hidden smUp implementation="css">
+        <Drawer
+          key={'dm1'}
+          type="persistent"
+          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+          open={menuOpen}
+          onClose={handleDrawerToggle}
+          classes={{ paper: classes.drawerPaper }}
+          ModalProps={{ keepMounted: true }}>
+          <div className={classes.toolbar}>
+            <div>
+              IA Enterprise)
             </div>
-            { children }
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={menuOpen}
-            onClose={handleDrawerToggle}
-            variant="permanent"
-            className={clsx(classes.drawer, {
+
+            <IconButton className={classes.logo} onClick={handleDrawerToggle} >
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </div>
+          {children}
+        </Drawer>
+      </Hidden>
+      <Hidden xsDown implementation="css">
+        <Drawer
+          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+          open={menuOpen}
+          onClose={handleDrawerToggle}
+          variant="permanent"
+          className={clsx(classes.drawer, {
+            [classes.drawerOpen]: menuOpen,
+            [classes.drawerClose]: !menuOpen,
+          })}
+          classes={{
+            paper: clsx({
               [classes.drawerOpen]: menuOpen,
               [classes.drawerClose]: !menuOpen,
-            })}
-            classes={{
-              paper: clsx({
-                [classes.drawerOpen]: menuOpen,
-                [classes.drawerClose]: !menuOpen,
-              }),
-            }}>
-            <div className={classes.toolbar}>
-              <Typography variant='h1' className={classes.logo}>
-                <img alt='' src={logofio} className={classes.logoImg} />
-              </Typography>
-
-              <IconButton className={classes.logo} onClick={handleDrawerToggle} >
-                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-              </IconButton>
+            }),
+          }}>
+          <div className={classes.toolbar}>
+            <div>
+              IA Enterprise+
             </div>
-            { children }
-          </Drawer>  
-        </Hidden>
-      </nav>
+
+            <IconButton className={classes.logo} onClick={handleDrawerToggle} >
+              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </div>
+          {children}
+        </Drawer>
+      </Hidden>
+    </nav>
   )
 };

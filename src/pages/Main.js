@@ -1,11 +1,8 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Divider  from '@material-ui/core/Divider';
 
 import MainContainer from '../containers/Main';
-import NewsContainer from '../containers/News';
-import ProductsContainer from '../containers/Products';
 import PageBase from './PageBase';
 
 const drawerWidth = 260
@@ -147,10 +144,7 @@ function Main() {
 
   return (
     <MainContainer classes={classes}>
-      <PageBase>
-        <ProductsContainer />
-        <Divider variant="middle" className={classes.divider} />
-        <NewsContainer />
+      <PageBase title="Welcome to the IA Enterprise Panel">
       </PageBase>
     </MainContainer>
   )

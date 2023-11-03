@@ -7,21 +7,20 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import Divider from '@material-ui/core/Divider';
-import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
+import AdbRoundedIcon from '@material-ui/icons/AdbRounded';
+import DeveloperBoardRoundedIcon from '@material-ui/icons/DeveloperBoardRounded';
+import LockOpenRoundedIcon from '@material-ui/icons/LockOpenRounded';
+
 import { useTranslation } from 'react-i18next';
 
 export default function MenuItemsComponent({ items }) {
-  const [ t ] = useTranslation('translation');
+  const [t] = useTranslation('translation');
 
   const getListIcon = (name) => {
     const icons = [
-      { name: 'contact', icon: ContactPhoneIcon, },
-      { name: 'who we are', icon: ContactPhoneIcon, },
-      { name: 'revenues', icon: ContactPhoneIcon, },
-      { name: 'favorites', icon: ContactPhoneIcon, },
-      { name: 'cart', icon: ContactPhoneIcon, },
-      { name: 'product', icon: ContactPhoneIcon, },
-      { name: 'default', icon: ContactPhoneIcon, },
+      { name: 'agents', icon: AdbRoundedIcon, },
+      { name: 'permissions', icon: LockOpenRoundedIcon, },
+      { name: 'use.cases', icon: DeveloperBoardRoundedIcon, },
     ]
 
     const selected = icons.find(e => e.name === name);
@@ -29,21 +28,20 @@ export default function MenuItemsComponent({ items }) {
 
     return (
       <ListItemIcon>
-          <Apt/>
+        <Apt />
       </ListItemIcon>
     )
   }
 
-
   return (
-    <>    
+    <>
       <Divider />
       <List>
         {items.map((item, index) => (
           <Link to={item.path} key={index}>
-            <ListItem button key={index}>             
-              { getListIcon(item.title) }
-              <ListItemText primary={ t(`menu.item.${item.title}`) } />
+            <ListItem button key={index} style={{ paddingLeft: '24px' }}>
+              {getListIcon(item.title)}
+              <ListItemText primary={t(`menu.item.${item.title}`)} />
             </ListItem>
           </Link>
         ))}
