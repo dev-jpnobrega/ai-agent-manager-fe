@@ -160,8 +160,8 @@ const AgentContainer = ({ history, currentAgent }) => {
                       <Box mt={3} style={{ backgroundColor: '#f6f6f6', borderRadius: '4px 4px 0 0', padding: '4px 24px 15px 24px' }}>
                         {
                           <Stepper activeStep={activeStep} alternativeLabel style={{ backgroundColor: '#f6f6f6' }}>
-                            {steps.map((label) => (
-                              <Step key={label}>
+                            {steps.map((label, index) => (
+                              <Step key={index}>
                                 <StepLabel>{mobile ? '' : label}</StepLabel>
                               </Step>
                             ))}

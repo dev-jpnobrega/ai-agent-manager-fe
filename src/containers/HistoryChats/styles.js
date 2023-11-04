@@ -39,5 +39,10 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '50%',
     backgroundColor: 'white',
     boxShadow: 'rgba(58, 53, 65, 0.42) 0px 4px 8px -4px',
-  }
+  },
+  uploadedFiles: {
+    fontSize: '14px',
+    color: '#0000008a',
+    marginBottom: '16px',
+  },
 }));

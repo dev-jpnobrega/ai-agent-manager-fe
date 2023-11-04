@@ -1,6 +1,6 @@
 import React from "react";
 import { Chat } from "../../components/Chat";
-import { saveChatLocally, sendMessage } from "../../service/chat-service";
+import { saveChatLocally, sendMessage, uploadFiles } from "../../service/chat-service";
 
 export const ChatContainer = ({ chatProps, setChatProps }) => {
 
@@ -10,6 +10,7 @@ export const ChatContainer = ({ chatProps, setChatProps }) => {
       setChatProps={setChatProps}
       saveChatLocally={saveChatLocally}
       sendMessage={sendMessage}
+      uploadFiles={uploadFiles}
     />
   )
 }

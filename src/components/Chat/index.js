@@ -13,7 +13,7 @@ import { ChatMessage } from './ChatMessage';
 import { ChatAnsweringLoad } from './ChatAnsweringLoad';
 import { useTranslation } from 'react-i18next';
 
-export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocally, sendMessage }) => {
+export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocally, sendMessage, uploadFiles }) => {
   const mobile = useMediaQuery('(max-width:400px)');
   const [t] = useTranslation('translation'
   )
@@ -25,10 +25,10 @@ export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocall
   const [uploadedFiles, setUploadedFiles] = useState([])
   const [chatMessages, setChatMessages] = useState([])
 
-  const chatUid= uuidv4()
+  const chatUid = uuidv4()
 
-  const saveChatMessages = (currentChatMessages) => {
-    saveChatLocally(chatProps.agent, chatUid, currentChatMessages)
+  const saveChatMessages = (currentChatMessages, files = uploadedFiles) => {
+    saveChatLocally(chatProps.agent, chatUid, currentChatMessages, files)
     setChatMessages(currentChatMessages)
   }
 
@@ -36,6 +36,14 @@ export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocall
     setChatProps({ open: false, agent: '' });
     setChatMessages([]);
     setUploadedFiles([]);
+  }
+
+  const handleUploadFiles = (files) => {
+    if (files.length) {
+      uploadFiles(files, chatUid, chatProps.agent)
+      setUploadedFiles(files);
+      saveChatMessages(chatMessages, files)
+    }
   }
 
   const handleMessagePushed = () => {
@@ -70,7 +78,7 @@ export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocall
     handleMessagePushed()
 
     sendCurrentMessage(message)
-    .then(() => handleMessagePushed())
+      .then(() => handleMessagePushed())
   }
 
   const handleInputKeyDown = (event) => {
@@ -110,7 +118,7 @@ export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocall
           </Grid>
           <Grid item xs={3} justifyContent='flex-end' className={classes.dialogTitleMenuButtons}>
             <SaveIcon color="action" fontSize="small" />
-            <FileUploader uploadedFiles={uploadedFiles} setUploadedFiles={setUploadedFiles} />
+            <FileUploader uploadedFiles={uploadedFiles} setUploadedFiles={handleUploadFiles} />
             <CloseIcon color="action" fontSize="small" onClick={() => handleClose()} />
           </Grid>
         </Grid>
@@ -120,7 +128,7 @@ export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocall
           uploadedFiles.length > 0 &&
           <div className={classes.uploadedFiles}>
             <span style={{ color: 'black', fontWeight: '700' }}> Uploaded files:<br /></span>
-            {uploadedFiles.map(file => (<span>{file.name}<br /></span>))}
+            {uploadedFiles.map((file, index) => (<span key={`updated-item${index}`}>{file.name}<br /></span>))}
           </div>
         }
 

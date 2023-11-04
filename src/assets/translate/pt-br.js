@@ -20,6 +20,7 @@ export default {
     'agent.page.card.agent.custom': 'Custom',
 
     'agent.page.chat.send': 'Enviar',
+    'agent.page.chat.upload': 'Máxima quantidade de arquivos: ',
 
     'agent.create.page.title': 'Criar Agente',
     'agent.edit.page.title': 'Editar Agente',

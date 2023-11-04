@@ -61,7 +61,7 @@ const ListAgentsContainer = ({ history }) => {
         <Box mt={2}>
           <Grid container spacing={2}>
             {state.agents.items.map((agent, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
                 <div className={classes.root}>
                   <Paper className={classes.paper}>
                     <Grid container spacing={2}>

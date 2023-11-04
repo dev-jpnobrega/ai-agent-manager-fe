@@ -29,7 +29,29 @@ export const sendMessage = async (message, chatUid, agent) => {
 
   return data || []
 }
-export const saveChatLocally = (agent, chatUid, chatMessages = []) => {
+
+export const uploadFiles = async (files, chatUid, agent) => {
+  const formData = new FormData()
+
+  formData.append('file', files)
+  formData.append('chatUid', chatUid)
+  formData.append('agent', agent)
+
+  const data = await axios.post(
+    `${process.env.REACT_APP_BASE_URL}/v1/upload`,
+    formData,
+    { headers })
+    .then((response) => {
+      return response.data
+    })
+    .catch((error) => {
+      return { error: error.response.data }
+    })
+
+  return data || []
+}
+
+export const saveChatLocally = (agent, chatUid, chatMessages = [], uploadedFiles = []) => {
   const chats = getLocallyChats()
 
   return setLocallyChats({
@@ -37,6 +59,7 @@ export const saveChatLocally = (agent, chatUid, chatMessages = []) => {
     [chatUid]: {
       agent,
       createdAt: chats[chatUid] ? chats[chatUid].createdAt : new Date(),
+      uploadedFiles,
       messages: chatMessages
     },
   });
