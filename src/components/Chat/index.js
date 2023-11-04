@@ -10,10 +10,9 @@ import SaveIcon from '@material-ui/icons/Save';
 import FileUploader from '../../containers/FIleUploader';
 import { useStyles } from './styles';
 import { ChatMessage } from './ChatMessage';
-import { saveChatLocally, sendMessage } from '../../service/chat-service';
 import { ChatAnsweringLoad } from './ChatAnsweringLoad';
 
-export const Chat = ({ chatProps = { open: false }, setChatProps }) => {
+export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocally, sendMessage }) => {
   const mobile = useMediaQuery('(max-width:400px)');
 
   const chatInputRef = useRef()
@@ -21,7 +20,7 @@ export const Chat = ({ chatProps = { open: false }, setChatProps }) => {
 
   const classes = useStyles({ mobile });
 
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState([])
   const [chatMessages, setChatMessages] = useState([])
 
   const chatUid= uuidv4()
@@ -33,7 +32,6 @@ export const Chat = ({ chatProps = { open: false }, setChatProps }) => {
 
   const handleClose = () => {
     setChatProps({ open: false, agent: '' });
-    // setChatUid(uuidv4())
     setChatMessages([]);
     setUploadedFiles([]);
   }

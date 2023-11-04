@@ -14,7 +14,7 @@ import SlackIcon from '../../../assets/images/slack.svg';
 import { useStyles } from './styles'
 
 import { AGENTS_SET_AGENTS_LIST } from '../agent-actions';
-import { Chat } from '../../../components/Chat';
+import { ChatContainer } from '../../Chat';
 import { getAgents } from '../../../service/agent-service';
 
 const ListAgentsContainer = ({ history }) => {
@@ -131,7 +131,7 @@ const ListAgentsContainer = ({ history }) => {
             ))}
           </Grid>
         </Box>
-        <Chat chatProps={chatProps} setChatProps={setChatProps} />
+        <ChatContainer chatProps={chatProps} setChatProps={setChatProps} />
       </section>
     </>
   )
