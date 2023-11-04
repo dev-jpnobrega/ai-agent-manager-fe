@@ -116,11 +116,11 @@ const ListAgentsContainer = ({ history }) => {
                           </Grid>
                           <Grid item xs={2}>
                             <div style={{ paddingRight: '10px', textAlign: 'right' }}>
-                              <img src={TeamsIcon} height="24" />
+                              <img src={TeamsIcon} height="24" alt="Teams" />
                             </div>
                           </Grid>
                           <Grid item xs={1}>
-                            <img src={SlackIcon} height="24" />
+                            <img src={SlackIcon} height="24" alt='Slack' />
                           </Grid>
                         </Grid>
                       </Grid>

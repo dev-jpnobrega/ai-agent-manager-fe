@@ -3,7 +3,7 @@ import { getLocallyChatsList } from "../../service/chat-service";
 
 import moment from "moment";
 
-import { Avatar, IconButton, InputAdornment, Paper, TextField, Box, Grid, List, ListItem, Typography, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Avatar, InputAdornment, Paper, TextField, Box, Grid, List, ListItem, Typography, ListItemIcon, ListItemText } from "@material-ui/core";
 import AdbIcon from '@material-ui/icons/Adb';
 import SearchIcon from '@material-ui/icons/Search';
 import SpeakerNotesOutlinedIcon from '@material-ui/icons/SpeakerNotesOutlined';

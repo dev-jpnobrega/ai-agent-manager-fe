@@ -25,7 +25,7 @@ function MainContainer(props) {
   const { children, history } = props;
   const classes = useStyles();
 
-  const [t, i18n] = useTranslation('translation')
+  const [_, i18n] = useTranslation('translation')
   
   const [menuOpen, setMobileOpen] = useState(false);
   const [menuNotificationOpen, setMenuNotificationOpen] = useState(false);
