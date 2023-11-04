@@ -1,16 +1,19 @@
 import React from "react";
 import { Typography } from '@material-ui/core'
 
+import moment from "moment";
+
 import GetAppIcon from '@material-ui/icons/GetApp';
 
-export const ChatMessage = ({ classes, chat, index }) => {
-  const hour = new Date(chat.createdAt).getHours()
-  const minutes = new Date(chat.createdAt).getMinutes()
+import { useStyles } from './styles';
+
+export const ChatMessage = ({ chat, index }) => {
+  const classes = useStyles();
 
   return (
-    <div className={classes[`dialog${chat.author}`]} key={`chat-message-agent${index}`}>
-      <div className={classes[`chatBalloon${chat.author}`]}>
-        <div className={classes[`chatBalloonText${chat.author}`]}>
+    <div className={classes[`dialog${chat.role}`]} key={`chat-message-agent${index}`}>
+      <div className={classes[`chatBalloon${chat.role}`]}>
+        <div className={classes[`chatBalloonText${chat.role}`]}>
           {chat.type === 'message' && chat.content}
           {chat.type === 'picture' && <img src={chat.content} alt="Send By Agent" className={classes.chatImage} />}
           {chat.type === 'file' &&
@@ -23,7 +26,7 @@ export const ChatMessage = ({ classes, chat, index }) => {
           }
         </div>
         <Typography variant='body2' className={classes.chatBalloonTime}>
-          {hour}:{minutes}
+          {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}
         </Typography>
       </div>
     </div>

@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import AdbRoundedIcon from '@material-ui/icons/AdbRounded';
 import DeveloperBoardRoundedIcon from '@material-ui/icons/DeveloperBoardRounded';
 import LockOpenRoundedIcon from '@material-ui/icons/LockOpenRounded';
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 
 import { useTranslation } from 'react-i18next';
 
@@ -21,6 +22,7 @@ export default function MenuItemsComponent({ items }) {
       { name: 'agents', icon: AdbRoundedIcon, },
       { name: 'permissions', icon: LockOpenRoundedIcon, },
       { name: 'use.cases', icon: DeveloperBoardRoundedIcon, },
+      { name: 'history.chats', icon: ForumOutlinedIcon, }
     ]
 
     const selected = icons.find(e => e.name === name);
@@ -39,7 +41,7 @@ export default function MenuItemsComponent({ items }) {
       <List>
         {items.map((item, index) => (
           <Link to={item.path} key={index}>
-            <ListItem button key={index} style={{ paddingLeft: '24px' }}>
+            <ListItem button key={index} style={{ paddingLeft: '24px', height: '48px' }}>
               {getListIcon(item.title)}
               <ListItemText primary={t(`menu.item.${item.title}`)} />
             </ListItem>

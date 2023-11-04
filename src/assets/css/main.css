@@ -1346,7 +1346,6 @@
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #ffffff;
 		font-weight: 200;
 		line-height: 1.5;
 		margin: 0 0 1em 0;
@@ -1552,16 +1551,6 @@
 			box-shadow: none;
 		}
 
-		input[type="text"]:focus,
-		input[type="password"]:focus,
-		input[type="email"]:focus,
-		input[type="tel"]:focus,
-		select:focus,
-		textarea:focus {
-			border-color: #FF6382;
-			box-shadow: 0 0 0 1px #FF6382;
-		}
-
 	.select-wrapper {
 		text-decoration: none;
 		display: block;
@@ -1661,16 +1650,16 @@
 
 		input[type="checkbox"]:checked + label:before,
 		input[type="radio"]:checked + label:before {
-			background: #FF6382;
-			border-color: #FF6382;
+			background: #bdbdbd;
+			border-color: #bdbdbd;
 			color: #ffffff;
 			content: '\f00c';
 		}
 
 		input[type="checkbox"]:focus + label:before,
 		input[type="radio"]:focus + label:before {
-			border-color: #FF6382;
-			box-shadow: 0 0 0 1px #FF6382;
+			border-color: #bdbdbd;
+			box-shadow: 0 0 0 1px #bdbdbd;
 		}
 
 	input[type="checkbox"] + label:before {
@@ -2086,14 +2075,12 @@
 		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		background-color: #FF6382;
+		background-color: #bdbdbd;
 		border-radius: 4px;
 		border: 0;
-		color: !important;
 		cursor: pointer;
 		display: inline-block;
 		font-weight: 200;
-		height: 2.85em;
 		line-height: 2.95em;
 		padding: 0 1.5em;
 		text-align: center;
@@ -2198,7 +2185,7 @@
 		input[type="button"].special,
 		button.special,
 		.button.special {
-			background-color: #FF6382;
+			background-color: #bdbdbd;
 			color: !important;
 		}
 
@@ -2293,7 +2280,7 @@
 
 			.thumbnails a:hover {
 				background-color: rgba(255, 255, 255, 0.25);
-				box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 0.5em 0 #FF6382;
+				box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 0.5em 0 #bdbdbd;
 			}
 
 		.thumbnails > div {

@@ -1,7 +1,5 @@
 import axios from "axios";
 
-export const AGENTS_SET_AGENTS_LIST = 'AGENTS_SET_AGENTS_LIST';
-
 const headers = {
   authorization: process.env.REACT_APP_AUTHORIZATION
 }

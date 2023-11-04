@@ -1,0 +1,42 @@
+.chat-answering-load {
+  width: 100%;
+    padding-left: 7px;
+}
+
+.chat-answering-load__dots span {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  animation: jump 1s infinite;
+  display: inline-block;
+
+  background-color: #3F51B5;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-right: 3px;
+}
+
+.chat-answering-load__dots .chat-answering-load__dots__1 {
+  animation-delay: 200ms;
+}
+
+.chat-answering-load__dots .chat-answering-load__dots__2 {
+  animation-delay: 400ms;
+}
+
+.chat-answering-load__dots .chat-answering-load__dots__3 {
+  animation-delay: 600ms;
+}
+
+@keyframes jump {
+  0% {
+    bottom: 0px;
+  }
+  20% {
+    bottom: 5px;
+  }
+  40% {
+    bottom: 0px;
+  }
+}

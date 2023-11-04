@@ -1,5 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMediaQuery, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, Avatar } from '@material-ui/core'
+
+import { v4 as uuidv4 } from 'uuid';
 
 import AdbIcon from '@material-ui/icons/Adb';
 import CloseIcon from '@material-ui/icons/Close';
@@ -8,60 +10,67 @@ import SaveIcon from '@material-ui/icons/Save';
 import FileUploader from '../../containers/FIleUploader';
 import { useStyles } from './styles';
 import { ChatMessage } from './ChatMessage';
-
-// AGENT RETURN MOCKS
-const createdAt = new Date()
-const agentMessages = {
-  message: {
-    content: `Sorry, we aren't online at the moment. Leave a message and we'll get back to you.`,
-    author: 'Agent',
-    type: 'message',
-    createdAt,
-  },
-  picture: {
-    content: 'https://interbrand.com/wp-content/uploads/2022/09/b7e45662895889.5b9ed26f2d4f8-600x400.jpeg',
-    author: 'Agent',
-    type: 'picture',
-    createdAt,
-  },
-  file: {
-    content: `certifications.pdf`,
-    author: 'Agent',
-    type: 'file',
-    createdAt,
-  }
-}
-
+import { saveChatLocally, sendMessage } from '../../service/chat-service';
+import { ChatAnsweringLoad } from './ChatAnsweringLoad';
 
 export const Chat = ({ chatProps = { open: false }, setChatProps }) => {
   const mobile = useMediaQuery('(max-width:400px)');
-  const chatInputRef = useRef()
-  const chatBottomLinRef = useRef()
-  const classes = useStyles({ mobile });
-  const [uploadedFiles, setUploadedFiles] = useState([]);
 
+  const chatInputRef = useRef()
+  const chatRef = useRef()
+
+  const classes = useStyles({ mobile });
+
+  const [uploadedFiles, setUploadedFiles] = useState([]);
   const [chatMessages, setChatMessages] = useState([])
+
+  const chatUid= uuidv4()
+
+  const saveChatMessages = (currentChatMessages) => {
+    saveChatLocally(chatProps.agent, chatUid, currentChatMessages)
+    setChatMessages(currentChatMessages)
+  }
 
   const handleClose = () => {
     setChatProps({ open: false, agent: '' });
+    // setChatUid(uuidv4())
     setChatMessages([]);
     setUploadedFiles([]);
   }
 
+  const handleMessagePushed = () => {
+    chatRef.current.click()
+    setTimeout(() => chatInputRef.current.focus(), "500")
+  }
+
+  const sendCurrentMessage = (message) => new Promise(async (resolve, reject) => {
+    const agentAnswer = await sendMessage(message, chatUid, chatProps.agent)
+
+    if (agentAnswer) return resolve(saveChatMessages([...chatMessages, message, {
+      content: agentAnswer.error ? agentAnswer.error : agentAnswer,
+      role: 'Agent',
+      type: 'message',
+      createdAt: new Date(),
+    }]))
+  });
+
   const pushChatMessage = (newMessage) => {
     const message = {
+      id: uuidv4(),
       content: newMessage,
-      author: 'User',
+      role: 'User',
       type: 'message',
-      createdAt
+      createdAt: new Date(),
+      name: 'Username'
     }
 
     chatInputRef.current.value = ''
 
-    setChatMessages([...chatMessages, message, agentMessages[newMessage] || agentMessages.message])
+    saveChatMessages([...chatMessages, message])
+    handleMessagePushed()
 
-    chatBottomLinRef.current.click()
-    setTimeout(() => chatInputRef.current.focus(), "500")
+    sendCurrentMessage(message)
+    .then(() => handleMessagePushed())
   }
 
   const handleInputKeyDown = (event) => {
@@ -115,9 +124,10 @@ export const Chat = ({ chatProps = { open: false }, setChatProps }) => {
           </div>
         }
 
-        {chatMessages.map((chat, index) => <ChatMessage classes={classes} chat={chat} index={index} />)}
-        <div id="chatBottom" />
-        <a href="#chatBottom" ref={chatBottomLinRef}>{''}</a>
+        {chatMessages.map((chat, index) => <ChatMessage key={`chat-message-agent${index}`} classes={classes} chat={chat} index={index} />)}
+        <div id="chat" />
+        <a href="#chat" ref={chatRef}>{''}</a>
+        <ChatAnsweringLoad chatMessages={chatMessages} />
       </DialogContent>
       <DialogActions>
         <div className={classes.dialogActions}>
