@@ -2,221 +2,114 @@ import React from 'react';
 import { Grid, TextField, FormControlLabel, Switch, Typography } from '@material-ui/core';
 
 import { get } from 'lodash';
+import { withTranslation } from 'react-i18next';
 
-export const DatabaseStep = ({ handleAgentChange, agent }) => {
+const DatabaseStep = ({ handleAgentChange, agent, t }) => {
+  const databaseConfig = [
+    {
+      title: t('agent.page.form.step.database.enable.title'),
+      namePath: 'dataSourceConfig',
+      fields: [
+        {
+          label: t('agent.page.form.step.database.enable.type'),
+          name: 'type',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.database'),
+          name: 'database',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.host'),
+          name: 'host',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.name'),
+          name: 'name',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.username'),
+          name: 'username',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.password'),
+          name: 'password',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.port'),
+          name: 'port',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.includes.tables'),
+          name: 'includesTables',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.datasource'),
+          name: 'dataSource',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.synchronize'),
+          name: 'synchronize',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.custom.message'),
+          name: 'customizeSystemMessage',
+        }
+      ]
+    }
+  ]
+
   return (
     <>
-      <Grid item xs={12} style={{ marginTop: '12px' }}>
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant='subtitle2' color='textSecondary'>Database Settings</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Type</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  size="small"
-                  name="type"
-                  value={get(agent, 'dataSourceConfig.type', '')}
-                  onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
+      {databaseConfig.map((config, index) => (
+        <Grid item xs={12} style={{ marginTop: '12px' }} key={`parameters-config${index}`}>
+          <Grid container>
+            <Grid item xs={12} >
+              <Typography variant='subtitle2' color='textSecondary'>{config.title}</Typography>
             </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Database</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="database"
-                  value={get(agent, 'dataSourceConfig.database', '')}
-                  onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Host</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="host"
-                  value={get(agent, 'dataSourceConfig.host', '')}
-                  onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Name</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="name"
-                  value={get(agent, 'dataSourceConfig.name', '')}
-                  onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Username</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="username"
-                  value={get(agent, 'dataSourceConfig.username', '')}
-                  onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Password</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="password"
-                  value={get(agent, 'dataSourceConfig.password', '')}
-                  onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Port</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="port"
-                  value={get(agent, 'dataSourceConfig.port', '')}
-                  onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Includes Tables</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="includesTables"
-                  value={get(agent, 'dataSourceConfig.includesTables', '')}
-                  onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-
-
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Data Source</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="dataSource"
-                  value={get(agent, 'dataSourceConfig.dataSource', '')}
-                  onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Synchronize</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      color='primary'
-                      name="synchronize"
-                      checked={get(agent, 'dataSourceConfig.synchronize', false)}
-                      onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                    />
+            {config.fields.map((field, index) => (
+              <Grid item xs={12} sm={6} key={`parameters-config-${field.namePath}${index}`}>
+                <Grid container spacing={2} justifyContent="center"
+                  alignItems="center">
+                  {
+                    field.label &&
+                    <Grid item xs={4}>
+                      <Typography variant='body2'>{field.label}{field.required ? '*' : ''}</Typography>
+                    </Grid>
                   }
-                  value={get(agent, 'dataSourceConfig.synchronize', false)}
-                  style={{ color: 'black', marginTop: '10px' }}
-                />
+
+                  <Grid item xs={8}>
+                    {field.name === 'synchronize' ?
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            color='primary'
+                            name="synchronize"
+                            checked={get(agent, 'dataSourceConfig.synchronize', false)}
+                            onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
+                          />
+                        }
+                        value={get(agent, 'dataSourceConfig.synchronize', false)}
+                        style={{ color: 'black', marginTop: '10px' }}
+                      />
+                      :
+                      <TextField
+                        required
+                        name={field.name}
+                        onChange={(e) => handleAgentChange(e, config.namePath)}
+                        size="small"
+                        value={get(agent, (`${config.namePath ? config.namePath + '.' : ''}${field.name}`), '')}
+                        style={{ width: '100%', maxWidth: field.label ? '250px' : '' }}
+                      />
+                    }
+                  </Grid>
+                </Grid>
               </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={12}>
-                <Typography variant='body2'>Customize System Message</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  name="customizeSystemMessage"
-                  value={get(agent, 'dataSourceConfig.customizeSystemMessage', '')}
-                  onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                  size="small"
-                  style={{ width: '100%' }}
-                />
-              </Grid>
-            </Grid>
+            ))}
           </Grid>
         </Grid>
-      </Grid>
+      ))}
     </>
   )
 }
+
+export default withTranslation()(DatabaseStep);

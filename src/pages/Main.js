@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import MainContainer from '../containers/Main';
 import PageBase from './PageBase';
+import { useTranslation } from 'react-i18next';
 
 const drawerWidth = 260
 
@@ -140,11 +141,12 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Main() {
+  const [t] = useTranslation('translation');
   const classes = useStyles();
 
   return (
     <MainContainer classes={classes}>
-      <PageBase title="Welcome to the IA Enterprise Panel">
+      <PageBase title={t('home.welcome')}>
       </PageBase>
     </MainContainer>
   )

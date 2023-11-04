@@ -32,7 +32,7 @@ const ListAgentsContainer = ({ history }) => {
   useEffect(async () => {
     const agents = await getAgents()
 
-    if (agents.error) return setSnackbar({ title: 'Ocorreu um erro ao recuperar agentes.', severity: 'error'})
+    if (agents.error) return setSnackbar({ title: 'Ocorreu um erro ao recuperar agentes.', severity: 'error' })
 
     dispatch({
       type: AGENTS_SET_AGENTS_LIST,
@@ -52,7 +52,7 @@ const ListAgentsContainer = ({ history }) => {
           >
             <Grid item>
               <Button variant="contained" color="primary" onClick={() => { history.push('/agent') }}>
-                New Agent
+                {t('agent.page.button.new.agent')}
               </Button>
             </Grid>
           </Grid>
@@ -75,7 +75,7 @@ const ListAgentsContainer = ({ history }) => {
                             </Box>
                             <Box mt={1} onClick={() => { setChatProps({ open: true, agent }) }}>
                               <Typography variant="body2" className={classes.link}>
-                                New Chat
+                                {t('agent.page.card.agent.new.chat')}
                               </Typography>
                             </Box>
                           </Grid>
@@ -108,10 +108,10 @@ const ListAgentsContainer = ({ history }) => {
                         >
                           <Grid item xs={9} >
                             <Typography variant="body2" >
-                              Specialized
+                              {t('agent.page.card.agent.specialized')}
                             </Typography>
                             <Typography variant="subtitle2" color='textSecondary'>
-                              Agent
+                              {t('agent.page.card.agent')}
                             </Typography>
                           </Grid>
                           <Grid item xs={2}>

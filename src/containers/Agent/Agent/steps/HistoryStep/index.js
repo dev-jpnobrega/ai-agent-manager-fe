@@ -2,107 +2,76 @@ import React from 'react';
 import { Grid, TextField, Typography } from '@material-ui/core';
 
 import { get } from 'lodash';
+import { withTranslation } from 'react-i18next';
 
-export const HistoryStep = ({ handleAgentChange, agent }) => {
+const HistoryStep = ({ handleAgentChange, agent, t }) => {
+  const historyConfig = [
+    {
+      title: t('agent.page.form.step.history.enable.title'),
+      namePath: 'historyConfig',
+      fields: [
+        {
+          label: t('agent.page.form.step.history.enable.type'),
+          name: 'type',
+        },
+        {
+          label: t('agent.page.form.step.history.enable.host'),
+          name: 'host',
+        },
+        {
+          label: t('agent.page.form.step.history.enable.port'),
+          name: 'port',
+        },
+        {
+          label: t('agent.page.form.step.history.enable.password'),
+          name: 'password',
+        },
+        {
+          label: t('agent.page.form.step.history.enable.session.ttl'),
+          name: 'sessionTTL',
+        }
+      ]
+    },
+  ]
+
   return (
     <>
-      <Grid item xs={12} style={{ marginTop: '12px' }}>
+      {historyConfig.map((config, index) => (
+        <Grid item xs={12} style={{ marginTop: '12px' }} key={`parameters-config${index}`}>
           <Grid container>
-            <Grid item xs={12} sm={12}>
-              <Typography variant='subtitle2' color='textSecondary'>History Enable Settings</Typography>
+            <Grid item xs={12}>
+              <Typography variant='subtitle2' color='textSecondary'>{config.title}</Typography>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <Grid container spacing={2} justifyContent="center"
-                alignItems="center">
-                <Grid item xs={4}>
-                  <Typography variant='body2'>Type</Typography>
+            {config.fields.map((field, index) => (
+              <Grid item xs={12} sm={6} key={`parameters-config-${field.namePath}${index}`}>
+                <Grid container spacing={2} justifyContent="center"
+                  alignItems="center">
+                  {
+                    field.label &&
+                    <Grid item xs={4}>
+                      <Typography variant='body2'>{field.label}{field.required ? '*' : ''}</Typography>
+                    </Grid>
+                  }
+
+                  <Grid item xs={8}>
+                    <TextField
+                      required
+                      name={field.name}
+                      onChange={(e) => handleAgentChange(e, config.namePath)}
+                      size="small"
+                      value={get(agent, `${config.namePath ? config.namePath + '.' : ''}${field.name}`, '')}
+                      style={{ width: '100%', maxWidth: field.label ? '250px' : '' }}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    required
-                    name="type"
-                    onChange={(e) => handleAgentChange(e, 'dbHistoryConfig')}
-                    value={get(agent, 'dbHistoryConfig.type', '')}
-                    size="small"
-                    style={{ width: '100%', maxWidth: '250px' }}
-                  />
-                </Grid>
+
               </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Grid container spacing={2} justifyContent="center"
-                alignItems="center">
-                <Grid item xs={4}>
-                  <Typography variant='body2'>Host</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    required
-                    name="host"
-                    onChange={(e) => handleAgentChange(e, 'dbHistoryConfig')}
-                    value={get(agent, 'dbHistoryConfig.host', '')}
-                    size="small"
-                    style={{ width: '100%', maxWidth: '250px' }}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Grid container spacing={2} justifyContent="center"
-                alignItems="center">
-                <Grid item xs={4}>
-                  <Typography variant='body2'>Port</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    required
-                    name="port"
-                    onChange={(e) => handleAgentChange(e, 'dbHistoryConfig')}
-                    value={get(agent, 'dbHistoryConfig.port', '')}
-                    size="small"
-                    style={{ width: '100%', maxWidth: '250px' }}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Grid container spacing={2} justifyContent="center"
-                alignItems="center">
-                <Grid item xs={4}>
-                  <Typography variant='body2'>Password</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    required
-                    name="password"
-                    value={get(agent, 'dbHistoryConfig.password', '')}
-                    onChange={(e) => handleAgentChange(e, 'dbHistoryConfig')}
-                    size="small"
-                    style={{ width: '100%', maxWidth: '250px' }}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Grid container spacing={2} justifyContent="center"
-                alignItems="center">
-                <Grid item xs={4}>
-                  <Typography variant='body2'>Session TTL</Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    required
-                    name="sessionTTL"
-                    value={get(agent, 'dbHistoryConfig.sessionTTL', '')}
-                    onChange={(e) => handleAgentChange(e, 'dbHistoryConfig')}
-                    size="small"
-                    style={{ width: '100%', maxWidth: '250px' }}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
+            ))}
           </Grid>
         </Grid>
+      ))}
     </>
   )
 }
+
+export default withTranslation()(HistoryStep);

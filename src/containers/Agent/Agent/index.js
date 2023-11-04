@@ -14,8 +14,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { SnackbarContext } from '../../../context/SnackbarContext';
 import { agentFormChanges, agentRequestFeedback } from '../../../helpers/agentFormChanges';
 
-const steps = ['Parameters Settings', 'History Enable', 'Cognitive Enable', 'Database Enable']
-
 const getStepContent = (stepIndex, agent, handleAgentChange) => {
   switch (stepIndex) {
     case 0:
@@ -42,6 +40,13 @@ const AgentContainer = ({ history, currentAgent }) => {
 
   const [activeStep, setActiveStep] = useState(0);
   const [agent, setAgent] = useState(agentSupportSettings);
+
+  const steps = [
+    t('agent.page.form.step.parameter'),
+    t('agent.page.form.step.history.enable'),
+    t('agent.page.form.step.cognitive.enable'),
+    t('agent.page.form.step.database.enable')
+  ]
 
   useEffect(() => { currentAgent && setAgent(currentAgent) }, [currentAgent])
 
@@ -93,11 +98,11 @@ const AgentContainer = ({ history, currentAgent }) => {
                 variant="contained"
                 color="secondary"
                 onClick={handleDeleteAgent}>
-                Excluir
+                {t('agent.page.form.delete')}
               </Button>
             }
             <Button variant="contained" color="primary" onClick={() => { history.push('/agents') }}>
-              Voltar
+              {t('agent.page.form.back')}
             </Button>
           </Grid>
         </Grid>
@@ -113,7 +118,7 @@ const AgentContainer = ({ history, currentAgent }) => {
                 <Grid container spacing={2} justifyContent="center"
                   alignItems="center">
                   <Grid item xs={3} sm={1}>
-                    <Typography variant='body2'>Nome*</Typography>
+                    <Typography variant='body2'>{t('agent.page.form.name')}*</Typography>
                   </Grid>
                   <Grid item xs={9} sm={9}>
                     <TextField
@@ -137,7 +142,7 @@ const AgentContainer = ({ history, currentAgent }) => {
                               color='primary'
                             />
                           }
-                          label="Debug"
+                          label={t('agent.page.form.debug')}
                           value={agent.debug}
                           labelPlacement="start"
                           style={{ color: 'black', marginTop: '10px' }}
@@ -157,7 +162,7 @@ const AgentContainer = ({ history, currentAgent }) => {
                           <Stepper activeStep={activeStep} alternativeLabel style={{ backgroundColor: '#f6f6f6' }}>
                             {steps.map((label) => (
                               <Step key={label}>
-                                <StepLabel>{ mobile ? '' : label }</StepLabel>
+                                <StepLabel>{mobile ? '' : label}</StepLabel>
                               </Step>
                             ))}
                           </Stepper>
@@ -170,17 +175,17 @@ const AgentContainer = ({ history, currentAgent }) => {
                               disabled={activeStep === 0}
                               onClick={handleBack}
                             >
-                              Anterior
+                              {t('agent.page.form.previous')}
                             </Button>
                             <Button variant="contained" color="primary" onClick={() => {
                               if (activeStep === steps.length - 1) return handleSaveAgent(agent)
                               handleNext()
                             }}>
-                              {activeStep === steps.length - 1 ? 'Salvar' : 'Próximo'}
+                              {activeStep === steps.length - 1 ? t('agent.page.form.save') : t('agent.page.form.next')}
                             </Button>
                           </Grid>
                         </Grid>
-                        
+
                       </Box>
                     </Box>
                   </Grid>

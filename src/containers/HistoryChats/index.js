@@ -10,10 +10,12 @@ import SpeakerNotesOutlinedIcon from '@material-ui/icons/SpeakerNotesOutlined';
 
 import { useStyles } from './styles';
 import { ChatMessage } from "../../components/Chat/ChatMessage";
+import { useTranslation } from "react-i18next";
 
 export const HistoryChatsContainer = () => {
   const [chats, setChats] = useState(getLocallyChatsList())
   const [selectedChat, setSelectedChat] = useState()
+  const [t] = useTranslation('translation')
 
   const classes = useStyles();
 
@@ -44,10 +46,12 @@ export const HistoryChatsContainer = () => {
                 }}
               />
             </div>
-            <List>
+            <List style={{ overflow: 'auto', maxHeight: '450px' }}>
               <ListItem>
                 <ListItemText>
-                  <Typography variant='subtitle1' color="primary" className={classes.chatSession}>Histórico</Typography>
+                  <Typography variant='subtitle1' color="primary" className={classes.chatSession}>
+                    {t(`history.chats.page.label.${chats.length ? '' : 'no.'}results`)}
+                  </Typography>
                 </ListItemText>
               </ListItem>
               {chats.map((chat, index) => (
@@ -59,15 +63,13 @@ export const HistoryChatsContainer = () => {
                   </ListItemIcon>
                   <ListItemText>
                     <Typography variant='subtitle1' className={classes.chatTexts}>{chat.agent}</Typography>
-                    <Typography variant='body2' className={classes.chatTextsSub}>Em {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}</Typography>
+                    <Typography variant='body2' className={classes.chatTextsSub}>
+                      {t(`history.chats.page.label.date`)}{' '}
+                      {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}
+                    </Typography>
                   </ListItemText>
                 </ListItem>
               ))}
-              {/* <ListItem>
-                <ListItemText>
-                  <Typography variant='subtitle1' color="primary" className={classes.chatSession}>Agentes</Typography>
-                </ListItemText>
-              </ListItem> */}
             </List>
           </Grid>
           {selectedChat &&
@@ -95,7 +97,7 @@ export const HistoryChatsContainer = () => {
           {!selectedChat &&
             <Grid item xs={12} md={8} className={classes.chatSelectInfo}>
               <div className={classes.chatSelectInfoIcon}>
-              <SpeakerNotesOutlinedIcon style={{ fontSize: '62px' }} />
+                <SpeakerNotesOutlinedIcon style={{ fontSize: '62px' }} />
               </div>
             </Grid>
           }

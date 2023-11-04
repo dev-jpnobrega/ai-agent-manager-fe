@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 
 import { Context } from '../../context/AppContext';
 
@@ -23,6 +24,8 @@ const useStyles = makeStyles(theme => ({
 function MainContainer(props) {
   const { children, history } = props;
   const classes = useStyles();
+
+  const [t, i18n] = useTranslation('translation')
   
   const [menuOpen, setMobileOpen] = useState(false);
   const [menuNotificationOpen, setMenuNotificationOpen] = useState(false);
@@ -42,6 +45,10 @@ function MainContainer(props) {
 
   function onClickCart(event) {
     return history.push('/cart');
+  }
+
+  function onSelectLanguage(lang) {
+    lang && i18n.changeLanguage(lang);
   }
 
   useEffect(() => {
@@ -64,7 +71,8 @@ function MainContainer(props) {
         handleDrawerNotificationToggle={handleDrawerNotificationToggle}
         menuOpen={menuOpen}
         menuNotificationOpen={menuNotificationOpen}
-        onClickCart={onClickCart} />
+        onClickCart={onClickCart} 
+        onSelectLanguage={onSelectLanguage}/>
       <Menu handleDrawerToggle={handleDrawerToggle} menuOpen={menuOpen}>
         <MenuItems items={routers.filter(item => item.showMenu === true)} />
       </Menu>

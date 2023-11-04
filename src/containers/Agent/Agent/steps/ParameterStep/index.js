@@ -2,223 +2,111 @@ import React from 'react';
 import { Grid, TextField, Typography } from '@material-ui/core';
 
 import { get } from 'lodash';
+import { withTranslation } from 'react-i18next';
 
-export const ParameterStep = ({ handleAgentChange, agent }) => {
+const ParameterStep = ({ handleAgentChange, agent, t }) => {
+  const parametersConfig = [
+    {
+      title: t('agent.page.form.step.parameter.chat.config'),
+      namePath: 'chatConfig',
+      fields: [
+        {
+          label: t('agent.page.form.step.parameter.chat.config.temperature'),
+          name: 'temperature',
+        },
+        {
+          label: t('agent.page.form.step.parameter.chat.config.topP'),
+          name: 'topP',
+        },
+        {
+          label: t('agent.page.form.step.parameter.chat.config.penalty.frequency'),
+          name: 'frequencyPenalty',
+        },
+        {
+          label: t('agent.page.form.step.parameter.chat.config.penalty.presence'),
+          name: 'presencePenalty',
+        },
+        {
+          label: t('agent.page.form.step.parameter.chat.config.max.tokens'),
+          name: 'maxTokens',
+        }
+      ]
+    },
+    {
+      title: t('agent.page.form.step.parameter.llm.config'),
+      namePath: 'llmConfig',
+      fields: [
+        {
+          label: t('agent.page.form.step.parameter.llm.config.type'),
+          name: 'type',
+        },
+        {
+          label: t('agent.page.form.step.parameter.llm.config.model'),
+          name: 'model',
+        },
+        {
+          label: t('agent.page.form.step.parameter.llm.config.instance'),
+          name: 'instance',
+        },
+        {
+          label: t('agent.page.form.step.parameter.llm.config.api.key'),
+          name: 'apiKey',
+        },
+        {
+          label: t('agent.page.form.step.parameter.llm.config.api.version'),
+          name: 'apiVersion',
+        }
+      ]
+    },
+    {
+      title: t('agent.page.form.step.parameter.system.message'),
+      namePath: '',
+      fields: [
+        {
+          name: 'systemMesssage',
+        }
+      ]
+    }
+  ]
+
   return (
     <>
-      <Grid item xs={12} sm={6} style={{ marginTop: '12px' }}>
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant='subtitle2' color='textSecondary'>Chat Config</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Temperature*</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="temperature"
-                  onChange={(e) => handleAgentChange(e, 'chatConfig')}
-                  size="small"
-                  value={get(agent, 'chatConfig.temperature', '')}
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
+      {parametersConfig.map((config, index) => (
+        <Grid item xs={12} sm={index === 2 ? '' : 6} style={{ marginTop: '12px' }} key={`parameters-config${index}`}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Typography variant='subtitle2' color='textSecondary'>{config.title}</Typography>
             </Grid>
+            {config.fields.map((field, index) => (
+              <Grid item xs={12} key={`parameters-config-${field.namePath}${index}`}>
+                <Grid container spacing={2} justifyContent="center"
+                  alignItems="center">
+                  {
+                    field.label &&
+                    <Grid item xs={4}>
+                      <Typography variant='body2'>{field.label}{field.required ? '*' : ''}</Typography>
+                    </Grid>
+                  }
 
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Top P*</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="topP"
-                  onChange={(e) => handleAgentChange(e, 'chatConfig')}
-                  value={get(agent, 'chatConfig.topP', '')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Frequency Penalty*</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="frequencyPenalty"
-                  onChange={(e) => handleAgentChange(e, 'chatConfig')}
-                  value={get(agent, 'chatConfig.frequencyPenalty', '')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Presence Penalty*</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="presencePenalty"
-                  onChange={(e) => handleAgentChange(e, 'chatConfig')}
-                  value={get(agent, 'chatConfig.presencePenalty', '')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Max Tokens</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="maxTokens"
-                  onChange={(e) => handleAgentChange(e, 'chatConfig')}
-                  value={get(agent, 'chatConfig.maxTokens', '')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12} sm={6} style={{ marginTop: '12px' }}>
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant='subtitle2' color='textSecondary'>LLM Config</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Type</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="type"
-                  onChange={(e) => handleAgentChange(e, 'llmConfig')}
-                  value={get(agent, 'llmConfig.type', '')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Model</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="model"
-                  onChange={(e) => handleAgentChange(e, 'llmConfig')}
-                  value={get(agent, 'llmConfig.model', '')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>Instance</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="instance"
-                  onChange={(e) => handleAgentChange(e, 'llmConfig')}
-                  value={get(agent, 'llmConfig.instance', '')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>API Key</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="apiKey"
-                  onChange={(e) => handleAgentChange(e, 'llmConfig')}
-                  value={get(agent, 'llmConfig.apiKey', '')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <Grid item xs={4}>
-                <Typography variant='body2'>API Version</Typography>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField
-                  required
-                  name="apiVersion"
-                  onChange={(e) => handleAgentChange(e, 'llmConfig')}
-                  value={get(agent, 'llmConfig.apiVersion', '')}
-                  size="small"
-                  style={{ width: '100%', maxWidth: '250px' }}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
+                  <Grid item xs={field.label ? 8 : 12}>
+                    <TextField
+                      required
+                      name={field.name}
+                      onChange={(e) => handleAgentChange(e, config.namePath)}
+                      size="small"
+                      value={get(agent, `${config.namePath ? config.namePath + '.' : ''}${field.name}`, '')}
+                      style={{ width: '100%', maxWidth: field.label ? '250px' : '' }}
+                    />
+                  </Grid>
+                </Grid>
 
-        </Grid>
-      </Grid>
-      <Grid item xs={12} style={{ marginTop: '12px' }}>
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant='subtitle2' color='textSecondary'>System Message</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              name="systemMesssage"
-              onChange={(e) => handleAgentChange(e)}
-              value={get(agent, 'systemMesssage', '')}
-              size="small"
-              style={{ width: '100%' }}
-            />
+              </Grid>
+            ))}
           </Grid>
         </Grid>
-      </Grid>
+      ))}
     </>
   )
 }
+
+export default withTranslation()(ParameterStep);

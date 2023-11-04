@@ -11,10 +11,12 @@ import FileUploader from '../../containers/FIleUploader';
 import { useStyles } from './styles';
 import { ChatMessage } from './ChatMessage';
 import { ChatAnsweringLoad } from './ChatAnsweringLoad';
+import { useTranslation } from 'react-i18next';
 
 export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocally, sendMessage }) => {
   const mobile = useMediaQuery('(max-width:400px)');
-
+  const [t] = useTranslation('translation'
+  )
   const chatInputRef = useRef()
   const chatRef = useRef()
 
@@ -141,7 +143,7 @@ export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocall
             color="primary"
             className={classes.sendButton}
             onClick={handleSendButton}>
-            SEND
+            {t('agent.page.chat.send')}
           </Button>
         </div>
       </DialogActions>

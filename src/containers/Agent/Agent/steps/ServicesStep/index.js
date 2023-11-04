@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Checkbox, FormControlLabel, FormGroup, Typography } from '@material-ui/core';
 
-export const ServicesStep = ({ handleAgentChange, newAgent }) => {
+const ServicesStep = ({ handleAgentChange, newAgent }) => {
   const [checkBoxState, setCheckBoxState] = useState({
     ingestionEnable: false,
     apiEnable: false
@@ -123,3 +123,5 @@ export const ServicesStep = ({ handleAgentChange, newAgent }) => {
     </>
   )
 }
+
+export default ServicesStep;
