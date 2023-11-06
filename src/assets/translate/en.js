@@ -69,6 +69,7 @@ export default {
     'agent.page.form.step.cognitive.enable.name': 'Search Name',
     'agent.page.form.step.cognitive.enable.version': 'Search Version',
     'agent.page.form.step.cognitive.enable.type': 'Search Type',
+    'agent.page.form.step.cognitive.enable.model': 'Search Model',
 
     'agent.page.form.step.database.enable.title': 'Database Config',
     'agent.page.form.step.database.enable.type': 'Type',

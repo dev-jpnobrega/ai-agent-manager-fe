@@ -33,6 +33,10 @@ const CognitiveStep = ({ handleAgentChange, agent, t }) => {
         {
           label: t('agent.page.form.step.cognitive.enable.type'),
           name: 'type',
+        },
+        {
+          label: t('agent.page.form.step.cognitive.enable.model'),
+          name: 'model',
         }
       ]
     }
