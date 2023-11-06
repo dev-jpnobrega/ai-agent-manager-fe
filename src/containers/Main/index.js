@@ -2,8 +2,9 @@ import React, { useState, useContext, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 
-import { Context } from '../../context';
+import { Context } from '../../context/AppContext';
 
 import AppBar from '../../components/AppBar';
 import Menu from '../../components/Menu';
@@ -13,7 +14,6 @@ import routers from '../../routers';
 
 import * as userActions from '../Profile/profile-actions';
 import * as userService from '../../service/user-service';
-import * as cartService from '../../service/cart-service';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,12 +24,14 @@ const useStyles = makeStyles(theme => ({
 function MainContainer(props) {
   const { children, history } = props;
   const classes = useStyles();
+
+  const [_, i18n] = useTranslation('translation')
   
   const [menuOpen, setMobileOpen] = useState(false);
   const [menuNotificationOpen, setMenuNotificationOpen] = useState(false);
  
   const [ state, dispatch ] = useContext(Context);
-  const { cart, user } = state;
+  const { user } = state;
 
   const { notifications: { notifications } } = state;
 
@@ -45,6 +47,10 @@ function MainContainer(props) {
     return history.push('/cart');
   }
 
+  function onSelectLanguage(lang) {
+    lang && i18n.changeLanguage(lang);
+  }
+
   useEffect(() => {
     if (!user) {
       userService.userInfo().then(user => {
@@ -56,26 +62,17 @@ function MainContainer(props) {
     }    
   }, [ user ]);
 
-  useEffect(() => {
-    if (!cart.hasFetched) {
-      const data = cartService.get();
-      dispatch({
-        type: 'CART_FETCHED',
-        cart: { ...data },
-      });
-    }    
-  }, [ cart ]);
 
   return (
     <div className={classes.root}>
       <AppBar
-        badgeCartContent={cart.items.length}
         badgeNotificationContent={notifications.length}
         handleDrawerToggle={handleDrawerToggle}
         handleDrawerNotificationToggle={handleDrawerNotificationToggle}
         menuOpen={menuOpen}
         menuNotificationOpen={menuNotificationOpen}
-        onClickCart={onClickCart} />
+        onClickCart={onClickCart} 
+        onSelectLanguage={onSelectLanguage}/>
       <Menu handleDrawerToggle={handleDrawerToggle} menuOpen={menuOpen}>
         <MenuItems items={routers.filter(item => item.showMenu === true)} />
       </Menu>

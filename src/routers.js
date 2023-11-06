@@ -5,6 +5,8 @@ import Agents from './pages/ListAgents';
 import Agent from './pages/Agent';
 import UseCases from './pages/UseCases';
 import Permissions from './pages/Permissions';
+import { getLocallyChats } from './service/chat-service';
+import HistoryChats from './pages/HistoryChats';
 
 export default [
   {
@@ -31,6 +33,13 @@ export default [
     showMenu: false,
     title: 'create.agents',
     description: 'Agents'
+  },
+  {
+    path: "/history-chats",
+    component: HistoryChats,
+    showMenu: !!getLocallyChats(),
+    title: 'history.chats',
+    description: 'Chats'
   },
   {
     path: "/use-cases",

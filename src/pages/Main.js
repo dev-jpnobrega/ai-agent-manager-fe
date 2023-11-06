@@ -1,12 +1,10 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Divider  from '@material-ui/core/Divider';
 
 import MainContainer from '../containers/Main';
-import NewsContainer from '../containers/News';
-import ProductsContainer from '../containers/Products';
 import PageBase from './PageBase';
+import { useTranslation } from 'react-i18next';
 
 const drawerWidth = 260
 
@@ -143,14 +141,12 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function Main() {
+  const [t] = useTranslation('translation');
   const classes = useStyles();
 
   return (
     <MainContainer classes={classes}>
-      <PageBase>
-        <ProductsContainer />
-        <Divider variant="middle" className={classes.divider} />
-        <NewsContainer />
+      <PageBase title={t('home.welcome')}>
       </PageBase>
     </MainContainer>
   )
