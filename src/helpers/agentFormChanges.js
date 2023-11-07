@@ -1,35 +1,53 @@
-import { omitBy, isNil, cloneDeep } from "lodash";
+import { omitBy, isUndefined, cloneDeep, isEmpty, pickBy } from "lodash";
 
 export const agentFormChanges = (agent, event, path = '') => {
   const { name, value, checked } = event.target;
+  const validateValue = /^\s/.test(value) ? '' : value;
 
   if (name === 'debug') return ({ ...agent, [name]: checked });
   if (name === 'synchronize') return ({ ...agent, [path]: { ...agent[path], [name]: checked } });
   if (['includesTables', 'indexes'].includes(name)) {
-    return ({ ...agent, [path]: { ...agent[path], [name]: value ? [value] : [] } });
+    return ({ ...agent, [path]: { ...agent[path], [name]: validateValue ? [validateValue] : [] } });
   }
-  if (path) return ({ ...agent, [path]: { ...agent[path], [name]: value ? value : undefined } });
+  if (path) return ({ ...agent, [path]: { ...agent[path], [name]: validateValue ? validateValue : undefined } });
 
-  return ({ ...agent, [name]: value ? value : undefined  });
+  return ({ ...agent, [name]: validateValue ? validateValue : undefined });
 }
 
 export const agentRequestFeedback = (type, feedback, t) => {
   const feedbacks = {
     saved: {
       success: { title: t('agent.page.form.snackbar.saved.success'), severity: 'success' },
-      error: { title: t( 'agent.page.form.snackbar.saved.error'), severity: 'error' }
+      error: { title: t('agent.page.form.snackbar.saved.error'), severity: 'error' }
     },
     deleted: {
-      success: { title: t( 'agent.page.form.snackbar.deleted.success'), severity: 'success' },
-      error: { title: t( 'agent.page.form.snackbar.error.success'), severity: 'error' }
+      success: { title: t('agent.page.form.snackbar.deleted.success'), severity: 'success' },
+      error: { title: t('agent.page.form.snackbar.error.success'), severity: 'error' }
     }
   }
 
   return feedbacks[type][feedback ? 'success' : 'error']
 }
 
+export const removeUndefinedAgentItems = (agent) => {
+  const formattedAgent = {
+    ...removeUndefinedItems(agent),
+    llmConfig: removeUndefinedItems(agent.llmConfig),
+    chatConfig: removeUndefinedItems(agent.chatConfig),
+    vectorStoreConfig: removeUndefinedItems(agent.vectorStoreConfig),
+    dbHistoryConfig: removeUndefinedItems(agent.dbHistoryConfig),
+    dataSourceConfig: removeUndefinedItems(agent.dataSourceConfig)
+  }
+
+  if (formattedAgent.dataSourceConfig && !formattedAgent.dataSourceConfig.name && typeof formattedAgent.dataSourceConfig.synchronize === 'boolean') delete formattedAgent.dataSourceConfig
+
+  return pickBy(formattedAgent, value => !isEmpty(value));
+}
+
+const removeUndefinedItems = (object) => omitBy(object, isUndefined)
+
 const checkObjectIsCompletedOrEmpty = (object, objectCompletedSize) => {
-  const objectSize =  Object.keys(omitBy(object, isNil)).length
+  const objectSize = Object.keys(removeUndefinedItems(object)).length
 
   return objectSize === objectCompletedSize || objectSize === 0
 }

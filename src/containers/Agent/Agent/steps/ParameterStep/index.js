@@ -37,10 +37,7 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
       title: t('agent.page.form.step.parameter.llm.config'),
       namePath: 'llmConfig',
       fields: [
-        {
-          label: t('agent.page.form.step.parameter.llm.config.type'),
-          name: 'type',
-        },
+        
         {
           label: t('agent.page.form.step.parameter.llm.config.model'),
           name: 'model',
@@ -52,12 +49,18 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
         {
           label: t('agent.page.form.step.parameter.llm.config.api.key'),
           name: 'apiKey',
-          type: 'password',
+          inputType: 'password',
         },
         {
           label: t('agent.page.form.step.parameter.llm.config.api.version'),
           name: 'apiVersion',
-        }
+        },
+        {
+          label: t('agent.page.form.step.parameter.llm.config.type'),
+          name: 'type',
+          type: 'select',
+          values: ['azure', 'aws', 'gcp']
+        },
       ]
     },
     {
@@ -90,7 +93,6 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
                     field={field}
                     handleAgentChange={handleAgentChange}
                     value={get(agent, `${config.namePath ? config.namePath + '.' : ''}${field.name}`, '')}
-                    style={{ width: '100%', maxWidth: field.label ? '250px' : '' }}
                  />
                 </Grid>
               </Grid>

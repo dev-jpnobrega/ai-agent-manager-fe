@@ -34,6 +34,8 @@ export default {
     'agent.page.form.next': 'Next',
     'agent.page.form.save': 'Save',
 
+    'agent.page.form.select.input.nome': 'NONE',
+
     'agent.page.form.step.parameter': 'Parameters',
     'agent.page.form.step.history.enable': 'History Enable',
     'agent.page.form.step.cognitive.enable': 'Cognitive Enable',

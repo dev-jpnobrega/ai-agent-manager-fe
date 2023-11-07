@@ -11,10 +11,7 @@ const HistoryStep = ({ handleAgentChange, agent, t }) => {
       title: t('agent.page.form.step.history.enable.title'),
       namePath: 'dbHistoryConfig',
       fields: [
-        {
-          label: t('agent.page.form.step.history.enable.type'),
-          name: 'type',
-        },
+        
         {
           label: t('agent.page.form.step.history.enable.host'),
           name: 'host',
@@ -26,12 +23,18 @@ const HistoryStep = ({ handleAgentChange, agent, t }) => {
         {
           label: t('agent.page.form.step.history.enable.password'),
           name: 'password',
-          type: 'password',
+          inputType: 'password',
         },
         {
           label: t('agent.page.form.step.history.enable.session.ttl'),
           name: 'sessionTTL',
-        }
+        },
+        {
+          label: t('agent.page.form.step.history.enable.type'),
+          name: 'type',
+          type: 'select',
+          values: ['redis', 'cosmos']
+        },
       ]
     },
   ]
@@ -54,7 +57,6 @@ const HistoryStep = ({ handleAgentChange, agent, t }) => {
                     agent={agent}
                     field={field}
                     handleAgentChange={handleAgentChange}
-                    style={{ width: '100%', maxWidth: field.label ? '250px' : '' }}
                     value={get(agent, `${config.namePath ? config.namePath + '.' : ''}${field.name}`, '')}
                   />
                 </Grid>

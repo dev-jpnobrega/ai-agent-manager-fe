@@ -34,6 +34,8 @@ export default {
     'agent.page.form.next': 'Próximo',
     'agent.page.form.save': 'Salvar',
 
+    'agent.page.form.select.input.nome': 'NENHUM',
+
     'agent.page.form.step.parameter': 'Parâmetros',
     'agent.page.form.step.history.enable': 'History Enable',
     'agent.page.form.step.cognitive.enable': 'Cognitive Enable',

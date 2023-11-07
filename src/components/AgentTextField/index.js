@@ -1,8 +1,12 @@
 import React from "react"
 import { get } from 'lodash'
-import { Grid, TextField, Typography, FormControlLabel, Switch } from '@material-ui/core';
+import { Select, MenuItem, FormControl, Grid, InputLabel, TextField, Typography, FormControlLabel, Switch } from '@material-ui/core';
+import { useTranslation } from "react-i18next";
 
-export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid = 8, value, style }) => {
+export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid = 8, value }) => {
+  const [t] = useTranslation('translation')
+  const { type = 'input' } = field
+
   return (
     <>
       {
@@ -12,8 +16,8 @@ export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid
         </Grid>
       }
 
-      <Grid item xs={xsGrid}>
-        {field.name === 'synchronize' ?
+      <Grid item xs={xsGrid} style={{ paddingTop: '12px' }}>
+        {type === 'switch' &&
           <FormControlLabel
             control={
               <Switch
@@ -26,16 +30,38 @@ export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid
             value={get(agent, 'dataSourceConfig.synchronize', false)}
             style={{ color: 'black', marginTop: '10px' }}
           />
-          :
+        }
+        {type == 'input' &&
           <TextField
             required
             name={field.name}
             onChange={(e) => handleAgentChange(e, config.namePath)}
-            size="small"
-            type={field.type || 'text'}
+            type={field.inputType || 'text'}
             value={value}
-            style={style}
+            style={{ width: '100%', paddingRight: '30px' }}
+            variant="outlined"
           />
+        }
+        {
+          type === 'select' &&
+          <FormControl
+            variant="outlined"
+            style={{ width: '100%', paddingRight: '30px' }}>
+            <Select
+              name={field.name}
+              value={value}
+              onChange={(e) => handleAgentChange(e, config.namePath)}
+            >
+              <MenuItem value="" style={{ color: '#bdbdbd' }}>
+                <em>
+                  {t('agent.page.form.select.input.nome')}
+                </em>
+              </MenuItem>
+              {field.values.map((value, index) => (
+                <MenuItem key={`select-${index}`} value={value} style={{ textTransform: 'uppercase' }}>{value}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         }
       </Grid>
     </>

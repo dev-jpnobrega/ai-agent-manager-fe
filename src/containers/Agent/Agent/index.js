@@ -124,10 +124,10 @@ const AgentContainer = ({ history, currentAgent }) => {
                     <TextField
                       required
                       name="name"
-                      size="small"
+                      variant="outlined" 
                       onChange={(e) => handleAgentChange(e)}
                       value={agent.name}
-                      style={{ width: '100%', maxWidth: '500px' }}
+                      style={{ width: '100%' }}
                     />
                   </Grid>
                   <Grid item xs={12} sm={2}>

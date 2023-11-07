@@ -1,5 +1,6 @@
 import axios from "axios";
 import { get } from 'lodash'
+import { removeUndefinedAgentItems, removeUndefinedItems } from "../helpers/agentFormChanges";
 
 const headers = {
   authorization: process.env.REACT_APP_AUTHORIZATION
@@ -34,9 +35,14 @@ export const getAgent = async (agent) => {
 }
 
 export const saveAgent = async (agent) => {
+  const formattedAgent = {
+    ...agent,
+    value: removeUndefinedAgentItems(agent.value)
+  }
+
   const data = await axios.post(
     `${process.env.REACT_APP_BASE_URL}/v1/agent`,
-    agent,
+    formattedAgent,
     { headers })
     .then((response) => {
       return response.data

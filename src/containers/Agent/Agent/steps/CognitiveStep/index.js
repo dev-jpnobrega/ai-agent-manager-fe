@@ -14,7 +14,7 @@ const CognitiveStep = ({ handleAgentChange, agent, t }) => {
         {
           label: t('agent.page.form.step.cognitive.enable.api.key'),
           name: 'apiKey',
-          type: 'password',
+          inputType: 'password',
         },
         {
           label: t('agent.page.form.step.cognitive.enable.name'),
@@ -32,14 +32,17 @@ const CognitiveStep = ({ handleAgentChange, agent, t }) => {
           label: t('agent.page.form.step.cognitive.enable.vector.name'),
           name: 'vectorFieldName',
         },
-        {
-          label: t('agent.page.form.step.cognitive.enable.type'),
-          name: 'type',
-        },
+        
         {
           label: t('agent.page.form.step.cognitive.enable.model'),
           name: 'model',
-        }
+        },
+        {
+          label: t('agent.page.form.step.cognitive.enable.type'),
+          name: 'type',
+          type: 'select',
+          values: ['redis', 'cosmos']
+        },
       ]
     }
   ]
@@ -63,7 +66,6 @@ const CognitiveStep = ({ handleAgentChange, agent, t }) => {
                     field={field}
                     handleAgentChange={handleAgentChange}
                     value={get(agent, `${config.namePath ? config.namePath + '.' : ''}${field.name}`, '')}
-                    style={{ width: '100%', maxWidth: field.label ? '250px' : '' }}
                   />
                 </Grid>
               </Grid>
