@@ -42,7 +42,7 @@ const CodeBlock = memo(({ language, value }) => {
   return (
     <div className="codeblock relative w-full font-sans">
       <SyntaxHighlighter
-        language={'javascript'}
+        language={language}
         style={coldarkDark}
         PreTag="div"
         showLineNumbers
