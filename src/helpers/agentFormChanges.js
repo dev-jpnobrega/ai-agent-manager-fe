@@ -88,5 +88,7 @@ export const handleFormValidation = (activeStep, agent) => {
       return checkStepCognitiveComplete(agent)
     case 3:
       return checkStepDatabaseComplete(agent) && checkStepsComplete(agent)
+    default:
+      return false
   }
 }

@@ -1,6 +1,6 @@
 import React from "react"
 import { get } from 'lodash'
-import { Select, MenuItem, FormControl, Grid, InputLabel, TextField, Typography, FormControlLabel, Switch } from '@material-ui/core';
+import { Select, MenuItem, FormControl, Grid, TextField, Typography, FormControlLabel, Switch } from '@material-ui/core';
 import { useTranslation } from "react-i18next";
 
 export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid = 8, value }) => {
@@ -31,7 +31,7 @@ export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid
             style={{ color: 'black', marginTop: '10px' }}
           />
         }
-        {type == 'input' &&
+        {type === 'input' &&
           <TextField
             required
             name={field.name}

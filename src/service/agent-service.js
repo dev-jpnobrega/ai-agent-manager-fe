@@ -1,6 +1,6 @@
 import axios from "axios";
 import { get } from 'lodash'
-import { removeUndefinedAgentItems, removeUndefinedItems } from "../helpers/agentFormChanges";
+import { removeUndefinedAgentItems } from "../helpers/agentFormChanges";
 
 const headers = {
   authorization: process.env.REACT_APP_AUTHORIZATION
