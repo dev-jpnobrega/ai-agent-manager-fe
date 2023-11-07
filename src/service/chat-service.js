@@ -22,7 +22,7 @@ export const sendMessage = async (message, chatUid, agent) => {
     formatSendMessage(message, chatUid, agent),
     { headers })
     .then((response) => {
-      return response.data
+      return JSON.stringify(response.data)
     })
     .catch((error) => {
       return { error: get(error, 'response.data', 'error') }
