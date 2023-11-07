@@ -1,4 +1,6 @@
 import axios from "axios";
+import { get } from 'lodash'
+import { removeUndefinedAgentItems } from "../helpers/agentFormChanges";
 
 const headers = {
   authorization: process.env.REACT_APP_AUTHORIZATION
@@ -12,7 +14,7 @@ export const getAgents = async () => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     })
 
   return data || false
@@ -26,22 +28,27 @@ export const getAgent = async (agent) => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     });
 
   return data || {}
 }
 
 export const saveAgent = async (agent) => {
+  const formattedAgent = {
+    ...agent,
+    value: removeUndefinedAgentItems(agent.value)
+  }
+
   const data = await axios.post(
     `${process.env.REACT_APP_BASE_URL}/v1/agent`,
-    agent,
+    formattedAgent,
     { headers })
     .then((response) => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     })
 
 
@@ -57,7 +64,7 @@ export const updateAgent = async (agent) => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     })
 
 
@@ -72,7 +79,7 @@ export const deleteAgent = async (key) => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     })
 
 

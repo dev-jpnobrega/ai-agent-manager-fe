@@ -9,7 +9,7 @@ export default {
 
     'menu.item.use.cases': 'Casos de Uso',
     'menu.item.permissions': 'Permisos',
-    'menu.item.agents': 'Agentes',    
+    'menu.item.agents': 'Agentes',
     'menu.item.history.chats': 'Historial de chat',
 
     'agent.page.title': 'Agentes',
@@ -33,6 +33,8 @@ export default {
     'agent.page.form.previous': 'Anterior',
     'agent.page.form.next': 'Siguiente',
     'agent.page.form.save': 'Guardar',
+
+    'agent.page.form.select.input.nome': 'NINGUNO',
 
     'agent.page.form.step.parameter': 'Parámetros',
     'agent.page.form.step.history.enable': 'History Enable',
@@ -69,10 +71,12 @@ export default {
     'agent.page.form.step.cognitive.enable.name': 'Search Name',
     'agent.page.form.step.cognitive.enable.version': 'Search Version',
     'agent.page.form.step.cognitive.enable.type': 'Search Type',
+    'agent.page.form.step.cognitive.enable.model': 'Search Model',
 
     'agent.page.form.step.database.enable.title': 'Configuración de Database',
     'agent.page.form.step.database.enable.type': 'Type',
     'agent.page.form.step.database.enable.host': 'Host',
+    'agent.page.form.step.database.enable.schema': 'Schema',
     'agent.page.form.step.database.enable.username': 'Username',
     'agent.page.form.step.database.enable.port': 'Port',
     'agent.page.form.step.database.enable.datasource': 'Data Source',
@@ -83,8 +87,18 @@ export default {
     'agent.page.form.step.database.enable.synchronize': 'Synchronize',
     'agent.page.form.step.database.enable.custom.message': 'Customize System Message',
 
+    'agent.page.form.snackbar.saved.success': 'Agente guardado con exito.',
+    'agent.page.form.snackbar.saved.error': 'Hubo un error al guardar el agente.',
+    'agent.page.form.snackbar.deleted.success': 'Agente eliminado con exito.',
+    'agent.page.form.snackbar.deleted.error': 'Hubo un error al eliminar el agente.',
+
+
     'history.chats.page.label.no.results': 'No hay historial de chats',
     'history.chats.page.label.results': 'Historial',
-    'history.chats.page.label.date': 'En'
+    'history.chats.page.label.date': 'En',
+
+    'agent.custom': 'Agent Personalizado',
+    'agent.specialized': 'Agent Predeterminado',
+    'chat.agent.custom.info': 'Esta es una conversación con el agente predeterminado. Por favor, carga archivos para comenzar.'
   }
 }

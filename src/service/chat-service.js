@@ -1,4 +1,5 @@
 import axios from "axios";
+import { get } from "lodash";
 
 const CHATS_LOCAL_STORAGE = 'chats'
 
@@ -24,7 +25,7 @@ export const sendMessage = async (message, chatUid, agent) => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     })
 
   return data || []
@@ -45,7 +46,7 @@ export const uploadFiles = async (files, chatUid, agent) => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     })
 
   return data || []

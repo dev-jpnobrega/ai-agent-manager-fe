@@ -1,7 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
+
+import { v4 as uuidv4 } from 'uuid';
 
 import { Grid, Paper, Typography, Box, Button, Divider } from '@material-ui/core';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
@@ -14,7 +16,6 @@ import SlackIcon from '../../../assets/images/slack.svg';
 import { useStyles } from './styles'
 
 import { AGENTS_SET_AGENTS_LIST } from '../agent-actions';
-import { ChatContainer } from '../../Chat';
 import { getAgents } from '../../../service/agent-service';
 
 const ListAgentsContainer = ({ history }) => {
@@ -24,10 +25,7 @@ const ListAgentsContainer = ({ history }) => {
   const { setSnackbar } = useContext(SnackbarContext)
 
   const [state, dispatch] = useContext(Context);
-  const [chatProps, setChatProps] = useState({
-    open: false,
-    agent: ''
-  });
+
 
   useEffect(async () => {
     const agents = await getAgents()
@@ -39,6 +37,10 @@ const ListAgentsContainer = ({ history }) => {
       agents: agents
     })
   }, [])
+
+  const handleNewChat = (agent) => {
+    window.open(`/chat/${agent}/${uuidv4()}`, '_blank', 'noreferrer');
+  }
 
   return (
     <>
@@ -73,7 +75,7 @@ const ListAgentsContainer = ({ history }) => {
                                 {agent || 'Agent Name'}
                               </Typography>
                             </Box>
-                            <Box mt={1} onClick={() => { setChatProps({ open: true, agent }) }}>
+                            <Box mt={1} onClick={() => { handleNewChat(agent) }}>
                               <Typography variant="body2" className={classes.link}>
                                 {t('agent.page.card.agent.new.chat')}
                               </Typography>
@@ -131,7 +133,6 @@ const ListAgentsContainer = ({ history }) => {
             ))}
           </Grid>
         </Box>
-        <ChatContainer chatProps={chatProps} setChatProps={setChatProps} />
       </section>
     </>
   )

@@ -34,6 +34,8 @@ export default {
     'agent.page.form.next': 'Next',
     'agent.page.form.save': 'Save',
 
+    'agent.page.form.select.input.nome': 'NONE',
+
     'agent.page.form.step.parameter': 'Parameters',
     'agent.page.form.step.history.enable': 'History Enable',
     'agent.page.form.step.cognitive.enable': 'Cognitive Enable',
@@ -69,9 +71,11 @@ export default {
     'agent.page.form.step.cognitive.enable.name': 'Search Name',
     'agent.page.form.step.cognitive.enable.version': 'Search Version',
     'agent.page.form.step.cognitive.enable.type': 'Search Type',
+    'agent.page.form.step.cognitive.enable.model': 'Search Model',
 
     'agent.page.form.step.database.enable.title': 'Database Config',
     'agent.page.form.step.database.enable.type': 'Type',
+    'agent.page.form.step.database.enable.schema': 'Schema',
     'agent.page.form.step.database.enable.host': 'Host',
     'agent.page.form.step.database.enable.username': 'Username',
     'agent.page.form.step.database.enable.port': 'Port',
@@ -83,8 +87,17 @@ export default {
     'agent.page.form.step.database.enable.synchronize': 'Synchronize',
     'agent.page.form.step.database.enable.custom.message': 'Customize System Message',
 
+    'agent.page.form.snackbar.saved.success': 'Agent saved successfully.',
+    'agent.page.form.snackbar.saved.error': 'There was an error while saving the agent.',
+    'agent.page.form.snackbar.deleted.success': 'Agent deleted successfully.',
+    'agent.page.form.snackbar.deleted.error': 'There was an error while deleting the agent.',
+
     'history.chats.page.label.no.results': 'No chat history available',
     'history.chats.page.label.results': 'History',
-    'history.chats.page.label.date': 'At'
+    'history.chats.page.label.date': 'At',
+
+    'agent.custom': 'Custom Agent',
+    'agent.specialized': 'Specialized Agent',
+    'chat.agent.custom.info': 'This is a default agent chat. Please, upload files to begin.'
   }
 }

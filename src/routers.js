@@ -7,6 +7,7 @@ import UseCases from './pages/UseCases';
 import Permissions from './pages/Permissions';
 import { getLocallyChats } from './service/chat-service';
 import HistoryChats from './pages/HistoryChats';
+import Chat from './pages/Chat';
 
 export default [
   {
@@ -40,6 +41,10 @@ export default [
     showMenu: !!getLocallyChats(),
     title: 'history.chats',
     description: 'Chats'
+  },
+  {
+    path: "/chat/:agentUid/:chatUid",
+    component: Chat,
   },
   {
     path: "/use-cases",

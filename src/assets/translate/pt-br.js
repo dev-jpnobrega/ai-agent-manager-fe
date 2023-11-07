@@ -3,7 +3,7 @@ export default {
     'lang.option.ptbr': 'Português',
     'lang.option.en': 'English',
     'lang.option.es': 'Español',
-    
+
     'home.title': 'IA Enterprise',
     'home.welcome': 'Bem vindo ao Painel de IA Enterprise',
 
@@ -33,6 +33,8 @@ export default {
     'agent.page.form.previous': 'Anterior',
     'agent.page.form.next': 'Próximo',
     'agent.page.form.save': 'Salvar',
+
+    'agent.page.form.select.input.nome': 'NENHUM',
 
     'agent.page.form.step.parameter': 'Parâmetros',
     'agent.page.form.step.history.enable': 'History Enable',
@@ -69,10 +71,12 @@ export default {
     'agent.page.form.step.cognitive.enable.name': 'Search Name',
     'agent.page.form.step.cognitive.enable.version': 'Search Version',
     'agent.page.form.step.cognitive.enable.type': 'Search Type',
+    'agent.page.form.step.cognitive.enable.model': 'Search Model',
 
     'agent.page.form.step.database.enable.title': 'Configuração de Database',
     'agent.page.form.step.database.enable.type': 'Type',
     'agent.page.form.step.database.enable.host': 'Host',
+    'agent.page.form.step.database.enable.schema': 'Schema',
     'agent.page.form.step.database.enable.username': 'Username',
     'agent.page.form.step.database.enable.port': 'Port',
     'agent.page.form.step.database.enable.datasource': 'Data Source',
@@ -83,9 +87,17 @@ export default {
     'agent.page.form.step.database.enable.synchronize': 'Synchronize',
     'agent.page.form.step.database.enable.custom.message': 'Customize System Message',
 
+    'agent.page.form.snackbar.saved.success': 'Agente salvo com sucesso.',
+    'agent.page.form.snackbar.saved.error': 'Houve um erro ao salvar o agente.',
+    'agent.page.form.snackbar.deleted.success': 'Agente excluído com sucesso.',
+    'agent.page.form.snackbar.deleted.error': 'Houve um erro ao excluir o agente.',
+
     'history.chats.page.label.no.results': 'Não há histórico de chats',
     'history.chats.page.label.results': 'Histórico',
-    'history.chats.page.label.date': 'Em'
+    'history.chats.page.label.date': 'Em',
 
+    'agent.custom': 'Agente Padrão',
+    'agent.specialized': 'Agente Personalizado',
+    'chat.agent.custom.info': 'Este é um chat com o agente padrão. Por gentileza, realize o upload de arquivos para começar.'
   }
 }

@@ -33,13 +33,13 @@ export const SnackbarProvider = ({ children }) => {
       {children}
       <Snackbar
         open={snackbarState.open}
-        onClose={() => { setSnackbarState({ open: false })}}
+        onClose={() => { setSnackbarState({ open: false }) }}
         ref={snackbarRef}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         autoHideDuration={4000}
       >
-        <Alert severity="success">
-          { snackbarState.title }
+        <Alert severity={snackbarState.severity}>
+          {snackbarState.title}
         </Alert>
       </Snackbar>
     </SnackbarContext.Provider>

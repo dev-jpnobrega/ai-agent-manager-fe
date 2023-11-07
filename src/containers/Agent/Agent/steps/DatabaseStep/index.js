@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid, TextField, FormControlLabel, Switch, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 import { get } from 'lodash';
 import { withTranslation } from 'react-i18next';
+import { AgentTextField } from '../../../../../components/AgentTextField';
 
 const DatabaseStep = ({ handleAgentChange, agent, t }) => {
   const databaseConfig = [
@@ -13,6 +14,10 @@ const DatabaseStep = ({ handleAgentChange, agent, t }) => {
         {
           label: t('agent.page.form.step.database.enable.type'),
           name: 'type',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.schema'),
+          name: 'schema',
         },
         {
           label: t('agent.page.form.step.database.enable.database'),
@@ -33,6 +38,7 @@ const DatabaseStep = ({ handleAgentChange, agent, t }) => {
         {
           label: t('agent.page.form.step.database.enable.password'),
           name: 'password',
+          inputType: 'password',
         },
         {
           label: t('agent.page.form.step.database.enable.port'),
@@ -49,9 +55,15 @@ const DatabaseStep = ({ handleAgentChange, agent, t }) => {
         {
           label: t('agent.page.form.step.database.enable.synchronize'),
           name: 'synchronize',
-        },
+          type: 'switch',
+        }
+      ]
+    },
+    {
+      title: t('agent.page.form.step.database.enable.custom.message'),
+      namePath: 'dataSourceConfig',
+      fields: [
         {
-          label: t('agent.page.form.step.database.enable.custom.message'),
           name: 'customizeSystemMessage',
         }
       ]
@@ -67,41 +79,17 @@ const DatabaseStep = ({ handleAgentChange, agent, t }) => {
               <Typography variant='subtitle2' color='textSecondary'>{config.title}</Typography>
             </Grid>
             {config.fields.map((field, index) => (
-              <Grid item xs={12} sm={6} key={`parameters-config-${field.namePath}${index}`}>
+              <Grid item xs={12} sm={field.label ? 6 : 12} key={`parameters-config-${field.namePath}${index}`}>
                 <Grid container spacing={2} justifyContent="center"
                   alignItems="center">
-                  {
-                    field.label &&
-                    <Grid item xs={4}>
-                      <Typography variant='body2'>{field.label}{field.required ? '*' : ''}</Typography>
-                    </Grid>
-                  }
-
-                  <Grid item xs={8}>
-                    {field.name === 'synchronize' ?
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            color='primary'
-                            name="synchronize"
-                            checked={get(agent, 'dataSourceConfig.synchronize', false)}
-                            onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
-                          />
-                        }
-                        value={get(agent, 'dataSourceConfig.synchronize', false)}
-                        style={{ color: 'black', marginTop: '10px' }}
-                      />
-                      :
-                      <TextField
-                        required
-                        name={field.name}
-                        onChange={(e) => handleAgentChange(e, config.namePath)}
-                        size="small"
-                        value={get(agent, (`${config.namePath ? config.namePath + '.' : ''}${field.name}`), '')}
-                        style={{ width: '100%', maxWidth: field.label ? '250px' : '' }}
-                      />
-                    }
-                  </Grid>
+                    <AgentTextField
+                      xsGrid={field.label ? 8 : 12}
+                      config={config}
+                      agent={agent}
+                      field={field}
+                      handleAgentChange={handleAgentChange}
+                      value={get(agent, `${config.namePath ? config.namePath + '.' : ''}${field.name}`, '')}
+                    />
                 </Grid>
               </Grid>
             ))}
