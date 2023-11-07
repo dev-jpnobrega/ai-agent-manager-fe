@@ -16,7 +16,6 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
   const [t] = useTranslation('translation')
 
   const chatInputRef = useRef()
-  const chatRef = useRef()
 
   const isAgentDefault = chatAgent.agent === 'default'
 
@@ -43,8 +42,10 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
   }
 
   const handleMessagePushed = () => {
-    chatRef.current.click()
-    setTimeout(() => chatInputRef.current.focus(), "500")
+    const element = document.getElementById('chat');
+    if (element) {
+      element.scrollIntoView();
+    }
   }
 
   const sendCurrentMessage = (message) => new Promise(async (resolve, reject) => {
@@ -73,7 +74,7 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
     chatInputRef.current.value = ''
 
     saveChatMessages([...chatMessages, message])
-    handleMessagePushed()
+    setTimeout(() => handleMessagePushed(), 200)
 
     sendCurrentMessage(message)
       .then(() => handleMessagePushed())
@@ -112,7 +113,7 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
             <div>
               <Typography variant='subtitle1' className={classes.dialogTexts}>{chatAgent.agent}</Typography>
               <Typography variant='body2' className={classes.dialogTextsSub}>
-                { isAgentDefault ? t('agent.custom') : t('agent.specialized') }
+                {isAgentDefault ? t('agent.custom') : t('agent.specialized')}
               </Typography>
             </div>
           </Grid>
@@ -132,7 +133,7 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
         }
 
         {
-          chatMessages.length === 0 && isAgentDefault &&
+          uploadedFiles.length === 0 && isAgentDefault &&
           <Alert severity="warning">
             {t('chat.agent.custom.info')}
           </Alert>
@@ -140,7 +141,6 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
 
         {chatMessages.map((chat, index) => <ChatMessage key={`chat-message-agent${index}`} classes={classes} chat={chat} index={index} />)}
         <div id="chat" />
-        <a href="#chat" ref={chatRef}>{''}</a>
         <ChatAnsweringLoad chatMessages={chatMessages} />
       </DialogContent>
       <DialogActions>
