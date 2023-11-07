@@ -1,4 +1,4 @@
-import { isEmpty } from "lodash";
+import { omitBy, isNil, cloneDeep } from "lodash";
 
 export const agentFormChanges = (agent, event, path = '') => {
   const { name, value, checked } = event.target;
@@ -8,9 +8,9 @@ export const agentFormChanges = (agent, event, path = '') => {
   if (['includesTables', 'indexes'].includes(name)) {
     return ({ ...agent, [path]: { ...agent[path], [name]: value ? [value] : [] } });
   }
-  if (path) return ({ ...agent, [path]: { ...agent[path], [name]: value } });
+  if (path) return ({ ...agent, [path]: { ...agent[path], [name]: value ? value : undefined } });
 
-  return ({ ...agent, [name]: value });
+  return ({ ...agent, [name]: value ? value : undefined  });
 }
 
 export const agentRequestFeedback = (type, feedback, t) => {
@@ -28,88 +28,28 @@ export const agentRequestFeedback = (type, feedback, t) => {
   return feedbacks[type][feedback ? 'success' : 'error']
 }
 
+const checkObjectIsCompletedOrEmpty = (object, objectCompletedSize) => {
+  const objectSize =  Object.keys(omitBy(object, isNil)).length
+
+  return objectSize === objectCompletedSize || objectSize === 0
+}
+
 const checkStepParameterComplete = ({ chatConfig = {}, llmConfig = {} }) => {
-  console.log('chatConfig', chatConfig)
-  console.log('llmConfig', llmConfig)
-
-  const {
-    temperature = null,
-    topP = null,
-    frequencyPenalty = null,
-    presencePenalty = null,
-    maxTokens = null
-  } = chatConfig
-
-  const {
-    type = null,
-    model = null,
-    instance = null,
-    apiKey = null,
-    apiVersion = null,
-  } = llmConfig
-
-  return (isEmpty(chatConfig) && isEmpty(llmConfig)) ||
-    ((temperature && topP && frequencyPenalty && presencePenalty && maxTokens) &&
-      (type && model && instance && apiKey && apiVersion)) ||
-    ((!temperature && !topP && !frequencyPenalty && !presencePenalty && !maxTokens) &&
-      (!type && !model && !instance && !apiKey && !apiVersion)) ||
-    ((temperature && topP && frequencyPenalty && presencePenalty && maxTokens) &&
-      (!type && !model && !instance && !apiKey && !apiVersion)) ||
-    ((!temperature && !topP && !frequencyPenalty && !presencePenalty && !maxTokens) &&
-      (type && model && instance && apiKey && apiVersion))
+  return checkObjectIsCompletedOrEmpty(chatConfig, 5) && checkObjectIsCompletedOrEmpty(llmConfig, 5)
 }
 
 const checkStepHistoryComplete = ({ dbHistoryConfig = {} }) => {
-  console.log('dbHistoryConfig', dbHistoryConfig)
-  const {
-    type = null,
-    host = null,
-    port = null,
-    password = null,
-    sessionTTL = null,
-  } = dbHistoryConfig
-
-  return (isEmpty(dbHistoryConfig)) ||
-    (type && host && port && password && sessionTTL) ||
-    (!type && !host && !port && !password && !sessionTTL)
+  return checkObjectIsCompletedOrEmpty(dbHistoryConfig, 5)
 }
 
 const checkStepCognitiveComplete = ({ vectorStoreConfig = {} }) => {
-  console.log('vectorStoreConfig', vectorStoreConfig)
-  const {
-    apiKey = null,
-    apiVersion = null,
-    name = null,
-    type = null,
-    vectorFieldName = null,
-    indexes = [],
-    model = null,
-  } = vectorStoreConfig
-
-  return (isEmpty(vectorStoreConfig)) ||
-    (apiKey && apiVersion && name && type && vectorFieldName && indexes.length > 0 && model) ||
-    (!apiKey && !apiVersion && !name && !type && !vectorFieldName && indexes.length === 0 && !model)
+  return checkObjectIsCompletedOrEmpty(vectorStoreConfig, 7)
 }
 
 const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
-  console.log('dataSourceConfig', dataSourceConfig)
-  const {
-    type = null,
-    schema = null,
-    database = null,
-    host = null,
-    name = null,
-    username = null,
-    password = null,
-    port = null,
-    includesTables = [],
-    customizeSystemMessage = null,
-    dataSource = null,
-  } = dataSourceConfig
-
-  return (isEmpty(dataSourceConfig)) ||
-    (type && schema && database && host && name && username && password && port && includesTables.length > 0 && customizeSystemMessage && dataSource) ||
-    (!type && !schema && !database && !host && !name && !username && !password && !port && includesTables.length === 0 && !customizeSystemMessage && !dataSource)
+  const dataSourceConfigClone = cloneDeep(dataSourceConfig)
+  delete dataSourceConfigClone.synchronize
+  return checkObjectIsCompletedOrEmpty(dataSourceConfigClone, 11)
 }
 
 const checkStepsComplete = ({ name = '', dataSourceConfig = {}, chatConfig = {}, llmConfig = {}, vectorStoreConfig = {}, dbHistoryConfig = {} }) => {

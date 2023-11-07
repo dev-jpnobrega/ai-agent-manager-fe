@@ -4,7 +4,6 @@ import { last, isEmpty } from "lodash";
 import './styles.css'
 
 export const ChatAnsweringLoad = ({ chatMessages }) => {
-  console.log(chatMessages)
   const isLastItemUserMessage = !isEmpty(chatMessages) && last(chatMessages).role === 'User'
 
   return (

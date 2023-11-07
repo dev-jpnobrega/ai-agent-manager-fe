@@ -8,7 +8,6 @@ const ServicesStep = ({ handleAgentChange, newAgent }) => {
   })
 
   const changeCheckBoxState = (event) => {
-    console.log(event)
     setCheckBoxState({ ...checkBoxState, [event.target.name]: event.target.checked });
   }
 
