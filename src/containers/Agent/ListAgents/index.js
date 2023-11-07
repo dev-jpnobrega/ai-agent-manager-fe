@@ -53,7 +53,7 @@ const ListAgentsContainer = ({ history }) => {
             alignItems="center"
           >
             <Grid item>
-              <Button variant="contained" color="primary" onClick={() => { history.push('/agent') }}>
+              <Button variant="contained" color="primary" onClick={() => { history.push('/agent/new') }}>
                 {t('agent.page.button.new.agent')}
               </Button>
             </Grid>
@@ -95,7 +95,7 @@ const ListAgentsContainer = ({ history }) => {
                           <Grid item xs={6}>
                             <EditRoundedIcon
                               style={{ color: '#8898aa', cursor: 'pointer' }}
-                              onClick={() => { history.push(`/agent/`, { agent }) }}
+                              onClick={() => { history.push(`/agent/${agent}`) }}
                             />
                           </Grid>
                         </Grid>

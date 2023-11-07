@@ -133,7 +133,7 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
         }
 
         {
-          chatMessages.length === 0 && isAgentDefault &&
+          uploadedFiles.length === 0 && isAgentDefault &&
           <Alert severity="warning">
             {t('chat.agent.custom.info')}
           </Alert>

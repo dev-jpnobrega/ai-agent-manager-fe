@@ -29,10 +29,17 @@ export default [
     description: 'Agents'
   },
   {
-    path: "/agent",
+    path: "/agent/new",
     component: Agent,
     showMenu: false,
     title: 'create.agents',
+    description: 'Agents'
+  },
+  {
+    path: "/agent/:agentUid",
+    component: Agent,
+    showMenu: false,
+    title: 'edit.agents',
     description: 'Agents'
   },
   {
