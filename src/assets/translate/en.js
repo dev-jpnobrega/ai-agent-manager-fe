@@ -73,6 +73,7 @@ export default {
 
     'agent.page.form.step.database.enable.title': 'Database Config',
     'agent.page.form.step.database.enable.type': 'Type',
+    'agent.page.form.step.database.enable.schema': 'Schema',
     'agent.page.form.step.database.enable.host': 'Host',
     'agent.page.form.step.database.enable.username': 'Username',
     'agent.page.form.step.database.enable.port': 'Port',
@@ -84,8 +85,17 @@ export default {
     'agent.page.form.step.database.enable.synchronize': 'Synchronize',
     'agent.page.form.step.database.enable.custom.message': 'Customize System Message',
 
+    'agent.page.form.snackbar.saved.success': 'Agent saved successfully.',
+    'agent.page.form.snackbar.saved.error': 'There was an error while saving the agent.',
+    'agent.page.form.snackbar.deleted.success': 'Agent deleted successfully.',
+    'agent.page.form.snackbar.deleted.error': 'There was an error while deleting the agent.',
+
     'history.chats.page.label.no.results': 'No chat history available',
     'history.chats.page.label.results': 'History',
-    'history.chats.page.label.date': 'At'
+    'history.chats.page.label.date': 'At',
+
+    'agent.custom': 'Custom Agent',
+    'agent.specialized': 'Specialized Agent',
+    'chat.agent.custom.info': 'This is a default agent chat. Please, upload files to begin.'
   }
 }

@@ -12,7 +12,7 @@ import { agentSupportSettings } from '../../../helpers/agentSupportSettings';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import { SnackbarContext } from '../../../context/SnackbarContext';
-import { agentFormChanges, agentRequestFeedback } from '../../../helpers/agentFormChanges';
+import { agentFormChanges, agentRequestFeedback, handleFormValidation } from '../../../helpers/agentFormChanges';
 
 const getStepContent = (stepIndex, agent, handleAgentChange) => {
   switch (stepIndex) {
@@ -59,7 +59,7 @@ const AgentContainer = ({ history, currentAgent }) => {
   const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   const handleRequestFeedback = (type, feedback) => {
-    const snackBarProps = agentRequestFeedback(type, feedback)
+    const snackBarProps = agentRequestFeedback(type, feedback, t)
     setSnackbar(snackBarProps)
     feedback && history.push('/agents')
   }
@@ -177,10 +177,14 @@ const AgentContainer = ({ history, currentAgent }) => {
                             >
                               {t('agent.page.form.previous')}
                             </Button>
-                            <Button variant="contained" color="primary" onClick={() => {
-                              if (activeStep === steps.length - 1) return handleSaveAgent(agent)
-                              handleNext()
-                            }}>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              disabled={!handleFormValidation(activeStep, agent)}
+                              onClick={() => {
+                                if (activeStep === steps.length - 1) return handleSaveAgent(agent)
+                                handleNext()
+                              }}>
                               {activeStep === steps.length - 1 ? t('agent.page.form.save') : t('agent.page.form.next')}
                             </Button>
                           </Grid>

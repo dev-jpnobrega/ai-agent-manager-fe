@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { useMediaQuery, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, Avatar } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, Avatar } from '@material-ui/core'
 
-import { v4 as uuidv4 } from 'uuid';
+import { Alert } from '@material-ui/lab';
 
 import AdbIcon from '@material-ui/icons/Adb';
-import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
 
 import FileUploader from '../../containers/FIleUploader';
@@ -13,34 +12,31 @@ import { ChatMessage } from './ChatMessage';
 import { ChatAnsweringLoad } from './ChatAnsweringLoad';
 import { useTranslation } from 'react-i18next';
 
-export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocally, sendMessage, uploadFiles }) => {
-  const mobile = useMediaQuery('(max-width:400px)');
-  const [t] = useTranslation('translation'
-  )
+export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) => {
+  const [t] = useTranslation('translation')
+
   const chatInputRef = useRef()
   const chatRef = useRef()
 
-  const classes = useStyles({ mobile });
+  const isAgentDefault = chatAgent.agent === 'default'
+
+  const classes = useStyles()
 
   const [uploadedFiles, setUploadedFiles] = useState([])
   const [chatMessages, setChatMessages] = useState([])
 
-  const chatUid = uuidv4()
-
   const saveChatMessages = (currentChatMessages, files = uploadedFiles) => {
-    saveChatLocally(chatProps.agent, chatUid, currentChatMessages, files)
-    setChatMessages(currentChatMessages)
-  }
+    const { agent, chatUid } = chatAgent
 
-  const handleClose = () => {
-    setChatProps({ open: false, agent: '' });
-    setChatMessages([]);
-    setUploadedFiles([]);
+    saveChatLocally(agent, chatUid, currentChatMessages, files.map(file => file.name))
+    setChatMessages(currentChatMessages)
   }
 
   const handleUploadFiles = (files) => {
     if (files.length) {
-      uploadFiles(files, chatUid, chatProps.agent)
+      const { agent, chatUid } = chatAgent
+
+      uploadFiles(files, chatUid, agent)
       setUploadedFiles(files);
       saveChatMessages(chatMessages, files)
     }
@@ -52,7 +48,9 @@ export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocall
   }
 
   const sendCurrentMessage = (message) => new Promise(async (resolve, reject) => {
-    const agentAnswer = await sendMessage(message, chatUid, chatProps.agent)
+    const { agent, chatUid } = chatAgent
+
+    const agentAnswer = await sendMessage(message, chatUid, agent)
 
     if (agentAnswer) return resolve(saveChatMessages([...chatMessages, message, {
       content: agentAnswer.error ? agentAnswer.error : agentAnswer,
@@ -64,7 +62,7 @@ export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocall
 
   const pushChatMessage = (newMessage) => {
     const message = {
-      id: uuidv4(),
+      id: chatAgent.chatUid,
       content: newMessage,
       role: 'User',
       type: 'message',
@@ -95,31 +93,32 @@ export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocall
 
   return (
     <Dialog
-      open={chatProps.open}
+      open={true}
       maxWidth="sm"
       scroll='paper'
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       className={classes.root}
-      fullScreen={mobile}
+      fullScreen={true}
     >
       <DialogTitle id="alert-dialog-title" className={classes.dialogTitle}>
         <Grid container alignItems='center'>
-          {!mobile &&
-            <Grid item xs={1} className={classes.dialogTitleButtons}>
+          <Grid item xs={9} className={classes.chatAgentInfo} style={{ paddingLeft: '8px' }}>
+            <div>
               <Avatar>
                 <AdbIcon />
               </Avatar>
-            </Grid>
-          }
-          <Grid item xs={mobile ? 9 : 8} style={{ paddingLeft: '8px' }}>
-            <Typography variant='subtitle1' className={classes.dialogTexts}>{chatProps.agent}</Typography>
-            <Typography variant='body2' className={classes.dialogTextsSub}>Specialized Agent</Typography>
+            </div>
+            <div>
+              <Typography variant='subtitle1' className={classes.dialogTexts}>{chatAgent.agent}</Typography>
+              <Typography variant='body2' className={classes.dialogTextsSub}>
+                { isAgentDefault ? t('agent.custom') : t('agent.specialized') }
+              </Typography>
+            </div>
           </Grid>
           <Grid item xs={3} justifyContent='flex-end' className={classes.dialogTitleMenuButtons}>
             <SaveIcon color="action" fontSize="small" />
             <FileUploader uploadedFiles={uploadedFiles} setUploadedFiles={handleUploadFiles} />
-            <CloseIcon color="action" fontSize="small" onClick={() => handleClose()} />
           </Grid>
         </Grid>
       </DialogTitle>
@@ -130,6 +129,13 @@ export const Chat = ({ chatProps = { open: false }, setChatProps, saveChatLocall
             <span style={{ color: 'black', fontWeight: '700' }}> Uploaded files:<br /></span>
             {uploadedFiles.map((file, index) => (<span key={`updated-item${index}`}>{file.name}<br /></span>))}
           </div>
+        }
+
+        {
+          chatMessages.length === 0 && isAgentDefault &&
+          <Alert severity="warning">
+            {t('chat.agent.custom.info')}
+          </Alert>
         }
 
         {chatMessages.map((chat, index) => <ChatMessage key={`chat-message-agent${index}`} classes={classes} chat={chat} index={index} />)}

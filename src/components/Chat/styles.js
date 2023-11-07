@@ -4,8 +4,6 @@ export const useStyles = makeStyles((theme) => ({
   root: props => ({
     '& .MuiDialog-paper': {
       backgroundColor: '#f5f5f5',
-      maxHeight: props.mobile ? '' : '520px',
-      minWidth: props.mobile ? '' : '600px',
     },
   }),
   inputChat: {
@@ -56,4 +54,11 @@ export const useStyles = makeStyles((theme) => ({
     color: '#0000008a',
     marginBottom: '16px',
   },
+  chatAgentInfo: {
+    paddingLeft: '8px',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    gap: '20px',
+  }
 }));

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid, TextField, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 import { get } from 'lodash';
 import { withTranslation } from 'react-i18next';
+import { AgentTextField } from '../../../../../components/AgentTextField';
 
 const ParameterStep = ({ handleAgentChange, agent, t }) => {
   const parametersConfig = [
@@ -51,6 +52,7 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
         {
           label: t('agent.page.form.step.parameter.llm.config.api.key'),
           name: 'apiKey',
+          type: 'password',
         },
         {
           label: t('agent.page.form.step.parameter.llm.config.api.version'),
@@ -81,25 +83,16 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
               <Grid item xs={12} key={`parameters-config-${field.namePath}${index}`}>
                 <Grid container spacing={2} justifyContent="center"
                   alignItems="center">
-                  {
-                    field.label &&
-                    <Grid item xs={4}>
-                      <Typography variant='body2'>{field.label}{field.required ? '*' : ''}</Typography>
-                    </Grid>
-                  }
-
-                  <Grid item xs={field.label ? 8 : 12}>
-                    <TextField
-                      required
-                      name={field.name}
-                      onChange={(e) => handleAgentChange(e, config.namePath)}
-                      size="small"
-                      value={get(agent, `${config.namePath ? config.namePath + '.' : ''}${field.name}`, '')}
-                      style={{ width: '100%', maxWidth: field.label ? '250px' : '' }}
-                    />
-                  </Grid>
+                  <AgentTextField
+                    xsGrid={field.label ? 8 : 12}
+                    config={config}
+                    agent={agent}
+                    field={field}
+                    handleAgentChange={handleAgentChange}
+                    value={get(agent, `${config.namePath ? config.namePath + '.' : ''}${field.name}`, '')}
+                    style={{ width: '100%', maxWidth: field.label ? '250px' : '' }}
+                 />
                 </Grid>
-
               </Grid>
             ))}
           </Grid>

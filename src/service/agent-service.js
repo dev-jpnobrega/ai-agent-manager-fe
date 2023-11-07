@@ -1,4 +1,5 @@
 import axios from "axios";
+import { get } from 'lodash'
 
 const headers = {
   authorization: process.env.REACT_APP_AUTHORIZATION
@@ -12,7 +13,7 @@ export const getAgents = async () => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     })
 
   return data || false
@@ -26,7 +27,7 @@ export const getAgent = async (agent) => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     });
 
   return data || {}
@@ -41,7 +42,7 @@ export const saveAgent = async (agent) => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     })
 
 
@@ -57,7 +58,7 @@ export const updateAgent = async (agent) => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     })
 
 
@@ -72,7 +73,7 @@ export const deleteAgent = async (key) => {
       return response.data
     })
     .catch((error) => {
-      return { error: error.response.data }
+      return { error: get(error, 'response.data', 'error') }
     })
 
 
