@@ -19,6 +19,11 @@ export const useStyles = makeStyles((theme) => ({
   chatTextsSub: {
     color: 'rgba(58, 53, 65, 0.38)'
   },
+  chatListItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
   chatHistory: {
     maxHeight: '450px',
     overflow: 'auto',

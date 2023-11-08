@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import clsx from 'clsx';
 
-import { AppBar, IconButton, Link, Toolbar, Typography, Menu, MenuItem } from '@material-ui/core';
+import { AppBar, IconButton, Toolbar, Typography, Menu, MenuItem } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import TranslateIcon from '@material-ui/icons/Translate';
@@ -11,9 +11,8 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { useStyles } from './styles'
 
-function AppBarComponent({ handleDrawerToggle, menuOpen, onClickCart, onSelectLanguage }) {
+function AppBarComponent({ handleDrawerToggle, menuOpen, onClickTitle, onSelectLanguage }) {
   const classes = useStyles();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const [t] = useTranslation('translation');
@@ -42,10 +41,8 @@ function AppBarComponent({ handleDrawerToggle, menuOpen, onClickCart, onSelectLa
         >
           <MenuIcon />
         </IconButton>
-        <Typography color='textPrimary' variant="h6" noWrap>
-          <Link href="/" color='textPrimary' >
+        <Typography color='textPrimary' variant="body1" noWrap onClick={onClickTitle}>
             {t('home.title')}
-          </Link>
         </Typography>
         <div className={classes.menuRigthButton}>
           <IconButton edge="start" onClick={handleClick}>
@@ -71,7 +68,7 @@ function AppBarComponent({ handleDrawerToggle, menuOpen, onClickCart, onSelectLa
               )
             }
           </Menu>
-          <IconButton edge="start" onClick={onClickCart}>
+          <IconButton edge="start">
             <AccountCircleIcon />
           </IconButton>
           <IconButton

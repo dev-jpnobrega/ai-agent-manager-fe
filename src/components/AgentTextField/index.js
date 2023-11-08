@@ -1,25 +1,26 @@
 import React from "react"
 import { get } from 'lodash'
-import { Select, MenuItem, FormControl, Grid, TextField, Typography, FormControlLabel, Switch } from '@material-ui/core';
+import { useMediaQuery, Select, MenuItem, FormControl, Grid, TextField, Typography, FormControlLabel, Switch } from '@material-ui/core';
 import { useTranslation } from "react-i18next";
 
 import { useStyles } from './styles'
 
 export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid = 8, value }) => {
   const [t] = useTranslation('translation')
-  const classes = useStyles()
+  const mobile = useMediaQuery('(max-width:599px)');
+  const classes = useStyles({ mobile })
   const { type = 'input' } = field
 
   return (
     <>
       {
-        field.label &&
-        <Grid item xs={4}>
+        !mobile && field.label &&
+        <Grid item xs={12} md={4}>
           <Typography variant='body2'>{field.label}{field.required ? '*' : ''}</Typography>
         </Grid>
       }
 
-      <Grid item xs={xsGrid} style={{ paddingTop: '12px' }}>
+      <Grid item xs={12} md={xsGrid} style={{ paddingTop: '12px' }}>
         {type === 'switch' &&
           <FormControlLabel
             control={
@@ -31,7 +32,8 @@ export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid
               />
             }
             value={get(agent, 'dataSourceConfig.synchronize', false)}
-            style={{ color: 'black', marginTop: '10px' }}
+            className={classes.switchForm}
+            label={mobile ? field.label : ''}
           />
         }
         {type === 'input' &&
@@ -44,20 +46,22 @@ export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid
             value={value}
             multiline={field.multiline}
             minRows={field.rows}
-            style={{ width: '100%', paddingRight: '30px' }}
             variant="outlined"
+            label={mobile ? field.label : ''}
           />
         }
         {
           type === 'select' &&
           <FormControl
             variant="outlined"
-            style={{ width: '100%', paddingRight: '30px' }}>
+            className={classes.selectForm}
+            >
             <Select
               name={field.name}
               value={value}
+              label={mobile ? 'Type' : ''}
               onChange={(e) => handleAgentChange(e, config.namePath)}
-              style={{ backgroundColor: '#fff' }}
+              className={classes.select}
             >
               <MenuItem value="" style={{ color: '#bdbdbd' }}>
                 <em>

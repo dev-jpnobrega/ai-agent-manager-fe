@@ -34,7 +34,7 @@ const getStepContent = (stepIndex, agent, handleAgentChange) => {
 const AgentContainer = ({ history, currentAgent }) => {
   const [t] = useTranslation('translation');
   const classes = useStyles();
-  const mobile = useMediaQuery('(max-width:400px)');
+  const mobile = useMediaQuery('(max-width:450px)');
 
   const { setSnackbar } = useContext(SnackbarContext)
 

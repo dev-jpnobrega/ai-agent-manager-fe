@@ -25,7 +25,6 @@ export const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3),
   },
   menuButton: {
-    marginRight: 36,
   },
   menuRigthButton: {
     marginLeft: "auto",
