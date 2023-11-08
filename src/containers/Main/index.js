@@ -44,7 +44,7 @@ function MainContainer(props) {
   }
 
   function onClickCart(event) {
-    return history.push('/cart');
+    // return history.push('/cart');
   }
 
   function onSelectLanguage(lang) {

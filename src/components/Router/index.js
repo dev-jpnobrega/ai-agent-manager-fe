@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import routes from '../../routers';
 
@@ -17,7 +17,7 @@ export default function RouterComponent({ children }) {
   }
 
   return (
-    <HashRouter>
+    <Router>
       { children }
       <Switch>
           {
@@ -26,6 +26,6 @@ export default function RouterComponent({ children }) {
             ))
           }
       </Switch>
-    </HashRouter>
+    </Router>
   )
 }

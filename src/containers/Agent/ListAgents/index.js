@@ -39,7 +39,7 @@ const ListAgentsContainer = ({ history }) => {
   }, [])
 
   const handleNewChat = (agent) => {
-    window.open(`/#/chat/${agent}/${uuidv4()}`, '_blank', 'noreferrer');
+    window.open(`/chat/${agent}/${uuidv4()}`, '_blank', 'noreferrer');
   }
 
   return (
