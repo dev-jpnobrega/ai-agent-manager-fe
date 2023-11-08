@@ -118,8 +118,18 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
             </div>
           </Grid>
           <Grid item xs={3} justifyContent='flex-end' className={classes.dialogTitleMenuButtons}>
-            <SaveIcon color="action" fontSize="small" />
-            <FileUploader uploadedFiles={uploadedFiles} setUploadedFiles={handleUploadFiles} />
+            {isAgentDefault && <>
+              <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                className={classes.button}
+                startIcon={<SaveIcon />}
+              >
+                Salvar
+              </Button>
+              <FileUploader uploadedFiles={uploadedFiles} setUploadedFiles={handleUploadFiles} />
+            </>}
           </Grid>
         </Grid>
       </DialogTitle>
@@ -150,6 +160,7 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
             className={classes.inputChat}
             placeholder='Type your message here...'
             onKeyDown={handleInputKeyDown}
+            disabled={isAgentDefault && uploadFiles.length === 0}
           />
           <Button
             variant="contained"
