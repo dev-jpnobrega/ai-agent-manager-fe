@@ -25,7 +25,7 @@ function MainContainer(props) {
   const { children, history } = props;
   const classes = useStyles();
 
-  const [_, i18n] = useTranslation('translation')
+  const [t, i18n] = useTranslation('translation')
   
   const [menuOpen, setMobileOpen] = useState(false);
   const [menuNotificationOpen, setMenuNotificationOpen] = useState(false);
@@ -49,6 +49,7 @@ function MainContainer(props) {
 
   function onSelectLanguage(lang) {
     lang && i18n.changeLanguage(lang);
+    document.title = t('home.title')
   }
 
   useEffect(() => {
