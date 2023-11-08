@@ -1,30 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { getLocallyChatsList } from "../../service/chat-service";
+import React, { useContext, useEffect, useState } from "react";
+import { getLocallyChatsList, deleteChatLocally } from "../../service/chat-service";
 
 import moment from "moment";
 
 import { Avatar, InputAdornment, Paper, TextField, Box, Grid, List, ListItem, Typography, ListItemIcon, ListItemText } from "@material-ui/core";
 import AdbIcon from '@material-ui/icons/Adb';
 import SearchIcon from '@material-ui/icons/Search';
+import DeleteIcon from '@material-ui/icons/Delete';
 import SpeakerNotesOutlinedIcon from '@material-ui/icons/SpeakerNotesOutlined';
 
 import { useStyles } from './styles';
 import { ChatMessage } from "../../components/Chat/ChatMessage";
 import { useTranslation } from "react-i18next";
+import { SnackbarContext } from "../../context/SnackbarContext";
 
 export const HistoryChatsContainer = () => {
   const [chats, setChats] = useState(getLocallyChatsList())
   const [selectedChat, setSelectedChat] = useState()
   const [t] = useTranslation('translation')
+  const { setSnackbar } = useContext(SnackbarContext)
 
   const classes = useStyles();
 
   useEffect(() => {
-    setChats(getLocallyChatsList)
+    setChats(getLocallyChatsList())
   }, [])
 
   const handleSelectChat = (chat) => {
     setSelectedChat(chat)
+  }
+
+  const handleDeleteChat = (chat) => {
+    deleteChatLocally(chat)
+
+    selectedChat && selectedChat.chatUid === chat.chatUid && setSelectedChat(null)
+    setSnackbar({ title: t('history.chats.page.message.deleted'), severity: 'success' })
+
+    setChats(getLocallyChatsList())
   }
 
   return (
@@ -55,18 +67,23 @@ export const HistoryChatsContainer = () => {
                 </ListItemText>
               </ListItem>
               {chats.map((chat, index) => (
-                <ListItem button key={index} onClick={() => { handleSelectChat(chat) }}>
-                  <ListItemIcon>
+                <ListItem button key={index}>
+                  <ListItemIcon onClick={() => { handleSelectChat(chat) }}>
                     <Avatar>
                       <AdbIcon />
                     </Avatar>
                   </ListItemIcon>
-                  <ListItemText>
-                    <Typography variant='subtitle1' className={classes.chatTexts}>{chat.agent}</Typography>
-                    <Typography variant='body2' className={classes.chatTextsSub}>
-                      {t(`history.chats.page.label.date`)}{' '}
-                      {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}
-                    </Typography>
+                  <ListItemText >
+                    <div className={classes.chatListItem}>
+                      <div onClick={() => { handleSelectChat(chat) }}>
+                        <Typography variant='subtitle1' className={classes.chatTexts}>{chat.agent}</Typography>
+                        <Typography variant='body2' className={classes.chatTextsSub}>
+                          {t(`history.chats.page.label.date`)}{' '}
+                          {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}
+                        </Typography>
+                      </div>
+                      <DeleteIcon color="action" onClick={() => { handleDeleteChat(chat) }}/>
+                    </div>
                   </ListItemText>
                 </ListItem>
               ))}

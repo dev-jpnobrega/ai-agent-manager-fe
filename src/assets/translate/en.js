@@ -98,6 +98,8 @@ export default {
     'history.chats.page.label.results': 'History',
     'history.chats.page.label.date': 'At',
 
+    'history.chats.page.message.deleted': 'Chat deleted successfully.',
+
     'agent.custom': 'Custom Agent',
     'agent.specialized': 'Specialized Agent',
     'chat.agent.custom.info': 'This is a default agent chat. Please, upload files to begin.'

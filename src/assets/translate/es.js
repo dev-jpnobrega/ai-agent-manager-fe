@@ -4,7 +4,7 @@ export default {
     'lang.option.en': 'Ingles',
     'lang.option.es': 'Español',
 
-    'home.title': 'Administración de IA Empresarial',
+    'home.title': 'IA Empresarial',
     'home.welcome': 'Bienvenido al Administración de IA Empresarial',
 
     'menu.item.use.cases': 'Casos de Uso',
@@ -98,6 +98,8 @@ export default {
     'history.chats.page.label.no.results': 'No hay historial de chats',
     'history.chats.page.label.results': 'Historial',
     'history.chats.page.label.date': 'En',
+
+    'history.chats.page.message.deleted': 'Chat eliminado con exito.',
 
     'agent.custom': 'Agent Personalizado',
     'agent.specialized': 'Agent Predeterminado',

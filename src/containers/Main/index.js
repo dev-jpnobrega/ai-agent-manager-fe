@@ -43,12 +43,18 @@ function MainContainer(props) {
     setMenuNotificationOpen(!menuNotificationOpen);
   }
 
-  function onClickCart(event) {
-    // return history.push('/cart');
+  function onClickTitle() {
+    return history.push('/');
   }
 
   function onSelectLanguage(lang) {
     lang && i18n.changeLanguage(lang);
+
+    dispatch({
+      type: userActions.USER_SET_LANGUAGE,
+      language: lang,
+    })
+    
     document.title = t('home.title')
   }
 
@@ -72,7 +78,7 @@ function MainContainer(props) {
         handleDrawerNotificationToggle={handleDrawerNotificationToggle}
         menuOpen={menuOpen}
         menuNotificationOpen={menuNotificationOpen}
-        onClickCart={onClickCart} 
+        onClickTitle={onClickTitle} 
         onSelectLanguage={onSelectLanguage}/>
       <Menu handleDrawerToggle={handleDrawerToggle} menuOpen={menuOpen}>
         <MenuItems items={routers.filter(item => item.showMenu === true)} />

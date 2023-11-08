@@ -97,6 +97,8 @@ export default {
     'history.chats.page.label.results': 'Histórico',
     'history.chats.page.label.date': 'Em',
 
+    'history.chats.page.message.deleted': 'Chat excluído com sucesso.',
+
     'agent.custom': 'Agente Padrão',
     'agent.specialized': 'Agente Personalizado',
     'chat.agent.custom.info': 'Este é um chat com o agente padrão. Por gentileza, realize o upload de arquivos para começar.'

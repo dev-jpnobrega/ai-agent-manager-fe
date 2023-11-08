@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useMediaQuery, Button, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, Avatar } from '@material-ui/core'
+import { useMediaQuery, Button, LinearProgress, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, Avatar } from '@material-ui/core'
 
 import { Alert } from '@material-ui/lab';
 
@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 
 export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) => {
   const [t] = useTranslation('translation')
+  const [uploadingFiles, setUploadingFiles] = useState(false)
   const mobile = useMediaQuery('(max-width:400px)');
 
   const chatInputRef = useRef()
@@ -32,13 +33,19 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
     setChatMessages(currentChatMessages)
   }
 
-  const handleUploadFiles = (files) => {
+  const handleUploadFiles = async (files) => {
     if (files.length) {
       const { agent, chatUid } = chatAgent
 
-      uploadFiles(files, chatUid, agent)
-      setUploadedFiles(files);
-      saveChatMessages(chatMessages, files)
+      setUploadingFiles(true)
+
+      const uploaded = await uploadFiles(files, chatUid, agent)
+
+      if (uploaded) {
+        setUploadedFiles(files);
+        saveChatMessages(chatMessages, files)
+        setUploadingFiles(false)
+      }
     }
   }
 
@@ -148,6 +155,8 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
         </Grid>
       </DialogTitle>
       <DialogContent className={classes.dialogContent}>
+        { uploadingFiles && <LinearProgress /> }
+        
         {
           uploadedFiles.length > 0 &&
           <div className={classes.uploadedFiles}>

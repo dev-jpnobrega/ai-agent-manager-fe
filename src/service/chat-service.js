@@ -66,6 +66,14 @@ export const saveChatLocally = (agent, chatUid, chatMessages = [], uploadedFiles
   });
 }
 
+export const deleteChatLocally = (chat) => {
+  const chats = getLocallyChats()
+
+  delete chats[chat.chatUid]
+
+  setLocallyChats(chats);
+}
+
 const setLocallyChats = (chat) => localStorage.setItem(CHATS_LOCAL_STORAGE, JSON.stringify(chat));
 
 export const getLocallyChats = () => {
@@ -75,7 +83,7 @@ export const getLocallyChats = () => {
 export const getLocallyChatsList = () => {
   const chats = getLocallyChats()
 
-  return Object.keys(chats).map((key) => chats[key]).reverse();
+  return Object.keys(chats).map((key) => ({ ...chats[key], chatUid: key })).reverse();
 }
 
 // TYPE MESSAGES
