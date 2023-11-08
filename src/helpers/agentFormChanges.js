@@ -53,7 +53,8 @@ const checkObjectIsCompletedOrEmpty = (object, objectCompletedSize) => {
 }
 
 const checkStepParameterComplete = ({ chatConfig = {}, llmConfig = {} }) => {
-  return checkObjectIsCompletedOrEmpty(chatConfig, 5) && checkObjectIsCompletedOrEmpty(llmConfig, 5)
+  // return checkObjectIsCompletedOrEmpty(chatConfig, 5) && checkObjectIsCompletedOrEmpty(llmConfig, 5)
+  return checkObjectIsCompletedOrEmpty(llmConfig, 5)
 }
 
 const checkStepHistoryComplete = ({ dbHistoryConfig = {} }) => {
@@ -73,7 +74,6 @@ const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
 const checkStepsComplete = ({ name = '', dataSourceConfig = {}, chatConfig = {}, llmConfig = {}, vectorStoreConfig = {}, dbHistoryConfig = {} }) => {
   return name && (dataSourceConfig.type ||
     vectorStoreConfig.apiKey ||
-    chatConfig.temperature ||
     llmConfig.type ||
     dbHistoryConfig.type)
 }

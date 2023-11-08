@@ -34,6 +34,8 @@ export default {
     'agent.page.form.next': 'Next',
     'agent.page.form.save': 'Save',
 
+    'agent.page.form.uplodad': 'Upload',
+
     'agent.page.form.select.input.nome': 'NONE',
 
     'agent.page.form.step.parameter': 'Parameters',

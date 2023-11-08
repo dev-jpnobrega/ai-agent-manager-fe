@@ -4,8 +4,8 @@ export default {
     'lang.option.en': 'Ingles',
     'lang.option.es': 'Español',
 
-    'home.title': 'IA Enterprise',
-    'home.welcome': 'Bienvenido al panel IA Enterprise',
+    'home.title': 'Administración de IA Empresarial',
+    'home.welcome': 'Bienvenido al Administración de IA Empresarial',
 
     'menu.item.use.cases': 'Casos de Uso',
     'menu.item.permissions': 'Permisos',
@@ -33,6 +33,8 @@ export default {
     'agent.page.form.previous': 'Anterior',
     'agent.page.form.next': 'Siguiente',
     'agent.page.form.save': 'Guardar',
+
+    'agent.page.form.uplodad': 'Carregar',
 
     'agent.page.form.select.input.nome': 'NINGUNO',
 

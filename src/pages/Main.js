@@ -144,6 +144,8 @@ function Main() {
   const [t] = useTranslation('translation');
   const classes = useStyles();
 
+  document.title = t('home.title')
+
   return (
     <MainContainer classes={classes}>
       <PageBase title={t('home.welcome')}>

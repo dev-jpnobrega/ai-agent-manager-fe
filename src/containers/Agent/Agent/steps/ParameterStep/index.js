@@ -69,6 +69,8 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
       fields: [
         {
           name: 'systemMesssage',
+          multiline: true,
+          rows: 4,
         }
       ]
     }

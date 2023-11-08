@@ -11,6 +11,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+import IALogo from '../../assets/ia.svg';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -54,6 +56,7 @@ const useStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar,
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-around'
   },
   drawerPaper: {
     width: drawerWidth
@@ -96,10 +99,13 @@ export default function MenuComponent({ handleDrawerToggle, menuOpen, children }
           ModalProps={{ keepMounted: true }}>
           <div className={classes.toolbar}>
             <div>
-              IA Enterprise)
+              <img src={IALogo} alt="IA Enterprise" width={30} />
+              <div>
+                IA Enterprise
+              </div>
             </div>
 
-            <IconButton className={classes.logo} onClick={handleDrawerToggle} >
+            <IconButton onClick={handleDrawerToggle} >
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
           </div>

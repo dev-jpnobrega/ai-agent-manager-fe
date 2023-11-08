@@ -3,8 +3,11 @@ import { get } from 'lodash'
 import { Select, MenuItem, FormControl, Grid, TextField, Typography, FormControlLabel, Switch } from '@material-ui/core';
 import { useTranslation } from "react-i18next";
 
+import { useStyles } from './styles'
+
 export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid = 8, value }) => {
   const [t] = useTranslation('translation')
+  const classes = useStyles()
   const { type = 'input' } = field
 
   return (
@@ -33,11 +36,14 @@ export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid
         }
         {type === 'input' &&
           <TextField
+            className={classes.root}
             required
             name={field.name}
             onChange={(e) => handleAgentChange(e, config.namePath)}
             type={field.inputType || 'text'}
             value={value}
+            multiline={field.multiline}
+            minRows={field.rows}
             style={{ width: '100%', paddingRight: '30px' }}
             variant="outlined"
           />
@@ -51,6 +57,7 @@ export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid
               name={field.name}
               value={value}
               onChange={(e) => handleAgentChange(e, config.namePath)}
+              style={{ backgroundColor: '#fff' }}
             >
               <MenuItem value="" style={{ color: '#bdbdbd' }}>
                 <em>

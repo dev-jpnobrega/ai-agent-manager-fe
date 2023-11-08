@@ -110,7 +110,10 @@ const ListAgentsContainer = ({ history }) => {
                         >
                           <Grid item xs={9} >
                             <Typography variant="body2" >
-                              {t('agent.page.card.agent.specialized')}
+                              {agent === 'default' ?
+                                t('agent.page.card.agent.custom') :
+                                t('agent.page.card.agent.specialized')
+                              }
                             </Typography>
                             <Typography variant="subtitle2" color='textSecondary'>
                               {t('agent.page.card.agent')}

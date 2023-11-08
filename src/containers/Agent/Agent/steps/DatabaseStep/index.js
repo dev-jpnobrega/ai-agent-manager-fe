@@ -65,6 +65,8 @@ const DatabaseStep = ({ handleAgentChange, agent, t }) => {
       fields: [
         {
           name: 'customizeSystemMessage',
+          multiline: true,
+          rows: 4,
         }
       ]
     }

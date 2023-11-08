@@ -4,8 +4,8 @@ export default {
     'lang.option.en': 'English',
     'lang.option.es': 'Español',
 
-    'home.title': 'IA Enterprise',
-    'home.welcome': 'Bem vindo ao Painel de IA Enterprise',
+    'home.title': 'IA Empresarial Admin',
+    'home.welcome': 'Bem vindo ao IA Empresarial Admin',
 
     'menu.item.use.cases': 'Casos de Uso',
     'menu.item.permissions': 'Permissões',
@@ -33,6 +33,7 @@ export default {
     'agent.page.form.previous': 'Anterior',
     'agent.page.form.next': 'Próximo',
     'agent.page.form.save': 'Salvar',
+    'agent.page.form.uplodad': 'Upload',
 
     'agent.page.form.select.input.nome': 'NENHUM',
 

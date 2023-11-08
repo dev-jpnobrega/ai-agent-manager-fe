@@ -1540,6 +1540,7 @@
 		padding: 0 1em;
 		text-decoration: none;
 		width: 100%;
+		background-color: white;
 	}
 
 		input[type="text"]:invalid,
