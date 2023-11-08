@@ -33,6 +33,7 @@ export default {
     'agent.page.form.previous': 'Anterior',
     'agent.page.form.next': 'Próximo',
     'agent.page.form.save': 'Salvar',
+    'agent.page.form.uplodad': 'Upload',
 
     'agent.page.form.select.input.nome': 'NENHUM',
 

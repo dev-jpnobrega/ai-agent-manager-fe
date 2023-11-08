@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, Avatar } from '@material-ui/core'
+import { useMediaQuery, Button, IconButton, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, Avatar } from '@material-ui/core'
 
 import { Alert } from '@material-ui/lab';
 
@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 
 export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) => {
   const [t] = useTranslation('translation')
+  const mobile = useMediaQuery('(max-width:400px)');
 
   const chatInputRef = useRef()
 
@@ -104,7 +105,7 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
     >
       <DialogTitle id="alert-dialog-title" className={classes.dialogTitle}>
         <Grid container alignItems='center'>
-          <Grid item xs={9} className={classes.chatAgentInfo} style={{ paddingLeft: '8px' }}>
+          <Grid item xs={6} className={classes.chatAgentInfo} style={{ paddingLeft: '8px' }}>
             <div>
               <Avatar>
                 <AdbIcon />
@@ -117,17 +118,30 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
               </Typography>
             </div>
           </Grid>
-          <Grid item xs={3} justifyContent='flex-end' className={classes.dialogTitleMenuButtons}>
+          <Grid item xs={6} justifyContent='flex-end' className={classes.dialogTitleMenuButtons}>
             {isAgentDefault && <>
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                className={classes.button}
-                startIcon={<SaveIcon />}
-              >
-                Salvar
-              </Button>
+              {
+                mobile ?
+                  <IconButton
+                    disabled
+                    color="secondary"
+                    aria-label="Upload"
+                  >
+                    <SaveIcon />
+                  </IconButton> :
+                  <Button
+                    disabled
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    className={classes.button}
+                    startIcon={<SaveIcon />}
+                    style={{ textTransform: 'uppercase' }}
+                  >
+                    {!mobile && t('agent.page.form.save')}
+                  </Button>
+              }
+
               <FileUploader uploadedFiles={uploadedFiles} setUploadedFiles={handleUploadFiles} />
             </>}
           </Grid>

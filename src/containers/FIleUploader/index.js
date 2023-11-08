@@ -2,12 +2,13 @@ import React, { useState, useRef, useContext } from 'react';
 import BackupIcon from '@material-ui/icons/Backup';
 import { SnackbarContext } from '../../context/SnackbarContext';
 import { withTranslation } from 'react-i18next';
-import { Button } from '@material-ui/core';
+import { Button, IconButton, useMediaQuery } from '@material-ui/core';
 
 const MAX_COUNT = 5;
 
 const FileUploader = ({ uploadedFiles, setUploadedFiles, t }) => {
   const inputFileRef = useRef();
+  const mobile = useMediaQuery('(max-width:400px)');
   const [fileLimit, setFileLimit] = useState(false);
 
   const { setSnackbar } = useContext(SnackbarContext)
@@ -48,15 +49,26 @@ const FileUploader = ({ uploadedFiles, setUploadedFiles, t }) => {
         disabled={fileLimit}
         style={{ display: 'none', visibility: 'hidden', width: '0px' }}
       />
-      <Button
-        variant="contained"
-        color="secondary"
-        size="small"
-        startIcon={<BackupIcon />}
-        onClick={() => inputFileRef.current.click()}
-      >
-        Upload
-      </Button>
+      {
+        mobile ?
+          <IconButton
+            color="secondary"
+            aria-label="Upload"
+            onClick={() => inputFileRef.current.click()}
+          >
+            <BackupIcon />
+          </IconButton> :
+          <Button
+            variant="contained"
+            color="secondary"
+            size="small"
+            startIcon={<BackupIcon />}
+            onClick={() => inputFileRef.current.click()}
+            style={{ textTransform: 'uppercase' }}
+          >
+            {t('agent.page.form.uplodad')}
+          </Button>
+      }
     </>
   );
 }
