@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import clsx from 'clsx';
@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { AppBar, IconButton, Toolbar, Typography, Menu, MenuItem } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
+import GetApp from '@material-ui/icons/GetApp';
 import TranslateIcon from '@material-ui/icons/Translate';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -21,6 +22,19 @@ function AppBarComponent({ handleDrawerToggle, menuOpen, onClickTitle, onSelectL
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleGetAPPClick = async (e) => {
+    const promptEvent = window.deferredPrompt;
+    if (!promptEvent) {
+      return;
+    }
+    
+    promptEvent.prompt();
+    
+    await promptEvent.userChoice;
+
+    window.deferredPrompt = null;
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -41,10 +55,13 @@ function AppBarComponent({ handleDrawerToggle, menuOpen, onClickTitle, onSelectL
         >
           <MenuIcon />
         </IconButton>
-        <Typography color='textPrimary' variant="body1" noWrap onClick={onClickTitle}>
+        <Typography color='textPrimary' variant="body1" onClick={onClickTitle}>
             {t('home.title')}
         </Typography>
         <div className={classes.menuRigthButton}>
+          <IconButton edge="start" onClick={handleGetAPPClick}>
+            <GetApp />
+          </IconButton>
           <IconButton edge="start" onClick={handleClick}>
             <TranslateIcon />
           </IconButton>
@@ -70,13 +87,6 @@ function AppBarComponent({ handleDrawerToggle, menuOpen, onClickTitle, onSelectL
           </Menu>
           <IconButton edge="start">
             <AccountCircleIcon />
-          </IconButton>
-          <IconButton
-            aria-label="Open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-          >
-            <MoreVertIcon fontSize='inherit' />
           </IconButton>
         </div>
       </Toolbar>
