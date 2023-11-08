@@ -39,7 +39,7 @@ const ListAgentsContainer = ({ history }) => {
   }, [])
 
   const handleNewChat = (agent) => {
-    window.open(`/#/chat/${agent}/${uuidv4()}`, '_blank', 'noreferrer');
+    window.open(`/#/chat/${agent.key}/${uuidv4()}`, '_blank', 'noreferrer');
   }
 
   return (
@@ -63,7 +63,7 @@ const ListAgentsContainer = ({ history }) => {
         <Box mt={2}>
           <Grid container spacing={2}>
             {state.agents.items.map((agent, index) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+              <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={index}>
                 <div className={classes.root}>
                   <Paper className={classes.paper}>
                     <Grid container spacing={2}>
@@ -72,7 +72,7 @@ const ListAgentsContainer = ({ history }) => {
                           <Grid item xs>
                             <Box pb={2}>
                               <Typography variant="h6" className={classes.cardTitle}>
-                                {agent || 'Agent Name'}
+                                {agent.name || 'Agent Name'}
                               </Typography>
                             </Box>
                             <Box mt={1} onClick={() => { handleNewChat(agent) }}>
@@ -95,7 +95,7 @@ const ListAgentsContainer = ({ history }) => {
                           <Grid item xs={6}>
                             <EditRoundedIcon
                               style={{ color: '#8898aa', cursor: 'pointer' }}
-                              onClick={() => { history.push(`/agent/${agent}`) }}
+                              onClick={() => { history.push(`/agent/${agent.key}`) }}
                             />
                           </Grid>
                         </Grid>
@@ -110,7 +110,7 @@ const ListAgentsContainer = ({ history }) => {
                         >
                           <Grid item xs={9} >
                             <Typography variant="body2" >
-                              {agent === 'default' ?
+                              {agent.key === 'default' ?
                                 t('agent.page.card.agent.custom') :
                                 t('agent.page.card.agent.specialized')
                               }
