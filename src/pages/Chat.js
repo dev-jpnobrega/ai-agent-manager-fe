@@ -1,26 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 
 import { ChatContainer } from '../containers/Chat';
-import { useTranslation } from 'react-i18next';
-import { useContext } from 'react';
-import { Context } from '../context/AppContext';
+import { getAgent } from '../service/agent-service';
 
 function Chat() {
   const { agentUid, chatUid } = useParams();
-  const [_, i18n] = useTranslation('translation')
+  const [agent, setAgent] = useState({})
 
-  const [state] = useContext(Context)
-
-  useEffect(() => {
-    if (state.user && state.user.language) {
-      i18n.changeLanguage(state.user.language)
+  useEffect(async () => {
+    if (agentUid) {
+      const chatAgent = await getAgent(agentUid)
+      setAgent(chatAgent)
     }
-  }, [state.user])
-  
+  }, [agentUid])
 
   return (
-    <ChatContainer chatAgent={{ agent: agentUid, chatUid }} />
+    <ChatContainer chatAgent={{ agent, agentUid, chatUid }} />
   )
 }
 

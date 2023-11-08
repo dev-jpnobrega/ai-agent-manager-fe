@@ -12,14 +12,14 @@ import { ChatMessage } from './ChatMessage';
 import { ChatAnsweringLoad } from './ChatAnsweringLoad';
 import { useTranslation } from 'react-i18next';
 
-export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) => {
+export const Chat = ({ chatAgent = { agent: { key: '', name: ''}, chatUid: '' }, saveChatLocally, sendMessage, uploadFiles }) => {
   const [t] = useTranslation('translation')
   const [uploadingFiles, setUploadingFiles] = useState(false)
   const mobile = useMediaQuery('(max-width:400px)');
 
   const chatInputRef = useRef()
 
-  const isAgentDefault = chatAgent.agent === 'default'
+  const isAgentDefault = chatAgent.agentUid === 'default'
 
   const classes = useStyles()
 
@@ -27,19 +27,19 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
   const [chatMessages, setChatMessages] = useState([])
 
   const saveChatMessages = (currentChatMessages, files = uploadedFiles) => {
-    const { agent, chatUid } = chatAgent
+    const { agent: { name }, chatUid } = chatAgent
 
-    saveChatLocally(agent, chatUid, currentChatMessages, files.map(file => file.name))
+    saveChatLocally(name, chatUid, currentChatMessages, files.map(file => file.name))
     setChatMessages(currentChatMessages)
   }
 
   const handleUploadFiles = async (files) => {
     if (files.length) {
-      const { agent, chatUid } = chatAgent
+      const { agent: { key }, chatUid } = chatAgent
 
       setUploadingFiles(true)
 
-      const uploaded = await uploadFiles(files, chatUid, agent)
+      const uploaded = await uploadFiles(files, chatUid, key)
 
       if (uploaded) {
         setUploadedFiles(files);
@@ -57,9 +57,9 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
   }
 
   const sendCurrentMessage = (message) => new Promise(async (resolve, reject) => {
-    const { agent, chatUid } = chatAgent
+    const { agent: { key }, chatUid } = chatAgent
 
-    const agentAnswer = await sendMessage(message, chatUid, agent)
+    const agentAnswer = await sendMessage(message, chatUid, chatUid)
 
     if (agentAnswer) return resolve(saveChatMessages([...chatMessages, message, {
       content: agentAnswer.error ? agentAnswer.error : agentAnswer,
@@ -119,7 +119,7 @@ export const Chat = ({ chatAgent, saveChatLocally, sendMessage, uploadFiles }) =
               </Avatar>
             </div>
             <div>
-              <Typography variant='subtitle1' className={classes.dialogTexts}>{chatAgent.agent}</Typography>
+              <Typography variant='subtitle1' className={classes.dialogTexts}>{chatAgent.agent.name || "Agent Name"}</Typography>
               <Typography variant='body2' className={classes.dialogTextsSub}>
                 {isAgentDefault ? t('agent.custom') : t('agent.specialized')}
               </Typography>
