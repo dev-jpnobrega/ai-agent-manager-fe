@@ -66,7 +66,7 @@ const checkStepCognitiveComplete = ({ documentIntellegenciConfig = {}, vectorSto
   // delete optional fields
   delete vectorStoreConfigClone.customFilter
 
-  return checkObjectIsCompletedOrEmpty(vectorStoreConfigClone, 8) &&
+  return checkObjectIsCompletedOrEmpty(vectorStoreConfigClone, 7) &&
     checkObjectIsCompletedOrEmpty(documentIntellegenciConfig, 3)
 }
 
@@ -82,11 +82,19 @@ const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
   return checkObjectIsCompletedOrEmpty(dataSourceConfigClone, 9)
 }
 
-const checkStepsComplete = ({ name = '', dataSourceConfig = {}, documentIntellegenciConfig = {}, llmConfig = {}, vectorStoreConfig = {}, dbHistoryConfig = {} }) => {
-  return name && (dataSourceConfig.type ||
-    vectorStoreConfig.apiKey ||
-    llmConfig.type ||
-    dbHistoryConfig.type)
+export const checkStepsComplete = ({ name = '', dataSourceConfig = {}, documentIntellegenciConfig = {}, llmConfig = {}, vectorStoreConfig = {}, dbHistoryConfig = {} }) => {
+  return name &&
+    checkStepParameterComplete({ llmConfig }) &&
+    checkStepHistoryComplete({ dbHistoryConfig }) &&
+    checkStepCognitiveComplete({ documentIntellegenciConfig, vectorStoreConfig }) &&
+    checkStepDatabaseComplete({ dataSourceConfig }) &&
+    (
+      dataSourceConfig.type ||
+      documentIntellegenciConfig.apiKey ||
+      vectorStoreConfig.apiKey ||
+      llmConfig.type ||
+      dbHistoryConfig.type
+    )
 }
 
 export const handleFormValidation = (activeStep, agent) => {
