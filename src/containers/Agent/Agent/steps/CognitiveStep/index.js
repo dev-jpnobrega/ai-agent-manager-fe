@@ -32,16 +32,19 @@ const CognitiveStep = ({ handleAgentChange, agent, t }) => {
           label: t('agent.page.form.step.cognitive.enable.vector.name'),
           name: 'vectorFieldName',
         },
-        
         {
-          label: t('agent.page.form.step.cognitive.enable.model'),
-          name: 'model',
+          label: t('agent.page.form.step.cognitive.enable.custom.filter'),
+          name: 'customFilter',
         },
         {
           label: t('agent.page.form.step.cognitive.enable.type'),
           name: 'type',
           type: 'select',
-          values: ['redis', 'cosmos']
+          values: ['azure', 'redis', 'cosmos']
+        },
+        {
+          label: t('agent.page.form.step.cognitive.enable.model'),
+          name: 'model',
         },
       ]
     }

@@ -59,6 +59,11 @@ export default {
     'agent.page.form.step.parameter.llm.config.api.key': 'API Key',
     'agent.page.form.step.parameter.llm.config.api.version': 'API Version',
 
+    'agent.page.form.step.parameter.intellegence.config': 'Documment Intellegence Config',
+    'agent.page.form.step.parameter.intellegence.config.type': 'Type',
+    'agent.page.form.step.parameter.intellegence.config.endpoint': 'Endpoint',
+    'agent.page.form.step.parameter.intellegence.config.api.key': 'API Key',
+
     'agent.page.form.step.history.enable.title': 'History Enable Config',
     'agent.page.form.step.history.enable.type': 'Type',
     'agent.page.form.step.history.enable.port': 'Port',
@@ -74,6 +79,7 @@ export default {
     'agent.page.form.step.cognitive.enable.version': 'Search Version',
     'agent.page.form.step.cognitive.enable.type': 'Search Type',
     'agent.page.form.step.cognitive.enable.model': 'Search Model',
+    'agent.page.form.step.cognitive.enable.custom.filter': 'Search Custom Filter',
 
     'agent.page.form.step.database.enable.title': 'Database Config',
     'agent.page.form.step.database.enable.type': 'Type',

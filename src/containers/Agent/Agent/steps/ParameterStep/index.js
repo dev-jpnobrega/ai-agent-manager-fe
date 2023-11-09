@@ -37,7 +37,7 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
       title: t('agent.page.form.step.parameter.llm.config'),
       namePath: 'llmConfig',
       fields: [
-        
+
         {
           label: t('agent.page.form.step.parameter.llm.config.model'),
           name: 'model',
@@ -64,22 +64,43 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
       ]
     },
     {
+      title: t('agent.page.form.step.parameter.intellegence.config'),
+      namePath: 'documentIntellegenciConfig',
+      fields: [
+        {
+          label: t('agent.page.form.step.parameter.intellegence.config.api.key'),
+          name: 'apiKey',
+          inputType: 'password',
+        },
+        {
+          label: t('agent.page.form.step.parameter.intellegence.config.endpoint'),
+          name: 'endpoint',
+        },
+        {
+          label: t('agent.page.form.step.parameter.intellegence.config.type'),
+          name: 'type',
+          type: 'select',
+          values: ['azure', 'aws', 'gcp']
+        },
+      ]
+    },
+    {
       title: t('agent.page.form.step.parameter.system.message'),
       namePath: '',
       fields: [
         {
           name: 'systemMesssage',
           multiline: true,
-          rows: 4,
+          rows: 6,
         }
       ]
-    }
+    },
   ]
 
   return (
     <>
       {parametersConfig.map((config, index) => (
-        <Grid item xs={12} sm={index === 2 ? '' : 6} style={{ marginTop: '12px' }} key={`parameters-config${index}`}>
+        <Grid item xs={12} sm={6} style={{ marginTop: '12px' }} key={`parameters-config${index}`}>
           <Grid container>
             <Grid item xs={12}>
               <Typography variant='subtitle2' color='textSecondary'>{config.title}</Typography>
@@ -95,7 +116,7 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
                     field={field}
                     handleAgentChange={handleAgentChange}
                     value={get(agent, `${config.namePath ? config.namePath + '.' : ''}${field.name}`, '')}
-                 />
+                  />
                 </Grid>
               </Grid>
             ))}
