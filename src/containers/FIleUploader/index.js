@@ -17,10 +17,9 @@ import { pickBetterBytes } from '../../helpers/formatBytes';
 
 const MAX_COUNT = 5;
 
-const FileUploader = ({ uploadingFiles, usePreviousValue, sendUploadFiles, setShowUploadFiles, t }) => {
+const FileUploader = ({ uploadingFiles, sendUploadFiles, setShowUploadFiles, t }) => {
   const inputFileRef = useRef();
 
-  const previousValue = usePreviousValue(uploadingFiles);
   const mobile = useMediaQuery('(max-width:490px)');
   const classes = useStyles({ mobile });
 
