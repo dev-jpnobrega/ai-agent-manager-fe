@@ -47,7 +47,28 @@ const CognitiveStep = ({ handleAgentChange, agent, t }) => {
           name: 'model',
         },
       ]
-    }
+    },
+    {
+      title: t('agent.page.form.step.parameter.intellegence.config'),
+      namePath: 'documentIntellegenciConfig',
+      fields: [
+        {
+          label: t('agent.page.form.step.parameter.intellegence.config.api.key'),
+          name: 'apiKey',
+          inputType: 'password',
+        },
+        {
+          label: t('agent.page.form.step.parameter.intellegence.config.endpoint'),
+          name: 'endpoint',
+        },
+        {
+          label: t('agent.page.form.step.parameter.intellegence.config.type'),
+          name: 'type',
+          type: 'select',
+          values: ['azure', 'aws', 'gcp']
+        },
+      ]
+    },
   ]
 
   return (

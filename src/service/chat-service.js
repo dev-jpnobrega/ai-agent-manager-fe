@@ -7,19 +7,19 @@ const headers = {
   authorization: process.env.REACT_APP_AUTHORIZATION
 }
 
-const formatSendMessage = (message, chatUid, agent) => ({
+const formatSendMessage = (message, chatUid, agentUid) => ({
   body: {
-    agentUid: agent,
+    agentUid,
     id: chatUid,
     userId: 'currentUser',
     messages: [ message ]
   }
 })
 
-export const sendMessage = async (message, chatUid, agent) => {
+export const sendMessage = async (message, chatUid, agentUid) => {
   const data = await axios.post(
     `${process.env.REACT_APP_BASE_URL}/v1/chat`,
-    formatSendMessage(message, chatUid, agent),
+    formatSendMessage(message, chatUid, agentUid),
     { headers })
     .then((response) => {
       return JSON.stringify(response.data)

@@ -63,27 +63,7 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
         },
       ]
     },
-    {
-      title: t('agent.page.form.step.parameter.intellegence.config'),
-      namePath: 'documentIntellegenciConfig',
-      fields: [
-        {
-          label: t('agent.page.form.step.parameter.intellegence.config.api.key'),
-          name: 'apiKey',
-          inputType: 'password',
-        },
-        {
-          label: t('agent.page.form.step.parameter.intellegence.config.endpoint'),
-          name: 'endpoint',
-        },
-        {
-          label: t('agent.page.form.step.parameter.intellegence.config.type'),
-          name: 'type',
-          type: 'select',
-          values: ['azure', 'aws', 'gcp']
-        },
-      ]
-    },
+
     {
       title: t('agent.page.form.step.parameter.system.message'),
       namePath: '',
@@ -100,7 +80,7 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
   return (
     <>
       {parametersConfig.map((config, index) => (
-        <Grid item xs={12} sm={6} style={{ marginTop: '12px' }} key={`parameters-config${index}`}>
+        <Grid item xs={12} sm={index === 2 ? '' : 6} style={{ marginTop: '12px' }} key={`parameters-config${index}`}>
           <Grid container>
             <Grid item xs={12}>
               <Typography variant='subtitle2' color='textSecondary'>{config.title}</Typography>

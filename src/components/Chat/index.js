@@ -57,9 +57,9 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: ''}, chatUid: '' },
   }
 
   const sendCurrentMessage = (message) => new Promise(async (resolve, reject) => {
-    const { agent: { key }, chatUid } = chatAgent
+    const { agentUid, chatUid } = chatAgent
 
-    const agentAnswer = await sendMessage(message, chatUid, chatUid)
+    const agentAnswer = await sendMessage(message, chatUid, agentUid)
 
     if (agentAnswer) return resolve(saveChatMessages([...chatMessages, message, {
       content: agentAnswer.error ? agentAnswer.error : agentAnswer,
