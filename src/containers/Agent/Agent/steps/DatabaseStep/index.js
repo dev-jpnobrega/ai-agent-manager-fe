@@ -49,10 +49,6 @@ const DatabaseStep = ({ handleAgentChange, agent, t }) => {
           name: 'includesTables',
         },
         {
-          label: t('agent.page.form.step.database.enable.datasource'),
-          name: 'dataSource',
-        },
-        {
           label: t('agent.page.form.step.database.enable.synchronize'),
           name: 'synchronize',
           type: 'switch',

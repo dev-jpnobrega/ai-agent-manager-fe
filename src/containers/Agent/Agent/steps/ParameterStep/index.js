@@ -14,6 +14,7 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
         {
           label: t('agent.page.form.step.parameter.chat.config.temperature'),
           name: 'temperature',
+          inputType: 'number',
         },
         {
           label: t('agent.page.form.step.parameter.chat.config.topP'),
@@ -37,7 +38,12 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
       title: t('agent.page.form.step.parameter.llm.config'),
       namePath: 'llmConfig',
       fields: [
-
+        {
+          label: t('agent.page.form.step.parameter.llm.config.type'),
+          name: 'type',
+          type: 'select',
+          values: ['azure', 'aws', 'gcp']
+        },
         {
           label: t('agent.page.form.step.parameter.llm.config.model'),
           name: 'model',
@@ -54,13 +60,7 @@ const ParameterStep = ({ handleAgentChange, agent, t }) => {
         {
           label: t('agent.page.form.step.parameter.llm.config.api.version'),
           name: 'apiVersion',
-        },
-        {
-          label: t('agent.page.form.step.parameter.llm.config.type'),
-          name: 'type',
-          type: 'select',
-          values: ['azure', 'aws', 'gcp']
-        },
+        }
       ]
     },
 

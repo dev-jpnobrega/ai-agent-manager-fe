@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import ReactMarkdown from "react-markdown";
 
 export const MemoizedReactMarkdown = memo(

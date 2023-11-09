@@ -61,15 +61,25 @@ const checkStepHistoryComplete = ({ dbHistoryConfig = {} }) => {
 }
 
 const checkStepCognitiveComplete = ({ documentIntellegenciConfig = {}, vectorStoreConfig = {} }) => {
-  return ((checkObjectIsCompletedOrEmpty(vectorStoreConfig, 7) && !vectorStoreConfig.customFilter) ||
-    checkObjectIsCompletedOrEmpty(vectorStoreConfig, 8)) &&
+  const vectorStoreConfigClone = cloneDeep(vectorStoreConfig)
+
+  // delete optional fields
+  delete vectorStoreConfigClone.customFilter
+
+  return checkObjectIsCompletedOrEmpty(vectorStoreConfigClone, 8) &&
     checkObjectIsCompletedOrEmpty(documentIntellegenciConfig, 3)
 }
 
 const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
   const dataSourceConfigClone = cloneDeep(dataSourceConfig)
+
+  // delete boolean type fields
   delete dataSourceConfigClone.synchronize
-  return checkObjectIsCompletedOrEmpty(dataSourceConfigClone, 11)
+
+  // delete optional fields
+  delete dataSourceConfigClone.schema
+
+  return checkObjectIsCompletedOrEmpty(dataSourceConfigClone, 9)
 }
 
 const checkStepsComplete = ({ name = '', dataSourceConfig = {}, documentIntellegenciConfig = {}, llmConfig = {}, vectorStoreConfig = {}, dbHistoryConfig = {} }) => {
