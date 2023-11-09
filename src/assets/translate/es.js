@@ -45,7 +45,7 @@ export default {
 
     'agent.page.form.step.parameter.system.message': 'Mensaje del Sistema',
 
-    'agent.page.form.step.parameter.chat.config': 'Configuração do Chat',
+    'agent.page.form.step.parameter.chat.config': 'Configuración del Chat',
     'agent.page.form.step.parameter.chat.config.temperature': 'Temperatura',
     'agent.page.form.step.parameter.chat.config.topP': 'Top P',
     'agent.page.form.step.parameter.chat.config.penalty.frequency': 'Frequency Penalty',
@@ -59,6 +59,11 @@ export default {
     'agent.page.form.step.parameter.llm.config.api.key': 'API Key',
     'agent.page.form.step.parameter.llm.config.api.version': 'API Version',
 
+    'agent.page.form.step.parameter.intellegence.config': 'Configuración del Document Intellegence',
+    'agent.page.form.step.parameter.intellegence.config.type': 'Type',
+    'agent.page.form.step.parameter.intellegence.config.endpoint': 'Endpoint',
+    'agent.page.form.step.parameter.intellegence.config.api.key': 'API Key',
+
     'agent.page.form.step.history.enable.title': 'Configuração History Enable',
     'agent.page.form.step.history.enable.type': 'Type',
     'agent.page.form.step.history.enable.port': 'Port',
@@ -66,7 +71,7 @@ export default {
     'agent.page.form.step.history.enable.host': 'Host',
     'agent.page.form.step.history.enable.password': 'Password',
 
-    'agent.page.form.step.cognitive.enable.title': 'Configuración de Congnitive Service',
+    'agent.page.form.step.cognitive.enable.title': 'Configuración del Congnitive Service',
     'agent.page.form.step.cognitive.enable.api.key': 'Search API Key',
     'agent.page.form.step.cognitive.enable.index': 'Search Index',
     'agent.page.form.step.cognitive.enable.vector.name': 'Search Vector Field Name',
@@ -74,6 +79,7 @@ export default {
     'agent.page.form.step.cognitive.enable.version': 'Search Version',
     'agent.page.form.step.cognitive.enable.type': 'Search Type',
     'agent.page.form.step.cognitive.enable.model': 'Search Model',
+    'agent.page.form.step.cognitive.enable.custom.filter': 'Search Custom Filter',
 
     'agent.page.form.step.database.enable.title': 'Configuración de Database',
     'agent.page.form.step.database.enable.type': 'Type',

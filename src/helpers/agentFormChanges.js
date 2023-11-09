@@ -52,9 +52,8 @@ const checkObjectIsCompletedOrEmpty = (object, objectCompletedSize) => {
   return objectSize === objectCompletedSize || objectSize === 0
 }
 
-const checkStepParameterComplete = ({ chatConfig = {}, llmConfig = {} }) => {
-  // return checkObjectIsCompletedOrEmpty(chatConfig, 5) && checkObjectIsCompletedOrEmpty(llmConfig, 5)
-  return checkObjectIsCompletedOrEmpty(llmConfig, 5)
+const checkStepParameterComplete = ({ documentIntellegenciConfig = {}, llmConfig = {} }) => {
+  return checkObjectIsCompletedOrEmpty(documentIntellegenciConfig, 3) && checkObjectIsCompletedOrEmpty(llmConfig, 5)
 }
 
 const checkStepHistoryComplete = ({ dbHistoryConfig = {} }) => {
@@ -62,7 +61,7 @@ const checkStepHistoryComplete = ({ dbHistoryConfig = {} }) => {
 }
 
 const checkStepCognitiveComplete = ({ vectorStoreConfig = {} }) => {
-  return checkObjectIsCompletedOrEmpty(vectorStoreConfig, 7)
+  return checkObjectIsCompletedOrEmpty(vectorStoreConfig, 8)
 }
 
 const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
@@ -71,7 +70,7 @@ const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
   return checkObjectIsCompletedOrEmpty(dataSourceConfigClone, 11)
 }
 
-const checkStepsComplete = ({ name = '', dataSourceConfig = {}, chatConfig = {}, llmConfig = {}, vectorStoreConfig = {}, dbHistoryConfig = {} }) => {
+const checkStepsComplete = ({ name = '', dataSourceConfig = {}, documentIntellegenciConfig = {}, llmConfig = {}, vectorStoreConfig = {}, dbHistoryConfig = {} }) => {
   return name && (dataSourceConfig.type ||
     vectorStoreConfig.apiKey ||
     llmConfig.type ||
