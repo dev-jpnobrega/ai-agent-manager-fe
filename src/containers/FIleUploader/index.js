@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 
 import { isEmpty } from 'lodash';
 
@@ -49,12 +49,6 @@ const FileUploader = ({ uploadingFiles, sendUploadFiles, setShowUploadFiles, t }
       color: 'secondary'
     }
   ]
-
-  useEffect(() => {
-    if (previousValue === true && uploadingFiles === false) {
-
-    }
-  }, [uploadingFiles])
 
   const { setSnackbar } = useContext(SnackbarContext)
 
