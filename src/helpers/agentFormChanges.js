@@ -52,16 +52,18 @@ const checkObjectIsCompletedOrEmpty = (object, objectCompletedSize) => {
   return objectSize === objectCompletedSize || objectSize === 0
 }
 
-const checkStepParameterComplete = ({ documentIntellegenciConfig = {}, llmConfig = {} }) => {
-  return checkObjectIsCompletedOrEmpty(documentIntellegenciConfig, 3) && checkObjectIsCompletedOrEmpty(llmConfig, 5)
+const checkStepParameterComplete = ({ llmConfig = {} }) => {
+  return checkObjectIsCompletedOrEmpty(llmConfig, 5)
 }
 
 const checkStepHistoryComplete = ({ dbHistoryConfig = {} }) => {
   return checkObjectIsCompletedOrEmpty(dbHistoryConfig, 5)
 }
 
-const checkStepCognitiveComplete = ({ vectorStoreConfig = {} }) => {
-  return checkObjectIsCompletedOrEmpty(vectorStoreConfig, 8)
+const checkStepCognitiveComplete = ({ documentIntellegenciConfig = {}, vectorStoreConfig = {} }) => {
+  return ((checkObjectIsCompletedOrEmpty(vectorStoreConfig, 7) && !vectorStoreConfig.customFilter) ||
+    checkObjectIsCompletedOrEmpty(vectorStoreConfig, 8)) &&
+    checkObjectIsCompletedOrEmpty(documentIntellegenciConfig, 3)
 }
 
 const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
