@@ -11,8 +11,10 @@ import { updateAgent, saveAgent, deleteAgent } from '../../../service/agent-serv
 import { agentSupportSettings } from '../../../helpers/agentSupportSettings';
 
 import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
+
 import { SnackbarContext } from '../../../context/SnackbarContext';
-import { agentFormChanges, agentRequestFeedback, handleFormValidation } from '../../../helpers/agentFormChanges';
+import { agentFormChanges, agentRequestFeedback, handleFormValidation, checkStepsComplete } from '../../../helpers/agentFormChanges';
 
 const getStepContent = (stepIndex, agent, handleAgentChange) => {
   switch (stepIndex) {
@@ -93,13 +95,23 @@ const AgentContainer = ({ history, currentAgent }) => {
         >
           <Grid item xs={4} sm={3} justifyContent='flex-end' style={{ display: 'flex', gap: '12px' }}>
             {currentAgent.key &&
-              <Button
-                startIcon={<DeleteIcon />}
-                variant="contained"
-                color="secondary"
-                onClick={handleDeleteAgent}>
-                {t('agent.page.form.delete')}
-              </Button>
+              <>
+                <Button
+                  startIcon={<DeleteIcon />}
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleDeleteAgent}>
+                  {t('agent.page.form.delete')}
+                </Button>
+                <Button
+                  startIcon={<SaveIcon />}
+                  disabled={!checkStepsComplete(agent)}
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSaveAgent}>
+                  {t('agent.page.form.save')}
+                </Button>
+              </>
             }
             <Button variant="contained" color="primary" onClick={() => { history.push('/agents') }}>
               {t('agent.page.form.back')}
@@ -124,7 +136,7 @@ const AgentContainer = ({ history, currentAgent }) => {
                     <TextField
                       required
                       name="name"
-                      variant="outlined" 
+                      variant="outlined"
                       onChange={(e) => handleAgentChange(e)}
                       value={agent.name}
                       style={{ width: '100%' }}
