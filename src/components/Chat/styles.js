@@ -34,6 +34,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     gap: '10px',
     cursor: 'pointer',
+    justifyContent: 'flex-end',
   },
   dialogContent: {
     minHeight: '350px',

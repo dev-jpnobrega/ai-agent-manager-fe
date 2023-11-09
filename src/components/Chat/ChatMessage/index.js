@@ -6,6 +6,7 @@ import moment from "moment";
 
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
+import Markdown from 'react-markdown'
 
 import { MemoizedReactMarkdown } from '../memoized-react-markdown';
 import { CodeBlock } from "../code-block";
@@ -16,10 +17,17 @@ export const ChatMessage = ({ chat, index }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes[`dialog${chat.role}`]} key={`chat-message-agent${index}`}>
-      <div className={classes[`chatBalloon${chat.role}`]}>
-        <div className={classes[`chatBalloonText${chat.role}`]}>
-          {/* {chat.type === 'message' && chat.content}
+    <>
+      {chat.role === 'Files' && <div className={classes.uploadedFiles}>
+        <Markdown>
+          {chat.content}
+        </Markdown>
+      </div>
+      }
+      {chat.role !== 'Files' && <div className={classes[`dialog${chat.role}`]} key={`chat-message-agent${index}`}>
+        <div className={classes[`chatBalloon${chat.role}`]}>
+          <div className={classes[`chatBalloonText${chat.role}`]}>
+            {/* {chat.type === 'message' && chat.content}
           {chat.type === 'picture' && <img src={chat.content} alt="Send By Agent" className={classes.chatImage} />}
           {chat.type === 'file' &&
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -29,52 +37,54 @@ export const ChatMessage = ({ chat, index }) => {
               </a>
             </div>
           } */}
-          <MemoizedReactMarkdown
-            remarkPlugins={[remarkGfm, remarkMath]}
-            components={{
-              p({ children }) {
-                return <span className="mb-2 last:mb-0">{children}</span>;
-              },
-              code({ node, inline, className, children, ...props }) {
-                if (children.length) {
-                  if (children[0] === "▍") {
+            <MemoizedReactMarkdown
+              remarkPlugins={[remarkGfm, remarkMath]}
+              components={{
+                p({ children }) {
+                  return <span className="mb-2 last:mb-0">{children}</span>;
+                },
+                code({ node, inline, className, children, ...props }) {
+                  if (children.length) {
+                    if (children[0] === "▍") {
+                      return (
+                        <span className="mt-1 animate-pulse cursor-default">
+                          ▍
+                        </span>
+                      );
+                    }
+
+                    children[0] = (children[0]).replace("`▍`", "▍");
+                  }
+                  
+                  const match = /language-(\w+)/.exec(className || "");
+
+                  if (inline) {
                     return (
-                      <span className="mt-1 animate-pulse cursor-default">
-                        ▍
-                      </span>
+                      <code>
+                        {children}
+                      </code>
                     );
                   }
 
-                  children[0] = (children[0]).replace("`▍`", "▍");
-                }
-
-                const match = /language-(\w+)/.exec(className || "");
-
-                if (inline) {
                   return (
-                    <code style={{whiteSpace: 'pre-wrap'}} >
-                      {children}
-                    </code>
+                    <CodeBlock
+                      key={Math.random()}
+                      language={(match && match[1]) || ""}
+                      value={String(children).replace(/\n$/, "")}
+                    />
                   );
-                }
-
-                return (
-                  <CodeBlock
-                    key={Math.random()}
-                    language={(match && match[1]) || ""}
-                    value={String(children).replace(/\n$/, "")}
-                  />
-                );
-              },
-            }}
-          >
-            {chat.content.replace(/\\n/g, "  \n")}
-          </MemoizedReactMarkdown>
+                },
+              }}
+            >
+              {chat.content.replace(/\\n/g, "  \n")}
+            </MemoizedReactMarkdown>
+          </div>
+          <Typography variant='body2' className={classes.chatBalloonTime}>
+            {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}
+          </Typography>
         </div>
-        <Typography variant='body2' className={classes.chatBalloonTime}>
-          {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}
-        </Typography>
       </div>
-    </div>
+      }
+    </>
   )
 }

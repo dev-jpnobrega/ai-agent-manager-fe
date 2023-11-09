@@ -1326,13 +1326,7 @@
 		transition: border-bottom-color 0.2s ease-in-out, color 0.2s ease-in-out;
 	}
 
-		a:hover {
-			color: #ffffff;
-			border-bottom-color: transparent;
-		}
-
 	strong, b {
-		color: #ffffff;
 		font-weight: 200;
 	}
 
