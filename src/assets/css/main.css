@@ -1519,6 +1519,10 @@
 		margin: 0 0 1em 0;
 	}
 
+	input[type="number"] {
+		background-color: white;
+	}
+
 	input[type="text"],
 	input[type="password"],
 	input[type="email"],

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import clsx from 'clsx';
@@ -8,7 +8,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import GetApp from '@material-ui/icons/GetApp';
 import TranslateIcon from '@material-ui/icons/Translate';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { useStyles } from './styles'
 
