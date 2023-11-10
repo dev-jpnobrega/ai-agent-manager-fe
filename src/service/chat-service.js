@@ -34,7 +34,7 @@ export const sendMessage = async (message, chatUid, agentUid) => {
 export const uploadFiles = async (files, chatUid, agent) => {
   const formData = new FormData()
 
-  formData.append('file', files)
+  formData.append('files', files)
   formData.append('chatUid', chatUid)
   formData.append('agent', agent)
 
