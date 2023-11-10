@@ -35,6 +35,11 @@ const HistoryStep = ({ handleAgentChange, agent, t }) => {
           type: 'select',
           values: ['redis', 'cosmos']
         },
+        {
+          label: t('agent.page.form.step.history.enable.ssl'),
+          name: 'ssl',
+          type: 'switch',
+        },
       ]
     },
   ]
