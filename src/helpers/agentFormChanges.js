@@ -78,8 +78,9 @@ const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
 
   // delete optional fields
   delete dataSourceConfigClone.schema
+  delete dataSourceConfigClone.customizeSystemMessage
 
-  return checkObjectIsCompletedOrEmpty(dataSourceConfigClone, 9)
+  return checkObjectIsCompletedOrEmpty(dataSourceConfigClone, 8)
 }
 
 export const checkStepsComplete = ({ name = '', dataSourceConfig = {}, documentIntellegenciConfig = {}, llmConfig = {}, vectorStoreConfig = {}, dbHistoryConfig = {} }) => {

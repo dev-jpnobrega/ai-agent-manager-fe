@@ -41,7 +41,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
   const handleUploadFiles = async (files) => {
     if (files.length) {
       const { agentUid, chatUid } = chatAgent
-
+    
       setUploadingFiles(true)
 
       const uploaded = await uploadFiles(files, chatUid, agentUid)
@@ -53,12 +53,18 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
           setUploadingFiles(false)
 
           setTimeout(() => {
-            saveChatMessages([...chatMessages, {
+            const fileMessages = files.map(file => ({
               role: 'Files',
               type: 'message',
               createdAt: new Date(),
-              content: `**${t('chat.agent.custom.uploaded.message')}**:  \n ${files.map(file => file.name).join('  \n ')}`,
-            }])
+              content: {
+                name: file.name,
+                size: file.size,
+                type: file.type
+              },
+            }))
+
+            saveChatMessages([...chatMessages, ...fileMessages])
             setShowUploadFiles(false)
           }, 800)
         }, 1200)
@@ -137,7 +143,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
                 <AdbIcon />
               </Avatar>
             </Hidden>
-            <div>
+            <div style={{ width: '100%' }}>
               <Typography variant='subtitle1' className={classes.dialogTexts}>{chatAgent.agent.name || "Agent Name"}</Typography>
               <Typography variant='body2' className={classes.dialogTextsSub}>
                 {isAgentDefault ? t('agent.custom') : t('agent.specialized')}

@@ -22,6 +22,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   dialogTexts: {
     color: 'black',
+    overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' 
   },
   dialogTextsSub: {
     color: 'rgba(58, 53, 65, 0.38)'

@@ -75,10 +75,16 @@ export const useStyles = makeStyles((theme) => ({
       opacity: 0.5,
     }
   },
-  uploadedFiles: {
+  uploadedFile: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'end',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     textAlign: 'end',
-  }
+  },
+  uploadedFileBalloon: { display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: '#3f51b5', 
+  color: 'white', borderRadius: '6px 6px 0px 6px', padding: '8px 15px 8px 20px', marginBottom: '5px' },
+  uploadedFileDetails: { display: 'flex', flexDirection: 'column', marginLeft: '12px', textAlign: 'left' },
+  uploadedFileDetailsName: {},
+  uploadedFileDetailsSize: { fontSize: '12px', marginTop: '5px' },
 }));

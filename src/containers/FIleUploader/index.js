@@ -114,7 +114,7 @@ const FileUploader = ({ uploadingFiles, sendUploadFiles, setShowUploadFiles, t }
               ))}
             </div>
           </Grid>
-
+          
           <Grid item xs={12} className={classes.uploaderContent}>
             {uploadingFiles && <LinearProgress />}
             {filesToUpload.map((file, index) => (

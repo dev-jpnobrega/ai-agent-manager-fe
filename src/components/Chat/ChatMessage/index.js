@@ -1,28 +1,61 @@
 import React from "react";
 
-import { Typography } from '@material-ui/core'
+import { Typography, SvgIcon } from '@material-ui/core'
+import AttachFileIcon from '@material-ui/icons/AttachFile';
+import CropOriginalOutlinedIcon from '@material-ui/icons/CropOriginalOutlined';
+import PictureAsPdfOutlinedIcon from '@material-ui/icons/PictureAsPdfOutlined';
+
+import yalmIcon from '../../../assets/images/yaml-icon.svg';
+import xmlIcon from '../../../assets/images/xml-icon.svg';
 
 import moment from "moment";
 
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import Markdown from 'react-markdown'
 
 import { MemoizedReactMarkdown } from '../memoized-react-markdown';
 import { CodeBlock } from "../code-block";
 
 import { useStyles } from './styles';
+import { pickBetterBytes } from "../../../helpers/formatBytes";
+
+const iconsType = {
+  'application/pdf': <PictureAsPdfOutlinedIcon/>,
+  "image/png": <CropOriginalOutlinedIcon/>,
+  "image/jpeg": <CropOriginalOutlinedIcon/>,
+  "image/jpg": <CropOriginalOutlinedIcon/>,
+  "image/gif": <CropOriginalOutlinedIcon/>,
+  "image/bmp": <CropOriginalOutlinedIcon/>,
+  "image/webp": <CropOriginalOutlinedIcon/>,
+  "image/svg+xml": <CropOriginalOutlinedIcon/>,
+  "image/x-icon": <CropOriginalOutlinedIcon/>,
+  "text/xml": <img src={xmlIcon}/>,
+  "application/x-yaml": <img src={yalmIcon}/>,
+  'default': <AttachFileIcon/>,
+}
 
 export const ChatMessage = ({ chat, index }) => {
   const classes = useStyles();
 
+  const renderTime = (chat) => (
+    <Typography variant='body2' className={classes.chatBalloonTime}>
+      {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}
+    </Typography>
+  )
+
   return (
     <>
-      {chat.role === 'Files' && <div className={classes.uploadedFiles}>
-        <Markdown>
-          {chat.content}
-        </Markdown>
-      </div>
+      {chat.role === 'Files' &&
+        <div className={classes.uploadedFile}>
+          <div className={classes.uploadedFileBalloon}>
+            { chat.content.type && iconsType[chat.content.type] ? iconsType[chat.content.type] : iconsType['default'] }
+            <div className={classes.uploadedFileDetails}>
+              <div className={classes.uploadedFileDetailsName}>{chat.content.name}</div>
+              <div className={classes.uploadedFileDetailsSize}>{pickBetterBytes(chat.content.size)}</div>
+            </div>
+          </div>
+          {renderTime(chat)}
+        </div>
       }
       {chat.role !== 'Files' && <div className={classes[`dialog${chat.role}`]} key={`chat-message-agent${index}`}>
         <div className={classes[`chatBalloon${chat.role}`]}>
@@ -55,7 +88,7 @@ export const ChatMessage = ({ chat, index }) => {
 
                     children[0] = (children[0]).replace("`▍`", "▍");
                   }
-                  
+
                   const match = /language-(\w+)/.exec(className || "");
 
                   if (inline) {
@@ -79,9 +112,7 @@ export const ChatMessage = ({ chat, index }) => {
               {chat.content.replace(/\\n/g, "  \n")}
             </MemoizedReactMarkdown>
           </div>
-          <Typography variant='body2' className={classes.chatBalloonTime}>
-            {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}
-          </Typography>
+          {renderTime(chat)}
         </div>
       </div>
       }
