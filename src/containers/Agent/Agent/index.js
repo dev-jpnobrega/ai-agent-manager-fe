@@ -15,6 +15,7 @@ import SaveIcon from '@material-ui/icons/Save';
 
 import { SnackbarContext } from '../../../context/SnackbarContext';
 import { agentFormChanges, agentRequestFeedback, handleFormValidation, checkStepsComplete } from '../../../helpers/agentFormChanges';
+import { ResponsiveButton } from '../../../components/ResponsiveButton';
 
 const getStepContent = (stepIndex, agent, handleAgentChange) => {
   switch (stepIndex) {
@@ -93,24 +94,33 @@ const AgentContainer = ({ history, currentAgent }) => {
           justifyContent="flex-end"
           alignItems="center"
         >
-          <Grid item xs={4} sm={3} justifyContent='flex-end' style={{ display: 'flex', gap: '12px' }}>
+          <Grid item xs={12} style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
             {currentAgent.key &&
               <>
-                <Button
-                  startIcon={<DeleteIcon />}
-                  variant="contained"
+                <ResponsiveButton
+                  mobile={mobile}
                   color="secondary"
-                  onClick={handleDeleteAgent}>
-                  {t('agent.page.form.delete')}
-                </Button>
-                <Button
-                  startIcon={<SaveIcon />}
-                  disabled={!checkStepsComplete(agent)}
+                  size="small"
                   variant="contained"
+                  alt="Save"
+                  Icon={DeleteIcon}
+                  style={{ textTransform: 'uppercase' }}
+                  description={t('agent.page.form.delete')}
+                  onClick={handleDeleteAgent}
+                />
+
+                <ResponsiveButton
+                  mobile={mobile}
+                  disabled={!checkStepsComplete(agent)}
                   color="primary"
-                  onClick={handleSaveAgent}>
-                  {t('agent.page.form.save')}
-                </Button>
+                  size="small"
+                  variant="contained"
+                  alt="Save"
+                  Icon={SaveIcon}
+                  style={{ textTransform: 'uppercase' }}
+                  description={t('agent.page.form.save')}
+                  onClick={handleSaveAgent}
+                />
               </>
             }
             <Button variant="contained" color="primary" onClick={() => { history.push('/agents') }}>

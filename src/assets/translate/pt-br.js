@@ -33,7 +33,10 @@ export default {
     'agent.page.form.previous': 'Anterior',
     'agent.page.form.next': 'Próximo',
     'agent.page.form.save': 'Salvar',
-    'agent.page.form.uplodad': 'Upload',
+
+    'agent.page.form.upload': 'Upload',
+    'agent.page.form.choose': 'Escolher',
+    'agent.page.form.cancel': 'Cancelar',
 
     'agent.page.form.select.input.nome': 'NENHUM',
 
@@ -107,6 +110,9 @@ export default {
 
     'agent.custom': 'Agente Padrão',
     'agent.specialized': 'Agente Personalizado',
-    'chat.agent.custom.info': 'Este é um chat com o agente padrão. Por gentileza, realize o upload de arquivos para começar.'
+
+    'chat.agent.custom.info': 'Este é um chat com o agente padrão. ',
+    'chat.agent.custom.upload.info': 'Por gentileza, realize o upload de arquivos para começar.',
+    'chat.agent.custom.uploaded.message': 'Arquivos anexados'
   }
 }

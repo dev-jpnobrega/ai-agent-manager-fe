@@ -34,7 +34,9 @@ export default {
     'agent.page.form.next': 'Siguiente',
     'agent.page.form.save': 'Guardar',
 
-    'agent.page.form.uplodad': 'Carregar',
+    'agent.page.form.upload': 'Subir',
+    'agent.page.form.choose': 'Elegir',
+    'agent.page.form.cancel': 'Cancelar',
 
     'agent.page.form.select.input.nome': 'NINGUNO',
 
@@ -109,6 +111,9 @@ export default {
 
     'agent.custom': 'Agent Personalizado',
     'agent.specialized': 'Agent Predeterminado',
-    'chat.agent.custom.info': 'Esta es una conversación con el agente predeterminado. Por favor, carga archivos para comenzar.'
+    'chat.agent.custom.info': 'Esta es una conversación con el agente predeterminado. ',
+    'chat.agent.custom.upload.info': 'Por favor, carga archivos para comenzar.',
+    'chat.agent.custom.uploaded.message': 'Archivos adjuntos'
+  
   }
 }

@@ -34,7 +34,9 @@ export default {
     'agent.page.form.next': 'Next',
     'agent.page.form.save': 'Save',
 
-    'agent.page.form.uplodad': 'Upload',
+    'agent.page.form.upload': 'Upload',
+    'agent.page.form.choose': 'Choose',
+    'agent.page.form.cancel': 'Cancel',
 
     'agent.page.form.select.input.nome': 'NONE',
 
@@ -108,6 +110,10 @@ export default {
 
     'agent.custom': 'Custom Agent',
     'agent.specialized': 'Specialized Agent',
-    'chat.agent.custom.info': 'This is a default agent chat. Please, upload files to begin.'
+
+    'chat.agent.custom.info': 'This is a default agent chat. ',
+    'chat.agent.custom.upload.info': 'Please, upload files to begin.',
+    'chat.agent.custom.uploaded.message': 'Attached files'
+    
   }
 }

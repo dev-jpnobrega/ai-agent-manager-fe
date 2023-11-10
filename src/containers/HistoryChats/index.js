@@ -105,13 +105,6 @@ export const HistoryChatsContainer = () => {
                 </Grid>
                 <Grid container alignItems='center' style={{}}>
                   <Grid item xs={12} className={classes.chatHistory}>
-                    {
-                      selectedChat.uploadedFiles.length > 0 &&
-                      <div className={classes.uploadedFiles}>
-                        <span style={{ color: 'black', fontWeight: '700' }}> Uploaded files:<br /></span>
-                        {selectedChat.uploadedFiles.map((file, index) => (<span key={index}>{file}<br /></span>))}
-                      </div>
-                    }
                     {selectedChat.messages.map((chat, index) => <ChatMessage key={`chat-message-agent${index}`} classes={classes} chat={chat} index={index} />)}
                   </Grid>
                 </Grid>

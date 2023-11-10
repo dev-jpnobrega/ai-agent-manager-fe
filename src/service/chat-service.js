@@ -52,7 +52,7 @@ export const uploadFiles = async (files, chatUid, agent) => {
   return data || []
 }
 
-export const saveChatLocally = (agent, chatUid, chatMessages = [], uploadedFiles = []) => {
+export const saveChatLocally = (agent, chatUid, chatMessages = []) => {
   const chats = getLocallyChats()
 
   return setLocallyChats({
@@ -60,7 +60,6 @@ export const saveChatLocally = (agent, chatUid, chatMessages = [], uploadedFiles
     [chatUid]: {
       agent,
       createdAt: chats[chatUid] ? chats[chatUid].createdAt : new Date(),
-      uploadedFiles,
       messages: chatMessages
     },
   });

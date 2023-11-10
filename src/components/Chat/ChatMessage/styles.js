@@ -1,46 +1,63 @@
 import { makeStyles } from '@material-ui/core/styles';
 
+const dialog = {
+  display: 'flex',
+  flexDirection: 'column',
+}
+
+const chatBalloonText = {
+  lineHeight: '1.5',
+  letterSpacing: '0.15px',
+  minHeight: '45px',
+  padding: '12px 16px',
+}
+
 export const useStyles = makeStyles((theme) => ({
   dialogUser: {
-    display: 'flex',
-    flexDirection: 'column',
+    ...dialog,
     alignItems: 'flex-end',
     justifyContent: 'flex-end'
   },
   dialogAgent: {
-    display: 'flex',
-    flexDirection: 'column',
+    ...dialog,
     alignItems: 'flex-start',
     justifyContent: 'flex-start'
   },
+  dialogFiles: {
+    ...dialog,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end'
+  },
+  chatBalloonFiles: {
+    ...dialog,
+    gap: '5px',
+    alignItems: 'flex-end',
+    marginTop: '10px',
+  },
   chatBalloonUser: {
-    display: 'flex',
-    flexDirection: 'column',
+    ...dialog,
     gap: '5px',
     alignItems: 'flex-end',
   },
   chatBalloonAgent: {
-    display: 'flex',
-    flexDirection: 'column',
+    ...dialog,
     gap: '5px',
     alignItems: 'flex-start',
   },
   chatBalloonTextUser: {
+    ...chatBalloonText,
     backgroundColor: '#3f51b5',
     color: '#FFF',
-    lineHeight: '1.5',
-    letterSpacing: '0.15px',
-    minHeight: '45px',
-    padding: '12px 16px',
     borderRadius: '6px 6px 0px 6px',
   },
+  chatBalloonTextFiles: {
+    color: 'rgba(58, 53, 65, 0.6)',
+    fontSize: '16px',
+  },
   chatBalloonTextAgent: {
+    ...chatBalloonText,
     backgroundColor: '#FFF',
     color: 'rgba(58, 53, 65, 0.87)',
-    lineHeight: '1.5',
-    letterSpacing: '0.15px',
-    minHeight: '45px',
-    padding: '12px 16px',
     borderRadius: '6px 6px 6px 0px',
   },
   chatBalloonTime: {
@@ -57,5 +74,17 @@ export const useStyles = makeStyles((theme) => ({
     "&:hover": {
       opacity: 0.5,
     }
-  }
+  },
+  uploadedFile: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'end',
+    alignItems: 'flex-end',
+    textAlign: 'end',
+  },
+  uploadedFileBalloon: { display: 'flex', flexDirection: 'row', alignItems: 'center', backgroundColor: '#3f51b5', 
+  color: 'white', borderRadius: '6px 6px 0px 6px', padding: '8px 15px 8px 20px', marginBottom: '5px' },
+  uploadedFileDetails: { display: 'flex', flexDirection: 'column', marginLeft: '12px', textAlign: 'left' },
+  uploadedFileDetailsName: {},
+  uploadedFileDetailsSize: { fontSize: '12px', marginTop: '5px' },
 }));
