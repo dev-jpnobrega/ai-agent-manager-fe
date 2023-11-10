@@ -5,7 +5,7 @@ export default {
     'lang.option.es': 'Spanish',
 
     'home.title': 'AI Enterprise',
-    'home.welcome': 'Welcome to the AI Enterprise Panel',
+    'home.welcome': 'Welcome to the AI Enterprise',
 
     'menu.item.use.cases': 'Use Cases',
     'menu.item.permissions': 'Permissions',
