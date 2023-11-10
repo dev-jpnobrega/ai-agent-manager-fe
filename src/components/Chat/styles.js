@@ -10,6 +10,7 @@ export const useStyles = makeStyles((theme) => ({
     width: '100%',
     color: 'black',
     border: 'none',
+    letterSpacing: '0.3px',
     paddingLeft: '10px',
     "&:hover, &:focus, &:active": {
       border: 0,
