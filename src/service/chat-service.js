@@ -34,9 +34,12 @@ export const sendMessage = async (message, chatUid, agentUid) => {
 export const uploadFiles = async (files, chatUid, agent) => {
   const formData = new FormData()
 
-  formData.append('files', files)
+  for (let i = 0; i < files.length; i++) {     
+    formData.append('files', files[i])   
+  }
+
   formData.append('chatUid', chatUid)
-  formData.append('agent', agent)
+  formData.append('agentUid', agent)
 
   const data = await axios.post(
     `${process.env.REACT_APP_BASE_URL}/v1/upload`,
