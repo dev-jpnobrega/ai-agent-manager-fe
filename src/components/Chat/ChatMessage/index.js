@@ -21,18 +21,18 @@ import { useStyles } from './styles';
 import { pickBetterBytes } from "../../../helpers/formatBytes";
 
 const iconsType = {
-  'application/pdf': <PictureAsPdfOutlinedIcon/>,
-  "image/png": <CropOriginalOutlinedIcon/>,
-  "image/jpeg": <CropOriginalOutlinedIcon/>,
-  "image/jpg": <CropOriginalOutlinedIcon/>,
-  "image/gif": <CropOriginalOutlinedIcon/>,
-  "image/bmp": <CropOriginalOutlinedIcon/>,
-  "image/webp": <CropOriginalOutlinedIcon/>,
-  "image/svg+xml": <CropOriginalOutlinedIcon/>,
-  "image/x-icon": <CropOriginalOutlinedIcon/>,
-  "text/xml": <img src={xmlIcon}/>,
-  "application/x-yaml": <img src={yalmIcon}/>,
-  'default': <AttachFileIcon/>,
+  'application/pdf': <PictureAsPdfOutlinedIcon />,
+  "image/png": <CropOriginalOutlinedIcon />,
+  "image/jpeg": <CropOriginalOutlinedIcon />,
+  "image/jpg": <CropOriginalOutlinedIcon />,
+  "image/gif": <CropOriginalOutlinedIcon />,
+  "image/bmp": <CropOriginalOutlinedIcon />,
+  "image/webp": <CropOriginalOutlinedIcon />,
+  "image/svg+xml": <CropOriginalOutlinedIcon />,
+  "image/x-icon": <CropOriginalOutlinedIcon />,
+  "text/xml": <img src={xmlIcon} />,
+  "application/x-yaml": <img src={yalmIcon} />,
+  'default': <AttachFileIcon />,
 }
 
 export const ChatMessage = ({ chat, index }) => {
@@ -45,8 +45,8 @@ export const ChatMessage = ({ chat, index }) => {
   )
 
   const renderFileIcon = ({ content, error }) => {
-    if (error) return <ErrorOutlineOutlinedIcon/>
-    if (iconsType[content.type]) return iconsType[content.type] 
+    if (error) return <ErrorOutlineOutlinedIcon />
+    if (iconsType[content.type]) return iconsType[content.type]
 
     return iconsType['default']
   }
@@ -55,13 +55,22 @@ export const ChatMessage = ({ chat, index }) => {
     <>
       {chat.role === 'Files' &&
         <div className={classes.uploadedFile}>
-          <div className={classes.uploadedFileBalloon}>
-            {renderFileIcon(chat)}
-            <div className={classes.uploadedFileDetails}>
-              <div className={classes.uploadedFileDetailsName}>{chat.content.name}</div>
-              <div className={classes.uploadedFileDetailsSize}>{pickBetterBytes(chat.content.size)}</div>
+          {chat.type === 'audio' &&
+            <audio src={chat.content} controls></audio>
+          }
+          {chat.type === 'message' &&
+            <div className={classes.uploadedFileBalloon}>
+
+
+
+              {renderFileIcon(chat)}
+              <div className={classes.uploadedFileDetails}>
+                <div className={classes.uploadedFileDetailsName}>{chat.content.name}</div>
+                <div className={classes.uploadedFileDetailsSize}>{pickBetterBytes(chat.content.size)}</div>
+              </div>
             </div>
-          </div>
+          }
+
           {renderTime(chat)}
         </div>
       }

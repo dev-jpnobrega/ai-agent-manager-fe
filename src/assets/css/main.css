@@ -17,6 +17,7 @@
 		font-size: 100%;
 		font: inherit;
 		vertical-align: baseline;
+		font-family: 'Roboto';
 	}
 
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -56,6 +57,22 @@
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 	}
+
+/* Audio */
+
+audio::-webkit-media-controls-panel {
+  background-color: #3f51b5;
+}
+
+audio::-webkit-media-controls-play-button {
+	background-color: white;
+	border-radius: 50%;
+}
+
+audio::-webkit-media-controls-time-remaining-display,
+audio::-webkit-media-controls-current-time-display {
+  color: #fff;
+}
 
 /* Grid */
 

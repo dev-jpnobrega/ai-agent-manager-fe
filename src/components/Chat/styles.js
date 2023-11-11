@@ -43,7 +43,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   dialogActions: {
     width: '100%',
-    height: '50px',
+    height: '58px',
     backgroundColor: '#FFF',
     borderRadius: '5px',
     display: 'flex',

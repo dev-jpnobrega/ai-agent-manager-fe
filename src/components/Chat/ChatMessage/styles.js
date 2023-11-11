@@ -30,18 +30,15 @@ export const useStyles = makeStyles((theme) => ({
   },
   chatBalloonFiles: {
     ...dialog,
-    gap: '5px',
     alignItems: 'flex-end',
     marginTop: '10px',
   },
   chatBalloonUser: {
     ...dialog,
-    gap: '5px',
     alignItems: 'flex-end',
   },
   chatBalloonAgent: {
     ...dialog,
-    gap: '5px',
     alignItems: 'flex-start',
   },
   chatBalloonTextUser: {
@@ -63,7 +60,7 @@ export const useStyles = makeStyles((theme) => ({
   chatBalloonTime: {
     color: 'rgba(58, 53, 65, 0.6)',
     fontSize: '12px',
-    paddingBottom: '10px'
+    padding: '6px 0'
   },
   chatImage: {
     width: '120px',
