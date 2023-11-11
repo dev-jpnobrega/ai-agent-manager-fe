@@ -1,50 +1,47 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import { Fab, CircularProgress } from '@material-ui/core';
+
+import SendIcon from '@material-ui/icons/Send';
 import MicOutlinedIcon from '@material-ui/icons/MicOutlined';
+
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 import { useStyles } from './styles';
 
 const mimeType = "audio/webm";
 
-export const Audio = ({ handleUploadFiles }) => {
+export const Audio = ({ pushChatMessage }) => {
   const classes = useStyles();
 
-  const [permission, setPermission] = useState(false);
   const mediaRecorder = useRef(null);
-  const [recordingStatus, setRecordingStatus] = useState("inactive");
-  const [stream, setStream] = useState(null);
   const [audioChunks, setAudioChunks] = useState([]);
-  const [recorderSupported, setRecorderSupported] = useState(true);
+  const [stream, setStream] = useState(null);
 
-  useEffect(() => {
-    if (!window.MediaRecorder) {
-      setRecorderSupported(false);
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    isMicrophoneAvailable,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  const onStartListening = async (event) => {
+    if (!isMicrophoneAvailable) {
+      console.log('Microphone is not available.')
+      return
     }
-  }, [])
 
-  const getMicrophonePermission = async () => {
-    if (permission) return startRecording(stream)
+    const streamData = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: false,
+    });
 
-    try {
-      const streamData = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: false,
-      });
-      setPermission(true);
-      setStream(streamData);
-      startRecording(streamData);
-    } catch (err) {
-      alert(err.message);
-    }
-  };
+    setStream(streamData)
 
-  const startRecording = async (stream) => {
-    setRecordingStatus("recording");
-    const media = new MediaRecorder(stream, { type: mimeType });
+    const media = new MediaRecorder(streamData, { type: mimeType });
 
     mediaRecorder.current = media;
-
     mediaRecorder.current.start();
     let localAudioChunks = [];
     mediaRecorder.current.ondataavailable = (event) => {
@@ -52,33 +49,16 @@ export const Audio = ({ handleUploadFiles }) => {
       if (event.data.size === 0) return;
       localAudioChunks.push(event.data);
     };
+
     setAudioChunks(localAudioChunks);
-  };
 
-  const onStartSpeaking = () => {
-    if (window && window.speechSynthesis && window.speechSynthesis.speaking) {
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak({ rate: 1.2, text: 'dddddddddd' });
-    }
-
-    const windowsExisting = window ? true : false;
-
-    if (windowsExisting && window && window.speechSynthesis && window.speechSynthesis.speaking) {
-      const r = setInterval(() => {
-        console.log(`window.speechSynthesis.speaking`, window.speechSynthesis.speaking);
-        if (!window.speechSynthesis.speaking) {
-          clearInterval(r);
-        } else {
-          window && window.speechSynthesis && window.speechSynthesis.pause();
-          window && window.speechSynthesis && window.speechSynthesis.resume();
-        }
-      }, 14000);
-    }
-  };
+    await SpeechRecognition.startListening({
+      language: 'pt-BR',
+      continuous: true,
+    });
+  }
 
   const stopRecording = () => {
-    setRecordingStatus("inactive");
-
     mediaRecorder.current.stop();
     mediaRecorder.current.onstop = () => {
       const tracks = stream.getTracks();
@@ -90,29 +70,46 @@ export const Audio = ({ handleUploadFiles }) => {
       const audioBlob = new Blob(audioChunks, { type: mimeType });
 
       const audioUrl = URL.createObjectURL(audioBlob);
-      handleUploadFiles([audioUrl], 'audio')
+      handleSentAudio(transcript, audioUrl)
       setAudioChunks([]);
+
     };
+
+    SpeechRecognition.stopListening();
+    handleSentAudio(transcript)
   };
 
-  const handleRecordingClick = () => {
-    getMicrophonePermission()
+  const handleSentAudio = (transcript, audioUrl = null) => {
+    const message = {
+      content: transcript,
+      audioUrl,
+      role: 'User',
+      type: 'audio',
+      name: 'Username'
+    }
+
+    resetTranscript()
+
+    pushChatMessage(message)
   }
 
   return (
     <>
-      {recorderSupported &&
+      {browserSupportsSpeechRecognition &&
         <div className={classes.root}>
           <div className={classes.wrapper}>
             <Fab
               aria-label="save"
               color="primary"
               className={classes.fab}
-              onClick={handleRecordingClick}
+              onClick={onStartListening}
             >
-              <MicOutlinedIcon fontSize='small' />
+              { listening ? 
+                <SendIcon fontSize='small' /> :
+                <MicOutlinedIcon fontSize='small' />
+              }
             </Fab>
-            {recordingStatus === 'recording' && <CircularProgress
+            {listening && <CircularProgress
               size={50}
               className={classes.fabProgress}
               onClick={stopRecording}

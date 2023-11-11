@@ -17,6 +17,8 @@ const formatSendMessage = (message, chatUid, agentUid) => ({
 })
 
 export const sendMessage = async (message, chatUid, agentUid) => {
+  delete message.audioUrl
+  
   const data = await axios.post(
     `${process.env.REACT_APP_BASE_URL}/v1/chat`,
     formatSendMessage(message, chatUid, agentUid),

@@ -85,4 +85,5 @@ export const useStyles = makeStyles((theme) => ({
   uploadedFileDetails: { display: 'flex', flexDirection: 'column', marginLeft: '12px', textAlign: 'left' },
   uploadedFileDetailsName: {},
   uploadedFileDetailsSize: { fontSize: '12px', marginTop: '5px' },
+  transcriptInfo: { fontSize: '10px', display: 'flex', alignItems: 'center' },
 }));

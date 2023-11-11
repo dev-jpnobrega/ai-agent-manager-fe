@@ -37,17 +37,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
     setChatMessages(currentChatMessages)
   }
 
-  const setContent = (type, file) => {
-    if (type === 'message') return {
-      name: file.name,
-      size: file.size,
-      type: file.type
-    }
-
-    if (type === 'audio') return file
-  }
-
-  const handleUploadFiles = async (files, type = 'message') => {
+  const handleUploadFiles = async (files) => {
     if (files.length) {
       const { agentUid, chatUid } = chatAgent
 
@@ -64,10 +54,14 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
           setTimeout(() => {
             const fileMessages = files.map(file => ({
               role: 'Files',
-              type,
+              type: 'message',
               createdAt: new Date(),
               error: uploaded.error,
-              content: setContent(type, file),
+              content: {
+                name: file.name,
+                size: file.size,
+                type: file.type
+              },
             }))
 
             saveChatMessages([...chatMessages, ...fileMessages])
@@ -100,35 +94,40 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
     }]))
   });
 
-  const pushChatMessage = (newMessage, role = 'User', type = 'message') => {
-    const message = {
-      id: chatAgent.chatUid,
-      content: newMessage,
-      role,
-      type,
-      createdAt: new Date(),
-      name: 'Username'
-    }
+  const pushChatMessage = (message, audio) => {
+    message.id = chatAgent.chatUid
+    message.createdAt = new Date()
 
     chatInputRef.current.value = ''
 
     saveChatMessages([...chatMessages, message])
     setTimeout(() => handleMessagePushed(), 200)
 
-    sendCurrentMessage(message)
+    sendCurrentMessage(message, audio)
       .then(() => handleMessagePushed())
+  }
+
+  const fromInput = (newMessage) => {
+    const message = {
+      content: newMessage,
+      role: 'User',
+      type: 'message',
+      name: 'Username'
+    }
+
+    pushChatMessage(message)
   }
 
   const handleInputKeyDown = (event) => {
     const { target, key } = event
 
-    if (key === 'Enter' && target.value !== '') pushChatMessage(target.value)
+    if (key === 'Enter' && target.value !== '') fromInput(target.value)
   }
 
   const handleSendButton = () => {
     const { value } = chatInputRef.current
 
-    if (value !== '') pushChatMessage(value)
+    if (value !== '') fromInput(value)
   }
 
   return (
@@ -212,7 +211,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
             onKeyDown={handleInputKeyDown}
             disabled={isAgentDefault && uploadFiles.length === 0}
           />
-          <Audio handleUploadFiles={handleUploadFiles} />
+          <Audio pushChatMessage={pushChatMessage} />
           <Button
             variant="contained"
             size="small"

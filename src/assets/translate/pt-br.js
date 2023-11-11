@@ -105,7 +105,8 @@ export default {
     'history.chats.page.label.no.results': 'Não há histórico de chats',
     'history.chats.page.label.results': 'Histórico',
     'history.chats.page.label.date': 'Em',
-
+    'history.chats.page.label.transcripted.info': 'Transcrito',
+    
     'history.chats.page.message.deleted': 'Chat excluído com sucesso.',
 
     'agent.custom': 'Agente Padrão',
