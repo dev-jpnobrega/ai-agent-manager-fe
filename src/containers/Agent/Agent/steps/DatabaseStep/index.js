@@ -52,6 +52,11 @@ const DatabaseStep = ({ handleAgentChange, agent, t }) => {
           label: t('agent.page.form.step.database.enable.synchronize'),
           name: 'synchronize',
           type: 'switch',
+        },
+        {
+          label: t('agent.page.form.step.database.enable.ssl'),
+          name: 'ssl',
+          type: 'switch',
         }
       ]
     },
@@ -77,7 +82,7 @@ const DatabaseStep = ({ handleAgentChange, agent, t }) => {
               <Typography variant='subtitle2' color='textSecondary'>{config.title}</Typography>
             </Grid>
             {config.fields.map((field, index) => (
-              <Grid item xs={12} sm={field.label ? 6 : 12} key={`parameters-config-${field.namePath}${index}`}>
+              <Grid item xs={12} sm={!field.label || field.type === 'switch' ? 12 : 6} key={`parameters-config-${field.namePath}${index}`}>
                 <Grid container spacing={2} justifyContent="center"
                   alignItems="center">
                     <AgentTextField

@@ -5,7 +5,7 @@ export const agentFormChanges = (agent, event, path = '') => {
   const validateValue = /^\s/.test(value) ? '' : value;
 
   if (name === 'debug') return ({ ...agent, [name]: checked });
-  if (name === 'synchronize') return ({ ...agent, [path]: { ...agent[path], [name]: checked } });
+  if (['synchronize', 'ssl'].includes(name)) return ({ ...agent, [path]: { ...agent[path], [name]: checked } });
   if (['includesTables', 'indexes'].includes(name)) {
     return ({ ...agent, [path]: { ...agent[path], [name]: validateValue ? [validateValue] : [] } });
   }
@@ -57,7 +57,12 @@ const checkStepParameterComplete = ({ llmConfig = {} }) => {
 }
 
 const checkStepHistoryComplete = ({ dbHistoryConfig = {} }) => {
-  return checkObjectIsCompletedOrEmpty(dbHistoryConfig, 5)
+  const dbHistoryConfigClone = cloneDeep(dbHistoryConfig)
+
+  // delete boolean type fields
+  delete dbHistoryConfigClone.ssl
+
+  return checkObjectIsCompletedOrEmpty(dbHistoryConfigClone, 5)
 }
 
 const checkStepCognitiveComplete = ({ documentIntellegenciConfig = {}, vectorStoreConfig = {} }) => {
@@ -75,6 +80,7 @@ const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
 
   // delete boolean type fields
   delete dataSourceConfigClone.synchronize
+  delete dataSourceConfigClone.ssl
 
   // delete optional fields
   delete dataSourceConfigClone.schema

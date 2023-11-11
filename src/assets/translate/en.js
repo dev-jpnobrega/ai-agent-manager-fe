@@ -72,6 +72,7 @@ export default {
     'agent.page.form.step.history.enable.session.ttl': 'Session TTL',
     'agent.page.form.step.history.enable.host': 'Host',
     'agent.page.form.step.history.enable.password': 'Password',
+    'agent.page.form.step.history.enable.ssl': 'SSL',
 
     'agent.page.form.step.cognitive.enable.title': 'Cognitive Service Config',
     'agent.page.form.step.cognitive.enable.api.key': 'Search API Key',
@@ -95,6 +96,7 @@ export default {
     'agent.page.form.step.database.enable.password': 'Password',
     'agent.page.form.step.database.enable.includes.tables': 'Includes Tables',
     'agent.page.form.step.database.enable.synchronize': 'Synchronize',
+    'agent.page.form.step.database.enable.ssl': 'SSL',
     'agent.page.form.step.database.enable.custom.message': 'Customize System Message',
 
     'agent.page.form.snackbar.saved.success': 'Agent saved successfully.',

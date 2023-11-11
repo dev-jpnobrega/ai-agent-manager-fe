@@ -26,12 +26,12 @@ export const AgentTextField = ({ config, agent, field, handleAgentChange, xsGrid
             control={
               <Switch
                 color='primary'
-                name="synchronize"
-                checked={get(agent, 'dataSourceConfig.synchronize', false)}
-                onChange={(e) => handleAgentChange(e, 'dataSourceConfig')}
+                name={field.name}
+                checked={value}
+                onChange={(e) => handleAgentChange(e, config.namePath)}
               />
             }
-            value={get(agent, 'dataSourceConfig.synchronize', false)}
+            value={value}
             className={classes.switchForm}
             label={mobile ? field.label : ''}
           />
