@@ -94,7 +94,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
     }]))
   });
 
-  const pushChatMessage = (message, audio) => {
+  const pushChatMessage = (message) => {
     message.id = chatAgent.chatUid
     message.createdAt = new Date()
 
@@ -103,7 +103,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
     saveChatMessages([...chatMessages, message])
     setTimeout(() => handleMessagePushed(), 200)
 
-    sendCurrentMessage(message, audio)
+    sendCurrentMessage(message)
       .then(() => handleMessagePushed())
   }
 

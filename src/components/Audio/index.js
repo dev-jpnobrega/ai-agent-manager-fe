@@ -76,7 +76,6 @@ export const Audio = ({ pushChatMessage }) => {
     };
 
     SpeechRecognition.stopListening();
-    handleSentAudio(transcript)
   };
 
   const handleSentAudio = (transcript, audioUrl = null) => {
