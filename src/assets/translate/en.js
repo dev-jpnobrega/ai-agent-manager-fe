@@ -7,10 +7,26 @@ export default {
     'home.title': 'AI Enterprise',
     'home.welcome': 'Welcome to the AI Enterprise',
 
+    'home.dashboard.playound': 'AI Enterprise',
+
+    'home.dashboard.playound.title': 'There is a playground available!',
+    'home.dashboard.playound.subtitle': 'Test the chat feature now!',
+    'home.dashboard.playound.button': 'OPEN PLAYGROUND',
+    
+    'home.dashboard.agents.title': 'Agents',
+    'home.dashboard.agents.count': 'registered',
+    'home.dashboard.agents.button': 'VIEW AGENTS',
+    
+    'home.dashboard.chat.title': 'Chats',
+    'home.dashboard.chat.count': 'saved',
+    'home.dashboard.chat.button': 'VIEW CHATS',
+
     'menu.item.use.cases': 'Use Cases',
     'menu.item.permissions': 'Permissions',
     'menu.item.agents': 'Agents',
     'menu.item.history.chats': 'Chat History',
+    'menu.item.playground': 'Playground',
+    'menu.item.signout': 'Sign Out',
 
     'agent.page.title': 'Agents',
     'agent.page.card.agent': 'Agent',

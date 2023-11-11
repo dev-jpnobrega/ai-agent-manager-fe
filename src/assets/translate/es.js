@@ -7,10 +7,25 @@ export default {
     'home.title': 'IA Corporativa',
     'home.welcome': 'Bienvenido al Administración de IA Corporativa',
 
+    'home.dashboard.playound.title': '¡Hay un playground disponible!',
+    'home.dashboard.playound.subtitle': '¡Aprovecha para probar la función de chat!',
+    'home.dashboard.playound.button': 'ABRIR PATIO DE JUEGOS',
+
+    'home.dashboard.agents.title': 'Agentes',
+    'home.dashboard.agents.count': 'registrados',
+    'home.dashboard.agents.button': 'VER AGENTES',
+
+    'home.dashboard.chat.title': 'Chats',
+    'home.dashboard.chat.count': 'guardados',
+    'home.dashboard.chat.button': 'VER CHATS',
+
+
     'menu.item.use.cases': 'Casos de Uso',
     'menu.item.permissions': 'Permisos',
     'menu.item.agents': 'Agentes',
     'menu.item.history.chats': 'Historial de chat',
+    'menu.item.playground': 'Playground',
+    'menu.item.signout': 'Salir',
 
     'agent.page.title': 'Agentes',
     'agent.page.card.agent': 'Agente',
@@ -116,6 +131,6 @@ export default {
     'chat.agent.custom.info': 'Esta es una conversación con el agente predeterminado. ',
     'chat.agent.custom.upload.info': 'Por favor, carga archivos para comenzar.',
     'chat.agent.custom.uploaded.message': 'Archivos adjuntos'
-  
+
   }
 }

@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MainContainer from '../containers/Main';
 import PageBase from './PageBase';
 import { useTranslation } from 'react-i18next';
+import Dashboard from '../containers/Dashboard';
 
 const drawerWidth = 260
 
@@ -148,7 +149,8 @@ function Main() {
 
   return (
     <MainContainer classes={classes}>
-      <PageBase title={t('home.welcome')}>
+      <PageBase >
+        <Dashboard />
       </PageBase>
     </MainContainer>
   )
