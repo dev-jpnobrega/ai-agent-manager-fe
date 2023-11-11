@@ -4,6 +4,7 @@ import { Typography, SvgIcon } from '@material-ui/core'
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import CropOriginalOutlinedIcon from '@material-ui/icons/CropOriginalOutlined';
 import PictureAsPdfOutlinedIcon from '@material-ui/icons/PictureAsPdfOutlined';
+import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 
 import yalmIcon from '../../../assets/images/yaml-icon.svg';
 import xmlIcon from '../../../assets/images/xml-icon.svg';
@@ -35,7 +36,7 @@ const iconsType = {
 }
 
 export const ChatMessage = ({ chat, index }) => {
-  const classes = useStyles();
+  const classes = useStyles({ withError: chat.error });
 
   const renderTime = (chat) => (
     <Typography variant='body2' className={classes.chatBalloonTime}>
@@ -43,12 +44,19 @@ export const ChatMessage = ({ chat, index }) => {
     </Typography>
   )
 
+  const renderFileIcon = ({ content, error }) => {
+    if (error) return <ErrorOutlineOutlinedIcon/>
+    if (iconsType[content.type]) return iconsType[content.type] 
+
+    return iconsType['default']
+  }
+
   return (
     <>
       {chat.role === 'Files' &&
         <div className={classes.uploadedFile}>
           <div className={classes.uploadedFileBalloon}>
-            { chat.content.type && iconsType[chat.content.type] ? iconsType[chat.content.type] : iconsType['default'] }
+            {renderFileIcon(chat)}
             <div className={classes.uploadedFileDetails}>
               <div className={classes.uploadedFileDetailsName}>{chat.content.name}</div>
               <div className={classes.uploadedFileDetailsSize}>{pickBetterBytes(chat.content.size)}</div>
