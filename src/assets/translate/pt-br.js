@@ -4,8 +4,8 @@ export default {
     'lang.option.en': 'English',
     'lang.option.es': 'Español',
 
-    'home.title': 'IA Empresarial Admin',
-    'home.welcome': 'Bem vindo ao IA Empresarial Admin',
+    'home.title': 'IA Corporativa',
+    'home.welcome': 'Bem vindo ao IA Corporativa',
 
     'menu.item.use.cases': 'Casos de Uso',
     'menu.item.permissions': 'Permissões',
