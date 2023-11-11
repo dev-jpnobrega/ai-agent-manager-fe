@@ -71,7 +71,7 @@ export const ChatMessage = ({ chat, index, page = 'chat' }) => {
               const match = /language-(\w+)/.exec(className || "");
 
               if (inline) return <code>{children}</code>
-              
+
               return (
                 <CodeBlock
                   key={Math.random()}
@@ -84,10 +84,10 @@ export const ChatMessage = ({ chat, index, page = 'chat' }) => {
         >
           {chat.content.replace(/\\n/g, "  \n")}
         </MemoizedReactMarkdown>
-        { transcript && <div className={classes.transcriptInfo}>
-          <RecordVoiceOverIcon style={{ fontSize: '10px', marginRight: '6px' }}/>
+        {transcript && <div className={classes.transcriptInfo}>
+          <RecordVoiceOverIcon style={{ fontSize: '10px', marginRight: '6px' }} />
           {'trascripted'}
-          </div> }
+        </div>}
       </div>
       {renderTime(chat)}
     </div>
@@ -113,7 +113,11 @@ export const ChatMessage = ({ chat, index, page = 'chat' }) => {
       {chat.role !== 'Files' && <div className={classes[`dialog${chat.role}`]} key={`chat-message-agent${index}`}>
         {chat.type === 'audio' &&
           <>
-            {page === 'chat' && <audio src={chat.audioUrl} controls></audio>}
+            {page === 'chat' && <>
+              <audio src={chat.audioUrl} controls></audio>
+              {renderTime(chat)}
+            </>
+            }
             {page === 'history' && renderChatBalloon(true)}
           </>
         }
