@@ -3,8 +3,6 @@ import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 
-import { v4 as uuidv4 } from 'uuid';
-
 import { Grid, Paper, Typography, Box, Button, Divider } from '@material-ui/core';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 
@@ -17,6 +15,7 @@ import { useStyles } from './styles'
 
 import { AGENTS_SET_AGENTS_LIST } from '../agent-actions';
 import { getAgents } from '../../../service/agent-service';
+import { handleNewChat } from '../../../service/chat-service';
 
 const ListAgentsContainer = ({ history }) => {
   const [t] = useTranslation('translation');
@@ -37,10 +36,6 @@ const ListAgentsContainer = ({ history }) => {
       agents: agents
     })
   }, [])
-
-  const handleNewChat = (agent) => {
-    window.open(`/#/chat/${agent.key}/${uuidv4()}`, '_blank', 'noreferrer');
-  }
 
   return (
     <>

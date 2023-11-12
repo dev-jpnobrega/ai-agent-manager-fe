@@ -11,8 +11,11 @@ import AdbRoundedIcon from '@material-ui/icons/AdbRounded';
 import DeveloperBoardRoundedIcon from '@material-ui/icons/DeveloperBoardRounded';
 import LockOpenRoundedIcon from '@material-ui/icons/LockOpenRounded';
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
+import NewReleasesOutlinedIcon from '@material-ui/icons/NewReleasesOutlined';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 
 import { useTranslation } from 'react-i18next';
+import { handleNewChat } from '../../service/chat-service';
 
 export default function MenuItemsComponent({ items }) {
   const [t] = useTranslation('translation');
@@ -22,7 +25,9 @@ export default function MenuItemsComponent({ items }) {
       { name: 'agents', icon: AdbRoundedIcon, },
       { name: 'permissions', icon: LockOpenRoundedIcon, },
       { name: 'use.cases', icon: DeveloperBoardRoundedIcon, },
-      { name: 'history.chats', icon: ForumOutlinedIcon, }
+      { name: 'history.chats', icon: ForumOutlinedIcon, },
+      { name: 'playground', icon: NewReleasesOutlinedIcon, },
+      { name: 'signout', icon: ExitToAppOutlinedIcon, }
     ]
 
     const selected = icons.find(e => e.name === name);
@@ -38,16 +43,40 @@ export default function MenuItemsComponent({ items }) {
   return (
     <>
       <Divider />
-      <List>
-        {items.map((item, index) => (
-          <Link to={item.path} key={index}>
-            <ListItem button key={index} style={{ paddingLeft: '24px', height: '48px' }}>
-              {getListIcon(item.title)}
-              <ListItemText primary={t(`menu.item.${item.title}`)} />
-            </ListItem>
-          </Link>
-        ))}
-      </List>
+      <div style={{
+        'display': 'flex',
+        'flexDirection': 'column',
+        'alignItems': 'baseline',
+        'justifyContent': 'space-between',
+        'height': '100%'
+      }}>
+        <List>
+          {items.map((item, index) => (
+            <Link to={item.path} key={index}>
+              <ListItem button key={index} style={{ paddingLeft: '24px', height: '48px' }}>
+                {getListIcon(item.title)}
+                <ListItemText primary={t(`menu.item.${item.title}`)} />
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+        <List>
+          <ListItem
+            button
+            style={{ paddingLeft: '24px', height: '48px' }}
+            onClick={() => handleNewChat({ key: 'default' })}>
+            {getListIcon('playground')}
+            <ListItemText primary={t(`menu.item.${'playground'}`)} />
+          </ListItem>
+          <ListItem
+            button
+            style={{ paddingLeft: '24px', height: '48px' }}
+            onClick={() => { }}>
+            {getListIcon('signout')}
+            <ListItemText primary={t(`menu.item.${'signout'}`)} />
+          </ListItem>
+        </List>
+      </div>
     </>
   )
 }
