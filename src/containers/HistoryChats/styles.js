@@ -57,5 +57,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   chatHeaderAgent: {
     paddingLeft: '10px',
+  },
+  hide: {
+    display: 'none'
   }
 }));

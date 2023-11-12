@@ -3,10 +3,13 @@ import { getLocallyChatsList, deleteChatLocally } from "../../service/chat-servi
 
 import moment from "moment";
 
-import { Avatar, InputAdornment, Paper, TextField, Box, Grid, List, ListItem, Typography, ListItemIcon, ListItemText } from "@material-ui/core";
+import clsx from 'clsx';
+
+import { useMediaQuery, Avatar, InputAdornment, Paper, TextField, Box, Grid, List, ListItem, Typography, ListItemIcon, ListItemText, IconButton } from "@material-ui/core";
 import AdbIcon from '@material-ui/icons/Adb';
 import SearchIcon from '@material-ui/icons/Search';
 import DeleteIcon from '@material-ui/icons/Delete';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import SpeakerNotesOutlinedIcon from '@material-ui/icons/SpeakerNotesOutlined';
 
 import { useStyles } from './styles';
@@ -15,6 +18,8 @@ import { useTranslation } from "react-i18next";
 import { SnackbarContext } from "../../context/SnackbarContext";
 
 export const HistoryChatsContainer = () => {
+  const mdScreen = useMediaQuery('(max-width:959px)');
+
   const [chats, setChats] = useState(getLocallyChatsList())
   const [selectedChat, setSelectedChat] = useState()
   const [t] = useTranslation('translation')
@@ -43,7 +48,10 @@ export const HistoryChatsContainer = () => {
     <Box mt={3} mx={2}>
       <Paper className={classes.paper} style={{ width: '100%' }}>
         <Grid container style={{ width: '100%', minHeight: '450px' }}>
-          <Grid item xs={12} md={4} className={classes.agentsSession}>
+          <Grid item xs={12} md={4}
+            className={clsx(classes.agentsSession, {
+              [classes.hide]: mdScreen && selectedChat,
+            })}>
             <div>
               <TextField
                 style={{ width: '100%' }}
@@ -90,10 +98,13 @@ export const HistoryChatsContainer = () => {
             </List>
           </Grid>
           {selectedChat &&
-            <Grid item xs={12} md={8} style={{ backgroundColor: '#86868612' }}>
+            <Grid item xs={12} md={8} style={{ backgroundColor: '#86868612' }}
+            className={clsx({
+              [classes.hide]: mdScreen && !selectedChat,
+            })}>
               <>
                 <Grid container alignItems='center' style={{ padding: '13px 15px', borderBottom: '1px solid #d9d9d9' }}>
-                  <Grid item xs={12} className={classes.chatHeader}>
+                  <Grid item xs={11} className={classes.chatHeader}>
                     <Avatar>
                       <AdbIcon />
                     </Avatar>
@@ -101,6 +112,14 @@ export const HistoryChatsContainer = () => {
                       <Typography variant='subtitle1' >{selectedChat.agent}</Typography>
                       <Typography variant='body2'>Specialized Agent</Typography>
                     </div>
+                  </Grid>
+                  <Grid item xs={1} className={classes.chatHeader} style={{ justifyContent: 'flex-end' }}>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => { setSelectedChat(null) }}
+                    >
+                      <HighlightOffIcon />
+                    </IconButton>
                   </Grid>
                 </Grid>
                 <Grid container alignItems='center' style={{}}>
@@ -112,7 +131,10 @@ export const HistoryChatsContainer = () => {
             </Grid>
           }
           {!selectedChat &&
-            <Grid item xs={12} md={8} className={classes.chatSelectInfo}>
+            <Grid item xs={12} md={8}
+            className={clsx(classes.chatSelectInfo, {
+              [classes.hide]: mdScreen && !selectedChat,
+            })}>
               <div className={classes.chatSelectInfoIcon}>
                 <SpeakerNotesOutlinedIcon style={{ fontSize: '62px' }} />
               </div>
