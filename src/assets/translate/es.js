@@ -115,7 +115,10 @@ export default {
     'agent.specialized': 'Agent Predeterminado',
     'chat.agent.custom.info': 'Esta es una conversación con el agente predeterminado. ',
     'chat.agent.custom.upload.info': 'Por favor, carga archivos para comenzar.',
-    'chat.agent.custom.uploaded.message': 'Archivos adjuntos'
+    'chat.agent.custom.uploaded.message': 'Archivos adjuntos',
+
+    'chat.agent.welcome': '¡Hola!',
+    'chat.agent.not.available': 'Lo sentimos, no estamos disponible en este momento',
   
   }
 }

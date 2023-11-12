@@ -16,19 +16,19 @@ const formatSendMessage = (message, chatUid, agentUid) => ({
   }
 })
 
-export const sendMessage = async (message, chatUid, agentUid) => {
+export const sendMessage = async (message, chatUid, agentUid, t) => {
   const data = await axios.post(
     `${process.env.REACT_APP_BASE_URL}/v1/chat`,
     formatSendMessage(message, chatUid, agentUid),
     { headers })
     .then((response) => {
-      return JSON.stringify(response.data)
+      return response.data
     })
     .catch((error) => {
       return { error: get(error, 'response.data', 'error') }
     })
 
-  return data || []
+  return data || t('chat.agent.not.available')
 }
 
 export const uploadFiles = async (files, chatUid, agent) => {

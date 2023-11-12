@@ -115,7 +115,10 @@ export default {
 
     'chat.agent.custom.info': 'This is a default agent chat. ',
     'chat.agent.custom.upload.info': 'Please, upload files to begin.',
-    'chat.agent.custom.uploaded.message': 'Attached files'
+    'chat.agent.custom.uploaded.message': 'Attached files',
+
+    'chat.agent.welcome': 'Hello!',
+    'chat.agent.not.available': 'Sorry, we aren\'t availabel at the moment.',
     
   }
 }
