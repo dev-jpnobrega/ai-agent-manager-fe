@@ -17,7 +17,7 @@ import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import { useTranslation } from 'react-i18next';
 import { handleNewChat } from '../../service/chat-service';
 
-export default function MenuItemsComponent({ items }) {
+export default function MenuItemsComponent({ items, lang }) {
   const [t] = useTranslation('translation');
 
   const getListIcon = (name) => {
@@ -64,7 +64,7 @@ export default function MenuItemsComponent({ items }) {
           <ListItem
             button
             style={{ paddingLeft: '24px', height: '48px' }}
-            onClick={() => handleNewChat({ key: 'default' })}>
+            onClick={() => handleNewChat({ key: 'default' }, lang)}>
             {getListIcon('playground')}
             <ListItemText primary={t(`menu.item.${'playground'}`)} />
           </ListItem>

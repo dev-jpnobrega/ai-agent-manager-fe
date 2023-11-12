@@ -9,8 +9,8 @@ const headers = {
   authorization: process.env.REACT_APP_AUTHORIZATION
 }
 
-export const handleNewChat = (agent) => {
-  window.open(`/#/chat/${agent.key}/${uuidv4()}`, '_blank', 'noreferrer');
+export const handleNewChat = (agent, lang = 'en') => {
+  window.open(`/#/chat/${agent.key}/${uuidv4()}/${lang}`, '_blank', 'noreferrer');
 }
 
 const formatSendMessage = (message, chatUid, agentUid) => ({

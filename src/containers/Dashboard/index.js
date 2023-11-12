@@ -58,7 +58,7 @@ function Dashboard({ history }) {
                   color="primary"
                   variant="contained"
                   className={classes.button}
-                  onClick={() => handleNewChat({ key: 'default' })
+                  onClick={() => handleNewChat({ key: 'default' }, state.user.language)
                   }>
                   {t('home.dashboard.playound.button')}
                 </Button>
