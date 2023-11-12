@@ -79,17 +79,9 @@ export const Audio = ({ pushChatMessage }) => {
   };
 
   const handleSentAudio = (transcript, audioUrl = null) => {
-    const message = {
-      content: transcript,
-      audioUrl,
-      role: 'User',
-      type: 'audio',
-      name: 'Username'
-    }
-
     resetTranscript()
 
-    pushChatMessage(message)
+    pushChatMessage(transcript, 'User', 'audio')
   }
 
   return (

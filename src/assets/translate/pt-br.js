@@ -131,6 +131,9 @@ export default {
 
     'chat.agent.custom.info': 'Este é um chat com o agente padrão. ',
     'chat.agent.custom.upload.info': 'Por gentileza, realize o upload de arquivos para começar.',
-    'chat.agent.custom.uploaded.message': 'Arquivos anexados'
+    'chat.agent.custom.uploaded.message': 'Arquivos anexados' ,
+
+    'chat.agent.welcome': 'Olá!',
+    'chat.agent.not.available': 'Desculpe, não estamos disponíveis no momento.',
   }
 }

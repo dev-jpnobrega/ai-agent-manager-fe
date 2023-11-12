@@ -81,7 +81,7 @@ function MainContainer(props) {
         onClickTitle={onClickTitle} 
         onSelectLanguage={onSelectLanguage}/>
       <Menu handleDrawerToggle={handleDrawerToggle} menuOpen={menuOpen}>
-        <MenuItems items={routers.filter(item => item.showMenu === true)} />
+        <MenuItems items={routers.filter(item => item.showMenu === true)} lang={user.language} />
       </Menu>
       {children}
     </div>

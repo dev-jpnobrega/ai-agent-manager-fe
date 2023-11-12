@@ -50,7 +50,7 @@ export default [
     description: 'Chats'
   },
   {
-    path: "/chat/:agentUid/:chatUid",
+    path: "/chat/:agentUid/:chatUid/:lang",
     component: Chat,
   },
   {

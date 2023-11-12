@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMediaQuery, Hidden, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Typography, Avatar } from '@material-ui/core'
 
 import { Alert } from '@material-ui/lab';
@@ -13,6 +13,8 @@ import { ChatMessage } from './ChatMessage';
 import { ChatAnsweringLoad } from './ChatAnsweringLoad';
 import { useTranslation } from 'react-i18next';
 import { ResponsiveButton } from '../ResponsiveButton';
+import { formatChatMessage, getChatAwswer } from '../../helpers/chatHelper';
+
 import { Audio } from '../Audio';
 
 export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }, saveChatLocally, sendMessage, uploadFiles }) => {
@@ -29,6 +31,8 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
 
   const [uploadedFiles, setUploadedFiles] = useState([])
   const [chatMessages, setChatMessages] = useState([])
+
+  useEffect(() => pushChatMessage(t('chat.agent.welcome'), 'User', 'message', true), [])
 
   const saveChatMessages = (currentChatMessages) => {
     const { agent: { name }, chatUid } = chatAgent
@@ -81,53 +85,42 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
     }
   }
 
-  const sendCurrentMessage = (message) => new Promise(async (resolve, reject) => {
+  const sendCurrentMessage = (message, hidden) => new Promise(async (resolve, reject) => {
     const { agentUid, chatUid } = chatAgent
 
-    const agentAnswer = await sendMessage(message, chatUid, agentUid)
+    const agentAnswer = await sendMessage(message, chatUid, agentUid, t)
 
-    if (agentAnswer) return resolve(saveChatMessages([...chatMessages, message, {
-      content: agentAnswer.error ? agentAnswer.error : agentAnswer,
-      role: 'Agent',
-      type: 'message',
-      createdAt: new Date(),
-    }]))
+    if (agentAnswer) {
+      const formattedAnswer = formatChatMessage(chatUid, getChatAwswer(agentAnswer), 'Agent', 'message')
+
+      if (hidden) return resolve(saveChatMessages([...chatMessages, formattedAnswer]))
+      
+      return resolve(saveChatMessages([...chatMessages, message, formattedAnswer]))
+    }
   });
 
-  const pushChatMessage = (message) => {
-    message.id = chatAgent.chatUid
-    message.createdAt = new Date()
+  const pushChatMessage = (newMessage, role, type, hidden = false) => {
+    const message = formatChatMessage(chatAgent.chatUid, newMessage, role, type)
 
-    chatInputRef.current.value = ''
+    if (chatInputRef.current) chatInputRef.current.value = ''
 
-    saveChatMessages([...chatMessages, message])
+    if (!hidden) saveChatMessages([...chatMessages, message])
     setTimeout(() => handleMessagePushed(), 200)
 
-    sendCurrentMessage(message)
+    sendCurrentMessage(message, hidden)
       .then(() => handleMessagePushed())
-  }
-
-  const fromInput = (newMessage) => {
-    const message = {
-      content: newMessage,
-      role: 'User',
-      type: 'message',
-      name: 'Username'
-    }
-
-    pushChatMessage(message)
   }
 
   const handleInputKeyDown = (event) => {
     const { target, key } = event
 
-    if (key === 'Enter' && target.value !== '') fromInput(target.value)
+    if (key === 'Enter' && target.value !== '') pushChatMessage(target.value, 'User', 'message')
   }
 
   const handleSendButton = () => {
     const { value } = chatInputRef.current
 
-    if (value !== '') fromInput(value)
+    if (value !== '') pushChatMessage(value, 'User', 'message')
   }
 
   return (
@@ -192,7 +185,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
       <DialogContent className={classes.dialogContent}>
         {
           isAgentDefault && uploadedFiles.length === 0 && !showUploadFiles &&
-          <Alert severity="warning">
+          <Alert severity="warning" style={{ marginBottom: '12px' }}>
             {t('chat.agent.custom.info')}{t('chat.agent.custom.upload.info')}
           </Alert>
         }

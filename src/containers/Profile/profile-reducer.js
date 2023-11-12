@@ -1,7 +1,9 @@
 import { USER_FETCHED, USER_ADD_FAVORITE, USER_SET_LANGUAGE } from './profile-actions';
 import * as userService from '../../service/user-service';
 
-export const initialProfileState = undefined;
+export const initialProfileState = {
+  language: 'en'
+};
 
 export const profileReducer = (state, action) => {
   switch (action.type) {

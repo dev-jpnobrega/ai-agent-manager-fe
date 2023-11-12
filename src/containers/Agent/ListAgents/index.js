@@ -25,7 +25,6 @@ const ListAgentsContainer = ({ history }) => {
 
   const [state, dispatch] = useContext(Context);
 
-
   useEffect(async () => {
     const agents = await getAgents()
 
@@ -70,7 +69,7 @@ const ListAgentsContainer = ({ history }) => {
                                 {agent.name || 'Agent Name'}
                               </Typography>
                             </Box>
-                            <Box mt={1} onClick={() => { handleNewChat(agent) }}>
+                            <Box mt={1} onClick={() => { handleNewChat(agent, state.user.language) }}>
                               <Typography variant="body2" className={classes.link}>
                                 {t('agent.page.card.agent.new.chat')}
                               </Typography>
