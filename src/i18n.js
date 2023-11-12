@@ -10,15 +10,15 @@ i18n
     resources: {
       ...dicionary,
     },
-    lng: "ptbr",
-    fallbackLng: "ptbr",
+    lng: "en",
+    fallbackLng: "en",
     keySeparator: false,
     interpolation: {
       escapeValue: false
     }
   });
 
-I18nAmplify.setLanguage('ptbr')
+I18nAmplify.setLanguage('en')
 I18nAmplify.putVocabularies(dicionary)
 
 export default i18n;

@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { ResponsiveButton } from '../ResponsiveButton';
 import { formatChatMessage, getChatAwswer } from '../../helpers/chatHelper';
 
-
+import { Audio } from '../Audio';
 
 export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }, saveChatLocally, sendMessage, uploadFiles }) => {
   const [t] = useTranslation('translation')
@@ -32,7 +32,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
   const [uploadedFiles, setUploadedFiles] = useState([])
   const [chatMessages, setChatMessages] = useState([])
 
-  useEffect(() => pushChatMessage(t('chat.agent.welcome'), 'User', true), [])
+  useEffect(() => pushChatMessage(t('chat.agent.welcome'), 'User', 'message', true), [])
 
   const saveChatMessages = (currentChatMessages) => {
     const { agent: { name }, chatUid } = chatAgent
@@ -44,7 +44,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
   const handleUploadFiles = async (files) => {
     if (files.length) {
       const { agentUid, chatUid } = chatAgent
-    
+
       setUploadingFiles(true)
 
       const uploaded = await uploadFiles(files, chatUid, agentUid)
@@ -60,6 +60,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
               role: 'Files',
               type: 'message',
               createdAt: new Date(),
+              error: uploaded.error,
               content: {
                 name: file.name,
                 size: file.size,
@@ -98,15 +99,8 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
     }
   });
 
-  const pushChatMessage = (newMessage, role = 'User', hidden = false) => {
-    const message = {
-      id: chatAgent.chatUid,
-      content: newMessage,
-      role,
-      type: 'message',
-      createdAt: new Date(),
-      name: 'Username'
-    }
+  const pushChatMessage = (newMessage, role, type, hidden = false) => {
+    const message = formatChatMessage(chatAgent.chatUid, newMessage, role, type)
 
     if (chatInputRef.current) chatInputRef.current.value = ''
 
@@ -120,13 +114,13 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
   const handleInputKeyDown = (event) => {
     const { target, key } = event
 
-    if (key === 'Enter' && target.value !== '') pushChatMessage(target.value)
+    if (key === 'Enter' && target.value !== '') pushChatMessage(target.value, 'User', 'message')
   }
 
   const handleSendButton = () => {
     const { value } = chatInputRef.current
 
-    if (value !== '') pushChatMessage(value)
+    if (value !== '') pushChatMessage(value, 'User', 'message')
   }
 
   return (
@@ -175,7 +169,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
                 size="small"
                 variant="contained"
                 alt="Upload"
-                onClick={() => { 
+                onClick={() => {
                   setShowUploadFiles(true)
                   setTimeout(() => handleMessagePushed(), 300)
                 }}
@@ -199,6 +193,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
         {chatMessages.map((chat, index) => <ChatMessage key={`chat-message-agent${index}`} classes={classes} chat={chat} index={index} />)}
         {showUploadFiles && <FileUploader uploadingFiles={uploadingFiles} sendUploadFiles={handleUploadFiles} setShowUploadFiles={setShowUploadFiles} />}
         <div id="chat" />
+
         <ChatAnsweringLoad chatMessages={chatMessages} />
       </DialogContent>
       <DialogActions>
@@ -206,10 +201,10 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
           <input
             ref={chatInputRef}
             className={classes.inputChat}
-            placeholder='Type your message here...'
             onKeyDown={handleInputKeyDown}
             disabled={isAgentDefault && uploadFiles.length === 0}
           />
+          <Audio pushChatMessage={pushChatMessage} />
           <Button
             variant="contained"
             size="small"

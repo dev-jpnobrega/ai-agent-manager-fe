@@ -82,7 +82,7 @@ export const HistoryChatsContainer = () => {
                           {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}
                         </Typography>
                       </div>
-                      <DeleteIcon color="action" onClick={() => { handleDeleteChat(chat) }}/>
+                      <DeleteIcon color="action" onClick={() => { handleDeleteChat(chat) }} />
                     </div>
                   </ListItemText>
                 </ListItem>
@@ -93,19 +93,19 @@ export const HistoryChatsContainer = () => {
             <Grid item xs={12} md={8} style={{ backgroundColor: '#86868612' }}>
               <>
                 <Grid container alignItems='center' style={{ padding: '13px 15px', borderBottom: '1px solid #d9d9d9' }}>
-                  <Grid item xs={3} sm={4} md={1} className={classes.dialogTitleButtons}>
+                  <Grid item xs={12} className={classes.chatHeader}>
                     <Avatar>
                       <AdbIcon />
                     </Avatar>
-                  </Grid>
-                  <Grid item xs={9} sm={8} md={11} style={{ paddingLeft: '8px' }}>
-                    <Typography variant='subtitle1' >{selectedChat.agent}</Typography>
-                    <Typography variant='body2'>Specialized Agent</Typography>
+                    <div className={classes.chatHeaderAgent}>
+                      <Typography variant='subtitle1' >{selectedChat.agent}</Typography>
+                      <Typography variant='body2'>Specialized Agent</Typography>
+                    </div>
                   </Grid>
                 </Grid>
                 <Grid container alignItems='center' style={{}}>
                   <Grid item xs={12} className={classes.chatHistory}>
-                    {selectedChat.messages.map((chat, index) => <ChatMessage key={`chat-message-agent${index}`} classes={classes} chat={chat} index={index} />)}
+                    {selectedChat.messages.map((chat, index) => <ChatMessage page="history" key={`chat-message-agent${index}`} classes={classes} chat={chat} index={index} />)}
                   </Grid>
                 </Grid>
               </>

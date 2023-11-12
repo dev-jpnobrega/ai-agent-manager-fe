@@ -7,10 +7,25 @@ export default {
     'home.title': 'IA Corporativa',
     'home.welcome': 'Bem vindo ao IA Corporativa',
 
+
+    'home.dashboard.playound.title': 'Há um playground disponivel!',
+    'home.dashboard.playound.subtitle': 'Aproveite para testar o recurso de chat!',
+    'home.dashboard.playound.button': 'ABRIR PLAYGROUND',
+
+    'home.dashboard.agents.title': 'Agentes',
+    'home.dashboard.agents.count': 'cadastrados',
+    'home.dashboard.agents.button': 'VER AGENTES',
+
+    'home.dashboard.chat.title': 'Chats',
+    'home.dashboard.chat.count': 'salvos',
+    'home.dashboard.chat.button': 'VER CHATS',
+
     'menu.item.use.cases': 'Casos de Uso',
     'menu.item.permissions': 'Permissões',
     'menu.item.agents': 'Agentes',
     'menu.item.history.chats': 'Histórico de Chats',
+    'menu.item.playground': 'Playground',
+    'menu.item.signout': 'Sair',
 
     'agent.page.title': 'Agentes',
     'agent.page.card.agent': 'Agent',
@@ -107,7 +122,8 @@ export default {
     'history.chats.page.label.no.results': 'Não há histórico de chats',
     'history.chats.page.label.results': 'Histórico',
     'history.chats.page.label.date': 'Em',
-
+    'history.chats.page.label.transcripted.info': 'Transcrito',
+    
     'history.chats.page.message.deleted': 'Chat excluído com sucesso.',
 
     'agent.custom': 'Agente Padrão',

@@ -1,10 +1,16 @@
 import axios from "axios";
 import { get } from "lodash";
 
+import { v4 as uuidv4 } from 'uuid';
+
 const CHATS_LOCAL_STORAGE = 'chats'
 
 const headers = {
   authorization: process.env.REACT_APP_AUTHORIZATION
+}
+
+export const handleNewChat = (agent) => {
+  window.open(`/#/chat/${agent.key}/${uuidv4()}`, '_blank', 'noreferrer');
 }
 
 const formatSendMessage = (message, chatUid, agentUid) => ({
