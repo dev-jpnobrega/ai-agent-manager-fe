@@ -50,4 +50,12 @@ export const useStyles = makeStyles((theme) => ({
     color: '#0000008a',
     marginBottom: '16px',
   },
+  chatHeader: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  chatHeaderAgent: {
+    paddingLeft: '10px',
+  }
 }));

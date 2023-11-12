@@ -13,8 +13,7 @@ import { ChatMessage } from './ChatMessage';
 import { ChatAnsweringLoad } from './ChatAnsweringLoad';
 import { useTranslation } from 'react-i18next';
 import { ResponsiveButton } from '../ResponsiveButton';
-
-
+import { Audio } from '../Audio';
 
 export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }, saveChatLocally, sendMessage, uploadFiles }) => {
   const [t] = useTranslation('translation')
@@ -41,7 +40,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
   const handleUploadFiles = async (files) => {
     if (files.length) {
       const { agentUid, chatUid } = chatAgent
-    
+
       setUploadingFiles(true)
 
       const uploaded = await uploadFiles(files, chatUid, agentUid)
@@ -57,6 +56,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
               role: 'Files',
               type: 'message',
               createdAt: new Date(),
+              error: uploaded.error,
               content: {
                 name: file.name,
                 size: file.size,
@@ -94,15 +94,9 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
     }]))
   });
 
-  const pushChatMessage = (newMessage, role = 'User') => {
-    const message = {
-      id: chatAgent.chatUid,
-      content: newMessage,
-      role,
-      type: 'message',
-      createdAt: new Date(),
-      name: 'Username'
-    }
+  const pushChatMessage = (message) => {
+    message.id = chatAgent.chatUid
+    message.createdAt = new Date()
 
     chatInputRef.current.value = ''
 
@@ -113,16 +107,27 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
       .then(() => handleMessagePushed())
   }
 
+  const fromInput = (newMessage) => {
+    const message = {
+      content: newMessage,
+      role: 'User',
+      type: 'message',
+      name: 'Username'
+    }
+
+    pushChatMessage(message)
+  }
+
   const handleInputKeyDown = (event) => {
     const { target, key } = event
 
-    if (key === 'Enter' && target.value !== '') pushChatMessage(target.value)
+    if (key === 'Enter' && target.value !== '') fromInput(target.value)
   }
 
   const handleSendButton = () => {
     const { value } = chatInputRef.current
 
-    if (value !== '') pushChatMessage(value)
+    if (value !== '') fromInput(value)
   }
 
   return (
@@ -171,7 +176,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
                 size="small"
                 variant="contained"
                 alt="Upload"
-                onClick={() => { 
+                onClick={() => {
                   setShowUploadFiles(true)
                   setTimeout(() => handleMessagePushed(), 300)
                 }}
@@ -195,6 +200,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
         {chatMessages.map((chat, index) => <ChatMessage key={`chat-message-agent${index}`} classes={classes} chat={chat} index={index} />)}
         {showUploadFiles && <FileUploader uploadingFiles={uploadingFiles} sendUploadFiles={handleUploadFiles} setShowUploadFiles={setShowUploadFiles} />}
         <div id="chat" />
+
         <ChatAnsweringLoad chatMessages={chatMessages} />
       </DialogContent>
       <DialogActions>
@@ -202,10 +208,10 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
           <input
             ref={chatInputRef}
             className={classes.inputChat}
-            placeholder='Type your message here...'
             onKeyDown={handleInputKeyDown}
             disabled={isAgentDefault && uploadFiles.length === 0}
           />
+          <Audio pushChatMessage={pushChatMessage} />
           <Button
             variant="contained"
             size="small"

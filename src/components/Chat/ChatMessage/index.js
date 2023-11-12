@@ -2,6 +2,8 @@ import React from "react";
 
 import { Typography, SvgIcon } from '@material-ui/core'
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import CropOriginalOutlinedIcon from '@material-ui/icons/CropOriginalOutlined';
 import PictureAsPdfOutlinedIcon from '@material-ui/icons/PictureAsPdfOutlined';
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
@@ -21,21 +23,21 @@ import { useStyles } from './styles';
 import { pickBetterBytes } from "../../../helpers/formatBytes";
 
 const iconsType = {
-  'application/pdf': <PictureAsPdfOutlinedIcon/>,
-  "image/png": <CropOriginalOutlinedIcon/>,
-  "image/jpeg": <CropOriginalOutlinedIcon/>,
-  "image/jpg": <CropOriginalOutlinedIcon/>,
-  "image/gif": <CropOriginalOutlinedIcon/>,
-  "image/bmp": <CropOriginalOutlinedIcon/>,
-  "image/webp": <CropOriginalOutlinedIcon/>,
-  "image/svg+xml": <CropOriginalOutlinedIcon/>,
-  "image/x-icon": <CropOriginalOutlinedIcon/>,
-  "text/xml": <img src={xmlIcon}/>,
-  "application/x-yaml": <img src={yalmIcon}/>,
-  'default': <AttachFileIcon/>,
+  'application/pdf': <PictureAsPdfOutlinedIcon />,
+  "image/png": <CropOriginalOutlinedIcon />,
+  "image/jpeg": <CropOriginalOutlinedIcon />,
+  "image/jpg": <CropOriginalOutlinedIcon />,
+  "image/gif": <CropOriginalOutlinedIcon />,
+  "image/bmp": <CropOriginalOutlinedIcon />,
+  "image/webp": <CropOriginalOutlinedIcon />,
+  "image/svg+xml": <CropOriginalOutlinedIcon />,
+  "image/x-icon": <CropOriginalOutlinedIcon />,
+  "text/xml": <img src={xmlIcon} />,
+  "application/x-yaml": <img src={yalmIcon} />,
+  'default': <AttachFileIcon />,
 }
 
-export const ChatMessage = ({ chat, index }) => {
+export const ChatMessage = ({ chat, index, page = 'chat' }) => {
   const classes = useStyles({ withError: chat.error });
 
   const renderTime = (chat) => (
@@ -45,17 +47,60 @@ export const ChatMessage = ({ chat, index }) => {
   )
 
   const renderFileIcon = ({ content, error }) => {
-    if (error) return <ErrorOutlineOutlinedIcon/>
-    if (iconsType[content.type]) return iconsType[content.type] 
+    if (error) return <ErrorOutlineOutlinedIcon />
+    if (iconsType[content.type]) return iconsType[content.type]
 
     return iconsType['default']
   }
+
+  const renderChatBalloon = (transcript = false) => (
+    <div className={classes[`chatBalloon${chat.role}`]}>
+      <div className={classes[`chatBalloonText${chat.role}`]}>
+        <MemoizedReactMarkdown
+          remarkPlugins={[remarkGfm, remarkMath]}
+          components={{
+            p({ children }) {
+              return <span className="mb-2 last:mb-0">{children}</span>;
+            },
+            code({ node, inline, className, children, ...props }) {
+              if (children.length) {
+                if (children[0] === "▍") return (<span className="mt-1 animate-pulse cursor-default">▍</span>);
+                children[0] = (children[0]).replace("`▍`", "▍");
+              }
+
+              const match = /language-(\w+)/.exec(className || "");
+
+              if (inline) return <code>{children}</code>
+
+              return (
+                <CodeBlock
+                  key={Math.random()}
+                  language={(match && match[1]) || ""}
+                  value={String(children).replace(/\n$/, "")}
+                />
+              );
+            },
+          }}
+        >
+          {chat.content.replace(/\\n/g, "  \n")}
+        </MemoizedReactMarkdown>
+        {transcript && <div className={classes.transcriptInfo}>
+          <RecordVoiceOverIcon style={{ fontSize: '10px', marginRight: '6px' }} />
+          {'trascripted'}
+        </div>}
+      </div>
+      {renderTime(chat)}
+    </div>
+  )
 
   return (
     <>
       {chat.role === 'Files' &&
         <div className={classes.uploadedFile}>
           <div className={classes.uploadedFileBalloon}>
+
+
+
             {renderFileIcon(chat)}
             <div className={classes.uploadedFileDetails}>
               <div className={classes.uploadedFileDetailsName}>{chat.content.name}</div>
@@ -66,62 +111,19 @@ export const ChatMessage = ({ chat, index }) => {
         </div>
       }
       {chat.role !== 'Files' && <div className={classes[`dialog${chat.role}`]} key={`chat-message-agent${index}`}>
-        <div className={classes[`chatBalloon${chat.role}`]}>
-          <div className={classes[`chatBalloonText${chat.role}`]}>
-            {/* {chat.type === 'message' && chat.content}
-          {chat.type === 'picture' && <img src={chat.content} alt="Send By Agent" className={classes.chatImage} />}
-          {chat.type === 'file' &&
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <GetAppIcon fontSize="large" />
-              <a href="../../assets/images/peru.png" download>
-                {chat.content}
-              </a>
-            </div>
-          } */}
-            <MemoizedReactMarkdown
-              remarkPlugins={[remarkGfm, remarkMath]}
-              components={{
-                p({ children }) {
-                  return <span className="mb-2 last:mb-0">{children}</span>;
-                },
-                code({ node, inline, className, children, ...props }) {
-                  if (children.length) {
-                    if (children[0] === "▍") {
-                      return (
-                        <span className="mt-1 animate-pulse cursor-default">
-                          ▍
-                        </span>
-                      );
-                    }
-
-                    children[0] = (children[0]).replace("`▍`", "▍");
-                  }
-
-                  const match = /language-(\w+)/.exec(className || "");
-
-                  if (inline) {
-                    return (
-                      <code>
-                        {children}
-                      </code>
-                    );
-                  }
-
-                  return (
-                    <CodeBlock
-                      key={Math.random()}
-                      language={(match && match[1]) || ""}
-                      value={String(children).replace(/\n$/, "")}
-                    />
-                  );
-                },
-              }}
-            >
-              {chat.content.replace(/\\n/g, "  \n")}
-            </MemoizedReactMarkdown>
-          </div>
-          {renderTime(chat)}
-        </div>
+        {chat.type === 'audio' &&
+          <>
+            {page === 'chat' && <>
+              <audio src={chat.audioUrl} controls></audio>
+              {renderTime(chat)}
+            </>
+            }
+            {page === 'history' && renderChatBalloon(true)}
+          </>
+        }
+        {chat.type === 'message' &&
+          renderChatBalloon()
+        }
       </div>
       }
     </>

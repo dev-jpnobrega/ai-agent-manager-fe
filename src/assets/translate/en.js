@@ -107,6 +107,7 @@ export default {
     'history.chats.page.label.no.results': 'No chat history available',
     'history.chats.page.label.results': 'History',
     'history.chats.page.label.date': 'At',
+    'history.chats.page.label.transcripted.info': 'Transcripted',
 
     'history.chats.page.message.deleted': 'Chat deleted successfully.',
 
