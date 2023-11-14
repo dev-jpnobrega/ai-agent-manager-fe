@@ -32,7 +32,7 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
   const [uploadedFiles, setUploadedFiles] = useState([])
   const [chatMessages, setChatMessages] = useState([])
 
-  useEffect(() => pushChatMessage(t('chat.agent.welcome'), 'User', 'message', true), [])
+  useEffect(() => pushChatMessage('Olá', 'User', 'message', true), [])
 
   const saveChatMessages = (currentChatMessages) => {
     const { agent: { name }, chatUid } = chatAgent
