@@ -16,6 +16,7 @@ import { Button, IconButton, useMediaQuery, Box, Grid, MenuItem, Chip, Typograph
 import { pickBetterBytes } from '../../helpers/formatBytes';
 
 const MAX_COUNT = 5;
+const MAX_SIZE = 52428800
 
 const FileUploader = ({ uploadingFiles, sendUploadFiles, setShowUploadFiles, t }) => {
   const inputFileRef = useRef();
@@ -31,7 +32,7 @@ const FileUploader = ({ uploadingFiles, sendUploadFiles, setShowUploadFiles, t }
       label: t('agent.page.form.choose'),
       icon: AddIcon,
       onClick: () => inputFileRef.current.click(),
-      disabled: false,
+      disabled: fileLimit,
       color: 'primary'
     },
     {
@@ -53,23 +54,33 @@ const FileUploader = ({ uploadingFiles, sendUploadFiles, setShowUploadFiles, t }
   const { setSnackbar } = useContext(SnackbarContext)
 
   const handleUploadFiles = files => {
-    const uploaded = [...filesToUpload];
-    let limitExceeded = false;
+    const uploaded = [...filesToUpload]
+    let limitExceeded = false
+    let sizeExceeded = false
+
     files.some((file) => {
       if (uploaded.findIndex((f) => f.name === file.name) === -1) {
-        uploaded.push(file);
-        if (uploaded.length === MAX_COUNT) setFileLimit(true);
         if (uploaded.length > MAX_COUNT) {
           setSnackbar({ title: t('agent.page.chat.upload') + MAX_COUNT, severity: 'error' })
           setFileLimit(false);
           limitExceeded = true;
           return true;
         }
+
+        if (file.size > MAX_SIZE) {
+          setSnackbar({ title: t('agent.page.chat.max.size.info'), severity: 'error' })
+          sizeExceeded = true
+          return true
+        }
+
+        uploaded.push(file);
+        if (uploaded.length === MAX_COUNT) setFileLimit(true);
       }
 
       return false
     })
-    if (!limitExceeded) setFilesToUpload(uploaded)
+
+    if (!limitExceeded || !sizeExceeded) setFilesToUpload(uploaded)
   }
 
   const handleFileEvent = (e) => {

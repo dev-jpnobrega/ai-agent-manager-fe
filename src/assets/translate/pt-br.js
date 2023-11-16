@@ -36,6 +36,7 @@ export default {
 
     'agent.page.chat.send': 'Enviar',
     'agent.page.chat.upload': 'Máxima quantidade de arquivos: ',
+    'agent.page.chat.max.size.info': 'Alguns arquivos não foram adicionados pois possuem tamanho maior que 50MB.',
 
     'agent.create.page.title': 'Criar Agente',
     'agent.edit.page.title': 'Editar Agente',
