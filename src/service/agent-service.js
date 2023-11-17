@@ -56,9 +56,14 @@ export const saveAgent = async (agent) => {
 }
 
 export const updateAgent = async (agent) => {
+  const formattedAgent = {
+    ...agent,
+    value: removeUndefinedAgentItems(agent.value)
+  }
+
   const data = await axios.patch(
     `${process.env.REACT_APP_BASE_URL}/v1/agent/`,
-    agent,
+    formattedAgent,
     { headers })
     .then((response) => {
       return response.data

@@ -1,17 +1,25 @@
-import { omitBy, isUndefined, cloneDeep, isEmpty, pickBy } from "lodash";
+import { omitBy, isUndefined, cloneDeep, isEmpty, pickBy, toNumber } from "lodash";
 
 export const agentFormChanges = (agent, event, path = '') => {
-  const { name, value, checked } = event.target;
-  const validateValue = /^\s/.test(value) ? '' : value;
+  const { name, value, checked, type } = event.target;
 
   if (name === 'debug') return ({ ...agent, [name]: checked });
   if (['synchronize', 'ssl'].includes(name)) return ({ ...agent, [path]: { ...agent[path], [name]: checked } });
   if (['includesTables', 'indexes'].includes(name)) {
-    return ({ ...agent, [path]: { ...agent[path], [name]: validateValue ? [validateValue] : [] } });
+    return ({ ...agent, [path]: { ...agent[path], [name]: generateValue(value, type, []) } });
   }
-  if (path) return ({ ...agent, [path]: { ...agent[path], [name]: validateValue ? validateValue : undefined } });
+  if (path) return ({ ...agent, [path]: { ...agent[path], [name]: generateValue(value, type, undefined) } });
 
-  return ({ ...agent, [name]: validateValue ? validateValue : undefined });
+  return ({ ...agent, [name]: generateValue(value, type, undefined) });
+}
+
+const generateValue = (value, type, defaultValue) => {
+  const validateValue = /^\s/.test(value) ? '' : value;
+  
+  if (type === 'number') return value ? toNumber(validateValue) : undefined
+  if (validateValue) return validateValue
+
+  return defaultValue
 }
 
 export const agentRequestFeedback = (type, feedback, t) => {
