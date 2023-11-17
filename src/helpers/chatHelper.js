@@ -9,7 +9,7 @@ export const getChatAwswer = (agentAnswer) => {
 export const formatChatMessage = (chatUid, content, role, type) => {
   return {
     id: chatUid,
-    content,
+    content: content.replace(/[\n\r]/g, "  \n"),
     role,
     type,
     createdAt: new Date(),

@@ -16,6 +16,7 @@ import { ResponsiveButton } from '../ResponsiveButton';
 import { formatChatMessage, getChatAwswer } from '../../helpers/chatHelper';
 
 import { Audio } from '../Audio';
+import { cloneDeep } from 'lodash';
 
 export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }, saveChatLocally, sendMessage, uploadFiles }) => {
   const [t] = useTranslation('translation')
@@ -112,9 +113,12 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
   }
 
   const handleInputKeyDown = (event) => {
-    const { target, key } = event
+    const { target, key, shiftKey } = cloneDeep(event)
 
-    if (key === 'Enter' && target.value !== '') pushChatMessage(target.value, 'User', 'message')
+    if (key === 'Enter' && !shiftKey && target.value !== '') {
+        event.preventDefault();
+        pushChatMessage(target.value, 'User', 'message')
+    }
   }
 
   const handleSendButton = () => {
@@ -198,8 +202,9 @@ export const Chat = ({ chatAgent = { agent: { key: '', name: '' }, chatUid: '' }
       </DialogContent>
       <DialogActions>
         <div className={classes.dialogActions}>
-          <input
+          <textarea
             ref={chatInputRef}
+            rows={1}
             className={classes.inputChat}
             onKeyDown={handleInputKeyDown}
             disabled={isAgentDefault && uploadFiles.length === 0}

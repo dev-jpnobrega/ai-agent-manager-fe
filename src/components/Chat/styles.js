@@ -7,6 +7,8 @@ export const useStyles = makeStyles((theme) => ({
     },
   }),
   inputChat: {
+    resize: 'none',
+    whiteSpace: 'pre-line',
     width: '100%',
     color: 'black',
     border: 'none',
