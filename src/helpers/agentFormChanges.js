@@ -77,7 +77,7 @@ const checkStepCognitiveComplete = ({ documentIntellegenciConfig = {}, vectorSto
   const vectorStoreConfigClone = cloneDeep(vectorStoreConfig)
 
   // delete optional fields
-  delete vectorStoreConfigClone.customFilter
+  delete vectorStoreConfigClone.customFilters
 
   return checkObjectIsCompletedOrEmpty(vectorStoreConfigClone, 7) &&
     checkObjectIsCompletedOrEmpty(documentIntellegenciConfig, 3)

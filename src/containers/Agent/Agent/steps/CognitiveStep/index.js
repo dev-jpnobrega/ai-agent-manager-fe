@@ -34,7 +34,7 @@ const CognitiveStep = ({ handleAgentChange, agent, t }) => {
         },
         {
           label: t('agent.page.form.step.cognitive.enable.custom.filter'),
-          name: 'customFilter',
+          name: 'customFilters',
         },
         {
           label: t('agent.page.form.step.cognitive.enable.type'),
