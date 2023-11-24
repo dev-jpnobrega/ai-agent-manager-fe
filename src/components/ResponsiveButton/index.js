@@ -11,8 +11,10 @@ export const ResponsiveButton = ({ onClick, mobile, disabled, color, alt, Icon, 
             color={color}
             aria-label={alt}
             onClick={onClick}
+            style={style}
+            size={size}
           >
-            <Icon />
+            <Icon fontSize={size} />
           </IconButton> :
           <Button
             disabled={disabled}
