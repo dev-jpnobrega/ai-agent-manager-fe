@@ -137,6 +137,9 @@ export default {
 
     'chat.agent.welcome': 'Hello!',
     'chat.agent.not.available': 'Sorry, we aren\'t available at the moment.',
+
+    'chat.agent.code.block.copy': 'Copy',
+    'chat.agent.code.block.save': 'Save',
     
   }
 }

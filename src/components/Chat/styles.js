@@ -10,7 +10,10 @@ export const useStyles = makeStyles((theme) => ({
     resize: 'none',
     whiteSpace: 'pre-line',
     width: '100%',
-    color: 'black',
+    color: 'black !important',
+    opacity: '1',
+    fontSize: '14px',
+    fontWeight: 'bolder',
     border: 'none',
     letterSpacing: '0.3px',
     paddingLeft: '10px',
@@ -65,5 +68,17 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     gap: '20px',
+  },
+  codeBlock: {
+    background: '#111b27',
+    borderRadius: '4px',
+    padding: '0.5rem 0rem',    
+    marginTop: '1rem'
+  },
+  codeBlockButtons: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    paddingLeft: '12px',
+    alignItems: 'center',
   }
 }));
