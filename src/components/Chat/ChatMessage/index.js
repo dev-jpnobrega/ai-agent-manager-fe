@@ -40,6 +40,7 @@ const iconsType = {
 export const ChatMessage = ({ chat, index, page = 'chat' }) => {
   const classes = useStyles({ withError: chat.error });
 
+
   const renderTime = (chat) => (
     <Typography variant='body2' className={classes.chatBalloonTime}>
       {moment(chat.createdAt).format("YYYY-MM-DD HH:mm")}
@@ -53,6 +54,18 @@ export const ChatMessage = ({ chat, index, page = 'chat' }) => {
     return iconsType['default']
   }
 
+
+  const renderMessage = (message = []) => {
+    console.warn(`message`, message, message[0].includes('image/png'));
+    if (message[0].includes('image/png')) {
+      return (
+        <img src={message} alt="chat" />
+      )
+    }
+
+    return message;
+  }
+
   const renderChatBalloon = (transcript = false) => (
     <div className={classes[`chatBalloon${chat.role}`]}>
       <div className={classes[`chatBalloonText${chat.role}`]}>
@@ -60,7 +73,7 @@ export const ChatMessage = ({ chat, index, page = 'chat' }) => {
           remarkPlugins={[remarkGfm, remarkMath]}
           components={{
             p({ children }) {
-              return <span className="mb-2 last:mb-0">{children}</span>;
+              return <span className="mb-2 last:mb-0">{renderMessage(children)}</span>;
             },
             code({ node, inline, className, children, ...props }) {
               if (children.length) {

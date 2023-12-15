@@ -28,6 +28,8 @@ export const sendMessage = async (message, chatUid, agentUid, t) => {
     formatSendMessage(message, chatUid, agentUid),
     { headers })
     .then((response) => {
+      console.warn(`response.data`, response)
+
       return response.data
     })
     .catch((error) => {
