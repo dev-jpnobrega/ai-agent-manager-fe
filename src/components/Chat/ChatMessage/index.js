@@ -7,7 +7,7 @@ import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import CropOriginalOutlinedIcon from '@material-ui/icons/CropOriginalOutlined';
 import PictureAsPdfOutlinedIcon from '@material-ui/icons/PictureAsPdfOutlined';
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
-
+import rehypeRaw from "rehype-raw";
 import yalmIcon from '../../../assets/images/yaml-icon.svg';
 import xmlIcon from '../../../assets/images/xml-icon.svg';
 
@@ -57,10 +57,16 @@ export const ChatMessage = ({ chat, index, page = 'chat' }) => {
     <div className={classes[`chatBalloon${chat.role}`]}>
       <div className={classes[`chatBalloonText${chat.role}`]}>
         <MemoizedReactMarkdown
+          rehypePlugins={[rehypeRaw]}	
           remarkPlugins={[remarkGfm, remarkMath]}
           components={{
             p({ children }) {
-              return <span className="mb-2 last:mb-0">{children}</span>;
+              return <div className="mb-2 last:mb-0">{children}</div>;
+            },
+            html({ children }) { 
+              console.log('HTML', children)
+              
+              return children; 
             },
             code({ node, inline, className, children, ...props }) {
               if (children.length) {
