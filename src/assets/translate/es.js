@@ -142,6 +142,5 @@ export default {
 
     'chat.agent.code.block.copy': 'Copiar',
     'chat.agent.code.block.save': 'Guardar',
-  
   }
 }

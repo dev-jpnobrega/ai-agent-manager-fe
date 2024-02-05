@@ -49,5 +49,4 @@ const SwaggerStep = ({ handleAgentChange, agent, t }) => {
     </>
   )
 }
-
 export default withTranslation()(SwaggerStep);

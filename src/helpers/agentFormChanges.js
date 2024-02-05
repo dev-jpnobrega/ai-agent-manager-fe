@@ -99,7 +99,6 @@ const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
 
 const checkStepSwaggerComplete = ({ swaggerConfig = {} }) => {
   const swaggerConfigClone = cloneDeep(swaggerConfig)
-
   return checkObjectIsCompletedOrEmpty(swaggerConfigClone, 8)
 }
 

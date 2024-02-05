@@ -12,5 +12,5 @@ export {
   DatabaseStep,
   ParameterStep,
   ServicesStep,
-  SwaggerStep
+  SwaggerStep,
 }

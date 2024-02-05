@@ -228,5 +228,4 @@ const AgentContainer = ({ history, currentAgent }) => {
   )
 }
 
-
 export default AgentContainer;
