@@ -97,18 +97,26 @@ const checkStepDatabaseComplete = ({ dataSourceConfig = {} }) => {
   return checkObjectIsCompletedOrEmpty(dataSourceConfigClone, 8)
 }
 
-export const checkStepsComplete = ({ name = '', dataSourceConfig = {}, documentIntellegenciConfig = {}, llmConfig = {}, vectorStoreConfig = {}, dbHistoryConfig = {} }) => {
+const checkStepSwaggerComplete = ({ swaggerConfig = {} }) => {
+  const swaggerConfigClone = cloneDeep(swaggerConfig)
+
+  return checkObjectIsCompletedOrEmpty(swaggerConfigClone, 8)
+}
+
+export const checkStepsComplete = ({ name = '', dataSourceConfig = {}, documentIntellegenciConfig = {}, llmConfig = {}, vectorStoreConfig = {}, dbHistoryConfig = {}, swaggerConfig = {} }) => {
   return name &&
     checkStepParameterComplete({ llmConfig }) &&
     checkStepHistoryComplete({ dbHistoryConfig }) &&
     checkStepCognitiveComplete({ documentIntellegenciConfig, vectorStoreConfig }) &&
     checkStepDatabaseComplete({ dataSourceConfig }) &&
+    checkStepSwaggerComplete({ swaggerConfig }) &&
     (
       dataSourceConfig.type ||
       documentIntellegenciConfig.apiKey ||
       vectorStoreConfig.apiKey ||
       llmConfig.type ||
-      dbHistoryConfig.type
+      dbHistoryConfig.type ||
+      swaggerConfig.type
     )
 }
 
@@ -121,7 +129,9 @@ export const handleFormValidation = (activeStep, agent) => {
     case 2:
       return checkStepCognitiveComplete(agent)
     case 3:
-      return checkStepDatabaseComplete(agent) && checkStepsComplete(agent)
+      return checkStepDatabaseComplete(agent)
+    case 4:
+      return checkStepSwaggerComplete(agent) && checkStepsComplete(agent)
     default:
       return false
   }
