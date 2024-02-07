@@ -61,6 +61,7 @@ export default {
     'agent.page.form.step.history.enable': 'History Enable',
     'agent.page.form.step.cognitive.enable': 'Cognitive Enable',
     'agent.page.form.step.database.enable': 'Database Enable',
+    'agent.page.form.step.swagger.enable': 'Swagger Enable',
 
     'agent.page.form.step.parameter.system.message': 'System Message',
 
@@ -116,6 +117,8 @@ export default {
     'agent.page.form.step.database.enable.ssl': 'SSL',
     'agent.page.form.step.database.enable.custom.message': 'Customize System Message',
 
+    'agent.page.form.step.swagger.enable.custom.message': 'Configure Swagger',
+
     'agent.page.form.snackbar.saved.success': 'Agent saved successfully.',
     'agent.page.form.snackbar.saved.error': 'There was an error while saving the agent.',
     'agent.page.form.snackbar.deleted.success': 'Agent deleted successfully.',
@@ -140,6 +143,5 @@ export default {
 
     'chat.agent.code.block.copy': 'Copy',
     'chat.agent.code.block.save': 'Save',
-    
   }
 }

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Grid, Paper, TextField, Stepper, Step, StepLabel, Box, Switch, FormControlLabel, Button, useMediaQuery, Typography, Divider } from '@material-ui/core';
 
-import { ParameterStep, CognitiveStep, DatabaseStep, HistoryStep } from './steps';
+import { ParameterStep, CognitiveStep, DatabaseStep, HistoryStep, SwaggerStep } from './steps';
 import { useStyles } from './styles'
 import { updateAgent, saveAgent, deleteAgent } from '../../../service/agent-service';
 import { agentSupportSettings } from '../../../helpers/agentSupportSettings';
@@ -29,6 +29,8 @@ const getStepContent = (stepIndex, agent, handleAgentChange) => {
       return <CognitiveStep agent={agent} handleAgentChange={handleAgentChange} />
     case 3:
       return <DatabaseStep agent={agent} handleAgentChange={handleAgentChange} />
+    case 4:
+      return <SwaggerStep agent={agent} handleAgentChange={handleAgentChange} />
     default:
       return <></>;
   }
@@ -48,7 +50,8 @@ const AgentContainer = ({ history, currentAgent }) => {
     t('agent.page.form.step.parameter'),
     t('agent.page.form.step.history.enable'),
     t('agent.page.form.step.cognitive.enable'),
-    t('agent.page.form.step.database.enable')
+    t('agent.page.form.step.database.enable'),
+    t('agent.page.form.step.swagger.enable'),
   ]
 
   useEffect(() => { currentAgent && setAgent(currentAgent) }, [currentAgent])
@@ -221,10 +224,8 @@ const AgentContainer = ({ history, currentAgent }) => {
           </Grid>
         </Grid>
       </Box>
-
     </section>
   )
 }
-
 
 export default AgentContainer;

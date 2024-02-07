@@ -51,7 +51,6 @@ export const saveAgent = async (agent) => {
       return { error: get(error, 'response.data', 'error') }
     })
 
-
   return data || []
 }
 
