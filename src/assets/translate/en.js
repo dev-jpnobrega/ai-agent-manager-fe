@@ -117,7 +117,8 @@ export default {
     'agent.page.form.step.database.enable.ssl': 'SSL',
     'agent.page.form.step.database.enable.custom.message': 'Customize System Message',
 
-    'agent.page.form.step.swagger.enable.custom.message': 'Configure Swagger',
+    'agent.page.form.step.swagger.enable.swagger.message': 'Configure the Swagger',
+    'agent.page.form.step.swagger.enable.custom.message': 'Customize System Message',
 
     'agent.page.form.snackbar.saved.success': 'Agent saved successfully.',
     'agent.page.form.snackbar.saved.error': 'There was an error while saving the agent.',

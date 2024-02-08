@@ -9,7 +9,18 @@ const SwaggerStep = ({ handleAgentChange, agent, t }) => {
   const databaseConfig = [
     {
       title: t('agent.page.form.step.swagger.enable.custom.message'),
-      namePath: 'SwaggerConfig',
+      namePath: 'swaggerConfig',
+      fields: [
+        {
+          name: 'customizeSystemMessage',
+          multiline: true,
+          rows: 4,
+        }
+      ]
+    },
+    {
+      title: t('agent.page.form.step.swagger.enable.swagger.message'),
+      namePath: 'swaggerConfig',
       fields: [
         {
           name: 'swagger',
@@ -17,7 +28,7 @@ const SwaggerStep = ({ handleAgentChange, agent, t }) => {
           rows: 14,
         }
       ]
-    }
+    },
   ]
 
   return (
