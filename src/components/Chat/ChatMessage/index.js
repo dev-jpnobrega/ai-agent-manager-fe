@@ -1,27 +1,31 @@
 import React from "react";
 
-import { Typography, SvgIcon } from '@material-ui/core'
+import { Typography } from '@material-ui/core';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 
-import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import CropOriginalOutlinedIcon from '@material-ui/icons/CropOriginalOutlined';
-import PictureAsPdfOutlinedIcon from '@material-ui/icons/PictureAsPdfOutlined';
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
+import PictureAsPdfOutlinedIcon from '@material-ui/icons/PictureAsPdfOutlined';
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import rehypeRaw from "rehype-raw";
-import yalmIcon from '../../../assets/images/yaml-icon.svg';
 import xmlIcon from '../../../assets/images/xml-icon.svg';
+import yalmIcon from '../../../assets/images/yaml-icon.svg';
 
 import moment from "moment";
 
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
-import { MemoizedReactMarkdown } from '../memoized-react-markdown';
 import { CodeBlock } from "../code-block";
+import { MemoizedReactMarkdown } from '../memoized-react-markdown';
 
-import { useStyles } from './styles';
 import { pickBetterBytes } from "../../../helpers/formatBytes";
+import { useStyles } from './styles';
 
+const CHAT_ROLE = {
+  'User': User,
+  'Agent': Agent,
+}
 const iconsType = {
   'application/pdf': <PictureAsPdfOutlinedIcon />,
   "image/png": <CropOriginalOutlinedIcon />,
@@ -57,16 +61,16 @@ export const ChatMessage = ({ chat, index, page = 'chat' }) => {
     <div className={classes[`chatBalloon${chat.role}`]}>
       <div className={classes[`chatBalloonText${chat.role}`]}>
         <MemoizedReactMarkdown
-          rehypePlugins={[rehypeRaw]}	
+          rehypePlugins={[rehypeRaw]}
           remarkPlugins={[remarkGfm, remarkMath]}
           components={{
             p({ children }) {
               return <div className="mb-2 last:mb-0">{children}</div>;
             },
-            html({ children }) { 
+            html({ children }) {
               console.log('HTML', children)
-              
-              return children; 
+
+              return children;
             },
             code({ node, inline, className, children, ...props }) {
               if (children.length) {
@@ -76,14 +80,18 @@ export const ChatMessage = ({ chat, index, page = 'chat' }) => {
 
               const match = /language-(\w+)/.exec(className || "");
 
-              if (inline) return <code>{children}</code>
+              if(chat.role === CHAT_ROLE.Agent) {
+                return (
+                  <CodeBlock
+                    key={Math.random()}
+                    language={(match && match[1]) || ""}
+                    value={String(children).replace(/\n$/, "")}
+                  />
+                );
+              }
 
               return (
-                <CodeBlock
-                  key={Math.random()}
-                  language={(match && match[1]) || ""}
-                  value={String(children).replace(/\n$/, "")}
-                />
+                <code>{children}</code>
               );
             },
           }}
