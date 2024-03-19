@@ -86,9 +86,7 @@ export const ChatMessage = ({ chat, index, page = 'chat' }) => {
                 );
               }
 
-              return (
-                <code>{children}</code>
-              );
+              return children;
             },
           }}
         >
